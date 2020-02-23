@@ -1,4 +1,4 @@
-/out/SDU-JAVA-Project/.
-/.classpath
-/.project
-/Trade.iml
+/out/SDU-JAVA-Project/.*
+*.iml
+*.classpath
+*.project
