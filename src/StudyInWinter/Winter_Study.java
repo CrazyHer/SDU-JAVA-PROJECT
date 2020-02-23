@@ -1,45 +1,43 @@
 package StudyInWinter;
 
-import java.awt.Color;
-import java.util.Scanner;
-
-import javax.swing.JFrame;
+import javax.swing.*;
+import java.awt.*;
 
 public class Winter_Study {
 
-	public static void main(String[] args) {
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+    public static void main(String[] args) {
+        // TODO è‡ªåŠ¨ç”Ÿæˆçš„æ–¹æ³•å­˜æ ¹
 		/*Scanner scan = new Scanner(System.in);
-		System.out.print("ÇëÊäÈëa1:");
+		System.out.print("è¯·è¾“å…¥a1:");
 		int a1 = scan.nextInt();
 		
-		System.out.print("ÇëÊäÈëa2:");
+		System.out.print("è¯·è¾“å…¥a2:");
 		int a2 = scan.nextInt();
 		
-		System.out.print("ÇëÊäÈëa3:");
+		System.out.print("è¯·è¾“å…¥a3:");
 		int a3 = scan.nextInt();
 
-		System.out.print("ÇëÊäÈëb1:");
+		System.out.print("è¯·è¾“å…¥b1:");
 		int b1 = scan.nextInt();
 
-		System.out.print("ÇëÊäÈëb2:");
+		System.out.print("è¯·è¾“å…¥b2:");
 		int b2 = scan.nextInt();
 
-		System.out.print("ÇëÊäÈëb3:");
+		System.out.print("è¯·è¾“å…¥b3:");
 		int b3 = scan.nextInt();
 
-		System.out.print("ÇëÊäÈëc1:");
+		System.out.print("è¯·è¾“å…¥c1:");
 		int c1 = scan.nextInt();
 
-		System.out.print("ÇëÊäÈëc2:");
+		System.out.print("è¯·è¾“å…¥c2:");
 		int c2 = scan.nextInt();
 
-		System.out.print("ÇëÊäÈëc3:");
+		System.out.print("è¯·è¾“å…¥c3:");
 		int c3 = scan.nextInt();
 		System.out.println();
 		
 		int result = a1*b2*c3-a1*b3*c2-a2*b1*c3+a2*b3*c1+a3*b1*c2-a3*b2*c1;
-		System.out.println("½á¹ûÎª:"+result);
+		System.out.println("ç»“æœä¸º:"+result);
 		
 		scan.close();*/
 		
@@ -59,17 +57,17 @@ public class Winter_Study {
 				System.out.print(board[x][y]);
 			}
 			System.out.println();
-		}*/	
-		
-		
-		JFrame window=new EventDemo();
-		window.setTitle("EventDemo");
-		window.setLocationRelativeTo(null);
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setSize(400,160);
-		window.getContentPane().setBackground(Color.black);
-		window.setVisible(true);
+		}*/
 
-	}
+
+        JFrame window = new EventDemo();
+        window.setTitle("EventDemo");
+        window.setLocationRelativeTo(null);
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setSize(400, 160);
+        window.getContentPane().setBackground(Color.black);
+        window.setVisible(true);
+
+    }
 
 }

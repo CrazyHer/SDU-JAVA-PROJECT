@@ -22,6 +22,7 @@ public class SimpleDemo extends JFrame implements ActionListener, WindowListener
         setTitle("儿子鉴定器");
         addButton("拿到内容");
         setLocationRelativeTo(null);
+        addButton("打开画图");
     }
 
     public void addLabel(String text) {
@@ -47,6 +48,10 @@ public class SimpleDemo extends JFrame implements ActionListener, WindowListener
             case "拿到内容":
                 System.out.println(textField.getText().trim());
                 textField.setText("");
+                break;
+            case "打开画图":
+                FaceDemo faceDemo = new FaceDemo();
+                faceDemo.setVisible(true);
                 break;
             default:
                 System.out.println("???");
