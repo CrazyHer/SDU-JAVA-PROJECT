@@ -6,17 +6,18 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class LoginFrame extends JFrame implements ActionListener {
-    public static JLabel lbAccount;
-    public static JLabel lbPassword;
-    public static JTextField tfAccount;
-    public static JPasswordField passwordField;
-    public static JButton btLogin;
-    public static JRadioButton remPswd;
-    public static JRadioButton autoLogin;
-    public static JMenu menu;
-    public static JMenuBar menuBar;
-    public static JMenuItem menuItem;
-    public static JPanel panel;
+
+    public JLabel lbAccount;
+    public JLabel lbPassword;
+    public JTextField tfAccount;
+    public JPasswordField passwordField;
+    public JButton btLogin;
+    public JRadioButton remPswd;
+    public JRadioButton autoLogin;
+    public JMenu menu;
+    public JMenuBar menuBar;
+    public JMenuItem menuItem;
+    public JPanel panel;
 
     public LoginFrame(){
         Container c = getContentPane();
