@@ -1,9 +1,13 @@
 package login;
+
 import test.SimpleDemo;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class LoginFrame extends JFrame implements ActionListener {
 
@@ -19,10 +23,10 @@ public class LoginFrame extends JFrame implements ActionListener {
     public JMenuItem menuItem;
     public JPanel panel;
 
-    public LoginFrame(){
+    public LoginFrame() {
         Container c = getContentPane();
         c.setLayout(new FlowLayout());
-        setSize(300,300);
+        setSize(300, 300);
         setLocationRelativeTo(null);
         addWindowListener(new WindowClose());
         setTitle("登陆");
@@ -36,17 +40,17 @@ public class LoginFrame extends JFrame implements ActionListener {
         tfAccount = new JTextField(22);
         panel.add(lbAccount);
         panel.add(tfAccount);
-        p.add(panel,BorderLayout.NORTH);
+        p.add(panel, BorderLayout.NORTH);
         panel = new JPanel();
         panel.setLayout(new FlowLayout(FlowLayout.LEFT));
         lbPassword = new JLabel("密码");
         passwordField = new JPasswordField(22);
         panel.add(lbPassword);
         panel.add(passwordField);
-        p.add(panel,BorderLayout.SOUTH);
+        p.add(panel, BorderLayout.SOUTH);
         c.add(p);
 
-        panel= new JPanel();
+        panel = new JPanel();
         panel.setLayout(new FlowLayout(FlowLayout.CENTER));
         remPswd = new JRadioButton("记住密码");
         panel.add(remPswd);
@@ -62,7 +66,7 @@ public class LoginFrame extends JFrame implements ActionListener {
         c.add(panel);
     }
 
-    public void addMenu(){
+    public void addMenu() {
         menuBar = new JMenuBar();
         menu = new JMenu("菜单");
         menuBar.add(menu);
@@ -73,12 +77,12 @@ public class LoginFrame extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        switch (e.getActionCommand()){
+        switch (e.getActionCommand()) {
             case "登录":
-                System.out.println("login:\nAccount:"+tfAccount.getText().trim()+"\nPassword:"+passwordField.getText());
-                System.out.println("记住密码？"+ (remPswd.isSelected()?"true":"false") + "\n自动登录？" + (autoLogin.isSelected()?"true":"false"));
+                System.out.println("login:\nAccount:" + tfAccount.getText().trim() + "\nPassword:" + passwordField.getText());
+                System.out.println("记住密码？" + (remPswd.isSelected() ? "true" : "false") + "\n自动登录？" + (autoLogin.isSelected() ? "true" : "false"));
                 setVisible(false);
-                JFrame frame = new SimpleDemo( );
+                JFrame frame = new SimpleDemo();
                 frame.setSize(500, 400);
                 frame.setVisible(true);
                 break;
@@ -91,7 +95,7 @@ public class LoginFrame extends JFrame implements ActionListener {
     }
 }
 
-class WindowClose extends WindowAdapter{
+class WindowClose extends WindowAdapter {
     public void windowClosing(WindowEvent e) {
         System.exit(0);
     }
