@@ -8,23 +8,24 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 
-public class Close_window extends JDialog {
+public class CloseWindowFrame extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 
-	public Close_window() {
+	public JLabel lbclose = new JLabel("是否确定关闭？");
+	public JButton btyes = new JButton("是");
+	public JButton btno = new JButton("否");
+	public JPanel CenterPanel = new JPanel();
+	public IfListener ifclose = new IfListener();
+
+	public CloseWindowFrame() {
 		setSize(250, 120);
-		JLabel lbclose = new JLabel("是否确定关闭？");
-		JButton btyes = new JButton("是");
-		JButton btno = new JButton("否");
 		setLayout(new BorderLayout());
 		add(lbclose, BorderLayout.NORTH);
-		JPanel CenterPanel = new JPanel();
 		add(CenterPanel, BorderLayout.CENTER);
 		CenterPanel.setLayout(new FlowLayout());
 		CenterPanel.add(btyes);
 		CenterPanel.add(btno);
-		IfListener ifclose = new IfListener();
 		btyes.addActionListener(ifclose);
 		btno.addActionListener(ifclose);
 		addWindowListener(new WindowClose());
