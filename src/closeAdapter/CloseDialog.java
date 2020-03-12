@@ -1,4 +1,4 @@
-package CloseAdapter;
+package closeAdapter;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -10,9 +10,9 @@ import javax.swing.*;
 //addWindowListener(myclose);
 
 
-public class closeDialog extends WindowAdapter {
+public class CloseDialog extends WindowAdapter {
 	
-	public static JDialog jdlClose=new close_window();
+	public static JDialog jdlClose=new CloseWindowFrame();
 
 	public void windowClosing(WindowEvent e) {
 		jdlClose.setVisible(true);

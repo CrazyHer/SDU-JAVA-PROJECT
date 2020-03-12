@@ -1,4 +1,4 @@
-package CloseAdapter;
+package closeAdapter;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -13,23 +13,24 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
-public class close_window extends JDialog{
+public class CloseWindowFrame extends JDialog{
 	
 	private static final long serialVersionUID = 1L;
 
-	public close_window() {
+	public JLabel lbclose=new JLabel("是否确定关闭？");
+	public JButton btyes=new JButton("是");
+	public JButton btno=new JButton("否");
+	public IfListener ifclose=new IfListener();
+	public JPanel CenterPanel=new JPanel();
+
+	public CloseWindowFrame() {
 		setSize(250, 120);
-		JLabel lbclose=new JLabel("是否确定关闭？");
-		JButton btyes=new JButton("是");
-		JButton btno=new JButton("否");
 		setLayout(new BorderLayout());
 		add(lbclose,BorderLayout.NORTH);
-		JPanel CenterPanel=new JPanel();
 		add(CenterPanel,BorderLayout.CENTER);
 		CenterPanel.setLayout(new FlowLayout());
 		CenterPanel.add(btyes);	
-		CenterPanel.add(btno);	
-		ifListener ifclose=new ifListener();
+		CenterPanel.add(btno);
 		btyes.addActionListener(ifclose);
 		btno.addActionListener(ifclose);
         addWindowListener(new WindowClose());	
@@ -45,16 +46,18 @@ class WindowClose extends WindowAdapter{
 }
 
 
-class ifListener implements ActionListener {
+class IfListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("是")) {
 			System.exit(0);
+			System.out.println("窗口已关闭!");
 		}
 		else if(e.getActionCommand().equals("否")) {
 			//new closeDemo();初始化调用窗口**************************************
-			closeDialog.invisible();
+			CloseDialog.invisible();
+			System.out.println("已取消关闭窗口!");
 		}
 
 	}
