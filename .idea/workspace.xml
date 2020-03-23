@@ -1,53 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4c922dfc-600d-4df1-a099-e1c822cd30be" name="Default Changelist" comment="整理">
-      <change afterPath="$PROJECT_DIR$/.idea/SDU-JAVA-Project.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Trade.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/CloseAdapter/WindowClose.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/CloseAdapter/closeDialog.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/CloseAdapter/close_window.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/CloseAdapter/ifListener.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/StudyInWinter/EventDemo.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/StudyInWinter/Winter_Study.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/StudyInWinter/prListener.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/StudyInWinter/prListener0.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/test/FaceDemo$WindowClose.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/test/FaceDemo.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/test/ThreadDemo.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/ThreadDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/login/Login.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/login/Login.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/login/LoginFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/login/LoginFrame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/login/WindowClose.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/login/WindowClose.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/test/SimpleDemo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/test/SimpleDemo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CloseAdapter/closeDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/closeAdapter/CloseDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CloseAdapter/close_window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/closeAdapter/Close_window.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/StudyInWinter/EventDemo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/StudyInWinter/Winter_Study.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/StudyInWinter/prListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/StudyInWinter/prListener0.java" beforeDir="false" />
+    <list default="true" id="6fcb9bbb-38be-4464-b4b0-02875be4de69" name="Default Changelist" comment="建包调组织结构">
+      <change afterPath="$PROJECT_DIR$/src/client/closeAdapter/CloseDialog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/client/closeAdapter/CloseWindowFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/SDU-JAVA-Project.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/CloseAdapter/WindowClose.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/CloseAdapter/closeDialog.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/CloseAdapter/close_window.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/CloseAdapter/ifListener.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/StudyInWinter/EventDemo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/StudyInWinter/Winter_Study.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/StudyInWinter/prListener.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/StudyInWinter/prListener0.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/login/Login.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/login/LoginFrame.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/login/WindowClose.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/test/FaceDemo$WindowClose.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/test/FaceDemo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/test/SimpleDemo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/test/ThreadDemo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/closeAdapter/CloseDialog.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/closeAdapter/CloseWindowFrame.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/login/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/login/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/login/LoginFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/login/LoginFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/FaceDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/test/FaceDemo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/SimpleDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/test/SimpleDemo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/ThreadDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/test/ThreadDemo.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1XnHwZKb6ITeCrEXh9wDYTMDn6T" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectId" id="1ZWkYbjFVkvjBY7BOBlzFumS3dV" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -55,32 +48,14 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="aspect.path.notification.shown" value="true" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
-    <property name="restartRequiresConfirmation" value="false" />
-    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
   </component>
-  <component name="RunManager" selected="Application.ThreadDemo">
-    <configuration name="GuiTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GuiTest" />
+  <component name="RunManager">
+    <configuration name="Login" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="client.login.Login" />
       <module name="SDU-JAVA-PROJECT" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Login" type="Application" factoryName="Application" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="11" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="MAIN_CLASS_NAME" value="login.Login" />
-      <module name="SDU-JAVA-PROJECT" />
-      <option name="VM_PARAMETERS" value="-Dfile.encoding=UTF-8" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="login.*" />
+          <option name="PATTERN" value="client.login.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -88,215 +63,53 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SimpleDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="test.SimpleDemo" />
-      <module name="SDU-JAVA-PROJECT" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="test.Test" />
-      <module name="SDU-JAVA-PROJECT" />
-      <option name="VM_PARAMETERS" value="-Dfile.encoding=gbk" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ThreadDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="test.ThreadDemo" />
-      <module name="SDU-JAVA-PROJECT" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Winter_Study" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="StudyInWinter.Winter_Study" />
-      <module name="SDU-JAVA-PROJECT" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="StudyInWinter.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <list>
-      <item itemvalue="Application.Login" />
-      <item itemvalue="Application.Test" />
-      <item itemvalue="Application.SimpleDemo" />
-      <item itemvalue="Application.GuiTest" />
-      <item itemvalue="Application.Winter_Study" />
-      <item itemvalue="Application.ThreadDemo" />
-    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ThreadDemo" />
-        <item itemvalue="Application.Winter_Study" />
-        <item itemvalue="Application.SimpleDemo" />
-        <item itemvalue="Application.GuiTest" />
-        <item itemvalue="Application.Test" />
+        <item itemvalue="Application.Login" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
-      <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
-      </list>
-    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="4c922dfc-600d-4df1-a099-e1c822cd30be" name="Default Changelist" comment="" />
-      <created>1581675178007</created>
+      <changelist id="6fcb9bbb-38be-4464-b4b0-02875be4de69" name="Default Changelist" comment="" />
+      <created>1584962285029</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1581675178007</updated>
-      <workItem from="1581675179310" duration="3794000" />
-      <workItem from="1581746146137" duration="13891000" />
-      <workItem from="1581773187584" duration="3963000" />
-      <workItem from="1581831812005" duration="13660000" />
-      <workItem from="1582175891533" duration="1126000" />
-      <workItem from="1582193661483" duration="2913000" />
-      <workItem from="1582430138216" duration="484000" />
-      <workItem from="1582447565049" duration="5662000" />
-      <workItem from="1582696635068" duration="2684000" />
-      <workItem from="1582981995126" duration="856000" />
-      <workItem from="1583042064713" duration="124000" />
-      <workItem from="1583049511425" duration="1019000" />
-      <workItem from="1583316893916" duration="12000" />
-      <workItem from="1583726801056" duration="1372000" />
+      <updated>1584962285029</updated>
     </task>
-    <task id="LOCAL-00001" summary="初始化">
-      <created>1582176292381</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1582176292381</updated>
-    </task>
-    <task id="LOCAL-00002" summary="新增说明">
-      <created>1582176990782</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1582176990782</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
-  </component>
   <component name="VcsManagerConfiguration">
-    <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
-    <MESSAGE value="初始化" />
-    <MESSAGE value="新增说明" />
-    <option name="LAST_COMMIT_MESSAGE" value="新增说明" />
-    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
-    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
-    <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
+    <MESSAGE value="建包调组织结构" />
+    <option name="LAST_COMMIT_MESSAGE" value="建包调组织结构" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="552" y="178" key="#Project_Structure" timestamp="1583729379248">
+    <state x="478" y="113" key="CommitChangelistDialog2" timestamp="1584964620867">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="178" key="#Project_Structure/0.0.1920.1040@0.0.1920.1040" timestamp="1583729379248" />
-    <state x="653" y="188" key="#SimpleDemo" timestamp="1581773201274">
+    <state x="478" y="113" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1584964620867" />
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1584964620887">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="653" y="188" key="#SimpleDemo/0.0.1920.1040@0.0.1920.1040" timestamp="1581773201274" />
-    <state x="127" y="124" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1582702205061">
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1584964620887" />
+    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1584964620887">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="127" y="124" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1582702205060" />
-    <state x="765" y="229" key="#com.intellij.ide.util.MemberChooser" timestamp="1582449715494">
+    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1584964620887" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1584964620887">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="765" y="229" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1582449715494" />
-    <state x="580" y="197" key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog" timestamp="1582449467756">
+    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1584964620887" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1584964620887">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="580" y="197" key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1582449467756" />
-    <state x="703" y="374" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1581773286770">
+    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1584964620887" />
+    <state x="717" y="351" key="git4idea.ui.GitUnstashDialog" timestamp="1584962559740">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="703" y="374" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1040@0.0.1920.1040" timestamp="1581773286770" />
-    <state x="560" y="113" key="CommitChangelistDialog2" timestamp="1583729552064">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="560" y="113" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1583729552064" />
-    <state x="339" y="208" key="FileChooserDialogImpl" timestamp="1581770423950">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="339" y="208" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1581770423950" />
-    <state width="1921" height="141" key="GridCell.Tab.0.bottom" timestamp="1583729552079">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1921" height="141" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1583729552079" />
-    <state width="1921" height="141" key="GridCell.Tab.0.center" timestamp="1583729552079">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1921" height="141" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1583729552079" />
-    <state width="1921" height="141" key="GridCell.Tab.0.left" timestamp="1583729552079">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1921" height="141" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1583729552079" />
-    <state width="1921" height="141" key="GridCell.Tab.0.right" timestamp="1583729552079">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1921" height="141" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1583729552079" />
-    <state x="745" y="230" key="RollbackChangesDialog" timestamp="1582430355653">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="745" y="230" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1582430355653" />
-    <state x="446" y="262" key="Vcs.Push.Dialog.v2" timestamp="1582177007456">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="446" y="262" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1582177007456" />
-    <state x="715" y="363" key="cloudConfig.SelfSettingsDialog" timestamp="1583049655087">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="715" y="363" key="cloudConfig.SelfSettingsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583049655087" />
-    <state x="636" y="310" key="git4idea.merge.GitPullDialog" timestamp="1583726815362">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="636" y="310" key="git4idea.merge.GitPullDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583726815362" />
-    <state x="717" y="351" key="git4idea.ui.GitUnstashDialog" timestamp="1582453412394">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="717" y="351" key="git4idea.ui.GitUnstashDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1582453412394" />
-    <state x="334" y="129" key="new project wizard" timestamp="1581770497111">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="334" y="129" key="new project wizard/0.0.1920.1040@0.0.1920.1040" timestamp="1581770497111" />
+    <state x="717" y="351" key="git4idea.ui.GitUnstashDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1584962559740" />
   </component>
 </project>

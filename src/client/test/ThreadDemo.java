@@ -1,4 +1,4 @@
-package test;
+package client.test;
 
 public class ThreadDemo extends Thread {
     private static int threadCount = 0;

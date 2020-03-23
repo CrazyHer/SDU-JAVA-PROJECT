@@ -1,4 +1,4 @@
-package test;
+package client.test;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,13 +20,13 @@ public class FaceDemo extends JFrame implements ActionListener {
         super();
         setTitle("画图测试");
         setLocationRelativeTo(null);
-        setSize(400,400);
+        setSize(400, 400);
         Container c = this.getContentPane();
         addWindowListener(new WindowClose());
         c.setLayout(new BorderLayout());
         button = new JButton("点我画个脸");
         button.addActionListener(this);
-        c.add(button,BorderLayout.SOUTH);
+        c.add(button, BorderLayout.SOUTH);
     }
 
     @Override
@@ -40,16 +40,17 @@ public class FaceDemo extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("点我画个脸")) {
             isSmile = !isSmile;
-                xFace+=20;
-                yFace+=20;
-                xNose = xFace + 50;
-                yNose = yFace + 50;
+            xFace += 20;
+            yFace += 20;
+            xNose = xFace + 50;
+            yNose = yFace + 50;
         } else {
 
         }
         repaint();
     }
-    class WindowClose extends WindowAdapter{
+
+    class WindowClose extends WindowAdapter {
         @Override
         public void windowClosing(WindowEvent e) {
             setVisible(false);

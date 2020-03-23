@@ -1,4 +1,4 @@
-package test;
+package client.test;
 
 import javax.swing.*;
 import java.awt.*;
