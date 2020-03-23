@@ -1,46 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6fcb9bbb-38be-4464-b4b0-02875be4de69" name="Default Changelist" comment="建包调组织结构">
-      <change afterPath="$PROJECT_DIR$/src/client/closeAdapter/CloseDialog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/client/closeAdapter/CloseWindowFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/SDU-JAVA-Project.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+    <list default="true" id="6fcb9bbb-38be-4464-b4b0-02875be4de69" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/client/itemList/ItemListFrame.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/client/talking/TalkingFrame.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/client/userInfo/UserInfoFrame.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/server/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/CloseAdapter/WindowClose.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/CloseAdapter/closeDialog.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/CloseAdapter/close_window.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/CloseAdapter/ifListener.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/StudyInWinter/EventDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/StudyInWinter/Winter_Study.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/StudyInWinter/prListener.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/StudyInWinter/prListener0.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/login/Login.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/login/LoginFrame.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/login/WindowClose.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/test/FaceDemo$WindowClose.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/test/FaceDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/test/SimpleDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SDU-JAVA-Project/test/ThreadDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/closeAdapter/CloseDialog.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/closeAdapter/CloseWindowFrame.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/login/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/login/Login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/login/LoginFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/login/LoginFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/FaceDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/test/FaceDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/SimpleDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/test/SimpleDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/ThreadDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/test/ThreadDemo.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1ZWkYbjFVkvjBY7BOBlzFumS3dV" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -80,33 +66,56 @@
       <option name="presentableId" value="Default" />
       <updated>1584962285029</updated>
     </task>
+    <task id="LOCAL-00001" summary="建包调组织结构">
+      <created>1584964675421</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1584964675421</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="建包调组织结构" />
     <option name="LAST_COMMIT_MESSAGE" value="建包调组织结构" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="478" y="113" key="CommitChangelistDialog2" timestamp="1584964620867">
+    <state x="478" y="113" key="CommitChangelistDialog2" timestamp="1584964674469">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="478" y="113" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1584964620867" />
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1584964620887">
+    <state x="478" y="113" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1584964674469" />
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1584964733301">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1584964620887" />
-    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1584964620887">
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1584964733301" />
+    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1584964733301">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1584964620887" />
-    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1584964620887">
+    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1584964733301" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1584964733301">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1584964620887" />
-    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1584964620887">
+    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1584964733301" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1584964733301">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1584964620887" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1584964733301" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1584964707047">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1584964707047" />
     <state x="717" y="351" key="git4idea.ui.GitUnstashDialog" timestamp="1584962559740">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
