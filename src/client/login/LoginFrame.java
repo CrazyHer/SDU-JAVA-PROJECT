@@ -1,6 +1,6 @@
 package client.login;
 
-import client.test.SimpleDemo;
+import client.userInfo.UserInfoFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -82,8 +82,7 @@ public class LoginFrame extends JFrame implements ActionListener {
                 System.out.println("client.client.test.test.login:\nAccount:" + tfAccount.getText().trim() + "\nPassword:" + passwordField.getText());
                 System.out.println("记住密码？" + (remPswd.isSelected() ? "true" : "false") + "\n自动登录？" + (autoLogin.isSelected() ? "true" : "false"));
                 setVisible(false);
-                JFrame frame = new SimpleDemo();
-                frame.setSize(500, 400);
+                JFrame frame = new UserInfoFrame();
                 frame.setVisible(true);
                 break;
             case "退出":
