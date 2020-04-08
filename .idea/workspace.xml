@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6fcb9bbb-38be-4464-b4b0-02875be4de69" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_8_0_19.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/server/InitializeDB.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/server/TestClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/server/ThreadTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/server/action/Login.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/server/action/Register.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/server/dataBase/DB.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/server/dataObjs/UserData.java" afterDir="false" />
+    <list default="true" id="6fcb9bbb-38be-4464-b4b0-02875be4de69" name="Default Changelist" comment="个人信息模块完成了一半">
+      <change afterPath="$PROJECT_DIR$/src/client/test/DbConnection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/client/test/Product.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/client/test/ProductText.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/client/userInfo/GBC.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/client/userInfo/MyItems.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/client/userInfo/MyNotification.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/client/userInfo/MyStatistics.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/client/userInfo/UserInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SDU-JAVA-PROJECT.iml" beforeDir="false" afterPath="$PROJECT_DIR$/SDU-JAVA-PROJECT.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/ServerMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/userInfo/UserInfoFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/userInfo/UserInfoFrame.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,49 +40,16 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="C:/Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.19.jar!/" />
-    <property name="project.structure.last.edited" value="Libraries" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
-  <component name="RunManager" selected="Application.TestClient">
+  <component name="RunManager" selected="Application.UserInfoFrame">
     <configuration name="Login" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="client.login.Login" />
       <module name="SDU-JAVA-PROJECT" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="client.login.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ServerMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="server.ServerMain" />
-      <module name="SDU-JAVA-PROJECT" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="server.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="server.TestClient" />
-      <module name="SDU-JAVA-PROJECT" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="server.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -107,8 +72,6 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.TestClient" />
-        <item itemvalue="Application.ServerMain" />
         <item itemvalue="Application.UserInfoFrame" />
         <item itemvalue="Application.Login" />
       </list>
@@ -124,13 +87,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1584962285029</updated>
-      <workItem from="1585413190363" duration="709000" />
-      <workItem from="1585494318743" duration="3053000" />
-      <workItem from="1585546766330" duration="7841000" />
-      <workItem from="1585565248799" duration="14502000" />
-      <workItem from="1585647008529" duration="337000" />
-      <workItem from="1585656323377" duration="58000" />
-      <workItem from="1586322439632" duration="14046000" />
     </task>
     <task id="LOCAL-00001" summary="建包调组织结构">
       <created>1584964675421</created>
@@ -155,9 +111,6 @@
     </task>
     <option name="localTasksCounter" value="4" />
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -190,26 +143,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="478" y="113" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1585154631148" />
-    <state x="655" y="327" key="FileChooserDialogImpl" timestamp="1585570386434">
+    <state width="1122" height="347" key="GridCell.Tab.0.bottom" timestamp="1585154466772">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="655" y="327" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1585570386434" />
-    <state width="1921" height="288" key="GridCell.Tab.0.bottom" timestamp="1585584169738">
+    <state width="1122" height="347" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1585154466772" />
+    <state width="1122" height="347" key="GridCell.Tab.0.center" timestamp="1585154466772">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1921" height="288" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1585584169738" />
-    <state width="1921" height="288" key="GridCell.Tab.0.center" timestamp="1585584169738">
+    <state width="1122" height="347" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1585154466772" />
+    <state width="1122" height="347" key="GridCell.Tab.0.left" timestamp="1585154466772">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1921" height="288" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1585584169738" />
-    <state width="1921" height="288" key="GridCell.Tab.0.left" timestamp="1585584169737">
+    <state width="1122" height="347" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1585154466772" />
+    <state width="1122" height="347" key="GridCell.Tab.0.right" timestamp="1585154466772">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1921" height="288" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1585584169737" />
-    <state width="1921" height="288" key="GridCell.Tab.0.right" timestamp="1585584169738">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1921" height="288" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1585584169738" />
+    <state width="1122" height="347" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1585154466772" />
     <state width="1122" height="347" key="GridCell.Tab.1.bottom" timestamp="1585154466773">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -226,10 +175,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1122" height="347" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1585154466773" />
-    <state x="461" y="161" key="SettingsEditor" timestamp="1585570522454">
+    <state x="461" y="161" key="SettingsEditor" timestamp="1585121993232">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="461" y="161" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1585570522454" />
+    <state x="461" y="161" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1585121993232" />
     <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1585198731511">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -238,9 +187,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="717" y="351" key="git4idea.ui.GitUnstashDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1584962559740" />
-    <state x="1506" y="251" width="672" height="678" key="search.everywhere.popup" timestamp="1586362313654">
+    <state x="1506" y="251" width="672" height="678" key="search.everywhere.popup" timestamp="1585124813670">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1506" y="251" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1586362313654" />
+    <state x="1506" y="251" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1585124813670" />
   </component>
 </project>

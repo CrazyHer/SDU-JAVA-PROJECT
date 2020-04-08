@@ -15,11 +15,11 @@ public class UserInfoFrame extends JFrame {
 
         c = new JPanel();
 
-        c.setLayout(new GridLayout(4, 0));//分别为用户信息、我的物品、统计信息、消息通知
-        c.add(new UserInfo());
-        c.add(new MyItems());
-        c.add(new MyStatistics());
-        c.add(new MyNotification());
+        c.setLayout(new GridBagLayout());//分别为用户信息、我的物品、统计信息、消息通知
+        c.add(new UserInfo(),new GBC(0,0,1,1).setWeight(1,0.2).setAnchor(GridBagConstraints.WEST));
+        c.add(new MyItems(),new GBC(0,1,1,1).setWeight(1,0.4).setAnchor(GridBagConstraints.WEST).setFill(GridBagConstraints.BOTH));
+        c.add(new MyStatistics(),new GBC(0,2,1,1).setWeight(1,0.2));
+        c.add(new MyNotification(),new GBC(0,3,1,1).setWeight(1,0.2).setAnchor(GridBagConstraints.WEST).setFill(GridBagConstraints.NONE));
 
         scrollPane = new JScrollPane(c);
         getContentPane().add(scrollPane);
