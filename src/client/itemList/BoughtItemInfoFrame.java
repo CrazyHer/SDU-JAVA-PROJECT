@@ -1,0 +1,40 @@
+package client.itemList;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class BoughtItemInfoFrame extends JFrame implements ActionListener {
+    JPanel panel;
+    JButton btBuy;
+
+    public BoughtItemInfoFrame() {
+        Container c = getContentPane();
+        c.setLayout(new BorderLayout());
+        setTitle("商品购买信息");
+        setSize(500, 400);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        panel = new JPanel();
+        panel.add(new ItemInfo());
+        c.add(panel, BorderLayout.CENTER);
+
+
+        panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
+
+        btBuy = new JButton("购买");
+        panel.add(btBuy, new GBC(0, 0, 1, 1).setAnchor(GridBagConstraints.EAST));
+        panel.add(new JPanel(), new GBC(0, 2, 1, 1));
+        c.add(panel, BorderLayout.SOUTH);
+
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals("购买")) {
+            //从数据库中删除
+        }
+    }
+}

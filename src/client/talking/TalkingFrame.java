@@ -1,4 +1,7 @@
 package client.talking;
 
-public class TalkingFrame {
+import javax.swing.*;
+
+public class TalkingFrame extends JFrame {
+
 }
