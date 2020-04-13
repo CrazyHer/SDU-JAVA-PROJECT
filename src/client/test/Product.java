@@ -15,11 +15,10 @@
 package DatabaseTest;
 
 /**
+ * @author Dangzhang
  * @ClassName: Product
  * @Description: TODO(这里用一句话描述这个类的作用)
- * @author Dangzhang
  * @date 2020-3-18 上午9:31:40
- *
  */
 public class Product {
 

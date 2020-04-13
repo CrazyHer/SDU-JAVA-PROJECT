@@ -69,6 +69,12 @@ public class ReleaseFrame extends JFrame implements ActionListener {
         c.add(panel, BorderLayout.SOUTH);
     }
 
+    public static void main(String[] args) {
+        ReleaseFrame releaseFrame = new ReleaseFrame();
+        releaseFrame.setVisible(true);
+
+    }
+
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("发布")) {
             if (txItemName.getText().isEmpty() || txItemQuantity.getText().isEmpty() || txItemPrice.getText().isEmpty() || taItemIntroduction.getText().isEmpty()) {
