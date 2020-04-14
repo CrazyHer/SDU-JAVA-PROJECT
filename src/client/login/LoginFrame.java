@@ -28,8 +28,9 @@ public class LoginFrame extends JFrame implements ActionListener {
         c.setLayout(new FlowLayout());
         setSize(300, 300);
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowClose());
-        setTitle("登陆");
+        setTitle("登录");
         addMenu();
 
         JPanel p = new JPanel();
@@ -96,6 +97,9 @@ public class LoginFrame extends JFrame implements ActionListener {
 
 class WindowClose extends WindowAdapter {
     public void windowClosing(WindowEvent e) {
-        System.exit(0);
+        int i = JOptionPane.showConfirmDialog(null,"是否关闭","提示",JOptionPane.YES_NO_OPTION);
+        if(i==0){
+            System.exit(0);
+        }
     }
 }

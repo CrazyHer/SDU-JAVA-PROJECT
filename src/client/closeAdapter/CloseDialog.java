@@ -1,28 +1,23 @@
 package client.closeAdapter;
 
+
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+//用法说明***************************************************************************************
 
-//closeDialog myclose =new closeDialog();
-//addWindowListener(myclose);
+//LoginFrame已经实现，可以参考！！！！！！！！！！！
 
-
-public class CloseDialog extends WindowAdapter {
-
-    public static JDialog jdlClose = new CloseWindowFrame();
-
-    public static void invisible() {
-        jdlClose.setVisible(false);
-    }
-
+//在构造方法中加上下两句
+// setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+// addWindowListener(new WindowClose());
+//在窗口最后编写这个类
+class WindowClose extends WindowAdapter {
     public void windowClosing(WindowEvent e) {
-        jdlClose.setVisible(true);
+        int i = JOptionPane.showConfirmDialog(null,"是否关闭","提示",JOptionPane.YES_NO_OPTION);
+        if(i==0){
+            System.exit(0);
+        }
     }
-
 }
-
-
-
-
