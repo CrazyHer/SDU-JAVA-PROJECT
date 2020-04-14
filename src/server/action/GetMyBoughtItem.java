@@ -10,36 +10,36 @@ import java.sql.SQLException;
 /*
 获取我的购买物品列表接口
     1.接收字符串：用户ID
-    1.先输出一行数n，表示我的购买中有几项物品
-    2.输出n行字符串：商品名称，请根据这些名称使用GetItemDetails接口逐一获取商品详情即可
+    2.返回一个字符串数组：商品名称，请根据这些名称使用GetItemDetails接口逐一获取商品详情即可
  */
 public class GetMyBoughtItem {
     Socket socket;
-    PrintWriter out;
+    ObjectOutputStream out;
     BufferedReader in;
     String userID;
     DB database = new DB();
     ResultSet resultSet;
-    int n, i;
+    int n,m;
+    String[] myBoughtItemList;
 
     public GetMyBoughtItem(Socket s) throws IOException, SQLException {
         socket = s;
-        out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
+        out = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         userID = in.readLine();
-        resultSet = database.query("SELECT * FROM trade.orderlog WHERE `buyerID`='" + userID + "'");
+        resultSet = database.query("SELECT DISTINCT * FROM trade.orderlog WHERE `buyerID`='" + userID + "'");
         n = resultSet.getRow();
-        i = 0;
-        out.println(n);
         int[] itemID = new int[n];
-        while (resultSet.next()) {
+        for(int i =0;resultSet.next();i++){
             itemID[i] = resultSet.getInt("itemID");
-            i++;
         }
+        m=0;
+        myBoughtItemList = new String[n];
         for (int j : itemID) {
             resultSet = database.query("SELECT `ItemName` FROM trade.item WHERE `ItemID`= '" + j + "';");
-            if (resultSet.next()) out.println(resultSet.getString("ItemName"));
+            if (resultSet.next()) myBoughtItemList[m++] = resultSet.getString("ItemName");
         }
+        out.writeObject(myBoughtItemList);
         database.close();
     }
 }

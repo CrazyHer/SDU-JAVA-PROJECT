@@ -1,8 +1,6 @@
 package server;
 
-import server.action.Login;
-import server.action.Register;
-import server.action.ReleaseItem;
+import server.action.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -37,6 +35,27 @@ public class ThreadTest extends Thread {
                     break;
                 case "RELEASE ITEM":
                     new ReleaseItem(socket);
+                    break;
+                case "BUY ITEM":
+                    new BuyItem(socket);
+                    break;
+                case "GET COMMENT":
+                    new GetComment(socket);
+                    break;
+                case "GET ITEM DETAILS":
+                    new GetItemDetails(socket);
+                    break;
+                case "GET ITEM LIST":
+                    new GetItemList(socket);
+                    break;
+                case "GET MY BOUGHT ITEM":
+                    new GetMyBoughtItem(socket);
+                    break;
+                case "GET MY SOLD ITEM":
+                    new GetMySoldItem(socket);
+                    break;
+                case "REMARK":
+                    new Remark(socket);
                     break;
                 default:
                     System.out.println("未知的命令，socket直接关闭");

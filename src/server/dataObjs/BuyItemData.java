@@ -1,6 +1,8 @@
 package server.dataObjs;
 
-public class BuyItemData {
+import java.io.Serializable;
+
+public class BuyItemData implements Serializable {
     String buyerID, itemName;
 
     public BuyItemData(String buyerID, String itemName) {//依次为买家ID，所购物品名称

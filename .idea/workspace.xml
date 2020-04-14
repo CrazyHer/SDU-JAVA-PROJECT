@@ -2,19 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6fcb9bbb-38be-4464-b4b0-02875be4de69" name="Default Changelist" comment="个人信息模块完成了一半">
-      <change afterPath="$PROJECT_DIR$/src/server/action/BuyItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/server/action/GetItemDetails.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/server/action/GetItemList.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/server/action/GetMyItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/server/action/ReleaseItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/server/action/Remark.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/server/dataObjs/ItemData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/数据表结构.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/server/action/GetComment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/itemList/ReleaseFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/itemList/ReleaseFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/InitializeDB.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/ThreadTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/ThreadTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/action/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/Register.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/action/GetItemList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/GetItemList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/action/GetMyBoughtItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/GetMyBoughtItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/dataObjs/BuyItemData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/dataObjs/BuyItemData.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,6 +131,7 @@
       <workItem from="1586678505371" duration="8200000" />
       <workItem from="1586735239981" duration="1396000" />
       <workItem from="1586760947764" duration="23488000" />
+      <workItem from="1586826548895" duration="8829000" />
     </task>
     <task id="LOCAL-00001" summary="建包调组织结构">
       <created>1584964675421</created>
