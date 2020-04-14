@@ -4,8 +4,6 @@ import server.dataBase.DB;
 import server.dataObjs.UserData;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
@@ -21,7 +19,7 @@ public class Login {
     Socket socket;
     ObjectInputStream in;
     PrintWriter out;
-    String userName, passWord,ID,profilePath;
+    String userName, passWord, ID, profilePath;
     DB dataBase = new DB();
     FileInputStream fileInputStream;
     DataOutputStream dataOutputStream;
@@ -35,14 +33,14 @@ public class Login {
         passWord = user.getPassword();
         ID = user.getID();
         System.out.println("用户名:" + userName + "\nID:" + passWord);
-        ResultSet resultSet = dataBase.query("SELECT DISTINCT * FROM trade.user WHERE \"ID\"="+ID);
+        ResultSet resultSet = dataBase.query("SELECT DISTINCT * FROM trade.user WHERE \"ID\"=" + ID);
         if (resultSet.next()) {
-            if(resultSet.getString("password").equals(passWord)){
+            if (resultSet.getString("password").equals(passWord)) {
                 out.println("1");
                 profilePath = resultSet.getString("profilePath");
                 //使用ImageIO进行传输头像图片
                 BufferedImage bufferedImage = ImageIO.read(new File(profilePath));
-                ImageIO.write(bufferedImage,profilePath.substring(profilePath.lastIndexOf(".")+1),socket.getOutputStream());
+                ImageIO.write(bufferedImage, profilePath.substring(profilePath.lastIndexOf(".") + 1), socket.getOutputStream());
 
                 //客户端接收图片的方法：
                 /*
@@ -50,7 +48,7 @@ public class Login {
                 ImageIcon img = new ImageIcon(bufferedImage);
                  */
 
-            }else {
+            } else {
                 out.println("0");
             }
         } else {

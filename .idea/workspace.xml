@@ -2,21 +2,38 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6fcb9bbb-38be-4464-b4b0-02875be4de69" name="Default Changelist" comment="个人信息模块完成了一半">
-      <change afterPath="$PROJECT_DIR$/src/client/test/DbConnection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/client/test/Product.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/client/test/ProductText.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/client/userInfo/GBC.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/client/userInfo/MyItems.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/client/userInfo/MyNotification.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/client/userInfo/MyStatistics.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/client/userInfo/UserInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/server/action/BuyItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/server/action/GetItemDetails.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/server/action/GetItemList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/server/action/GetMyItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/server/action/ReleaseItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/server/action/Remark.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/server/dataObjs/ItemData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/数据表结构.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/userInfo/UserInfoFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/userInfo/UserInfoFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/itemList/ReleaseFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/itemList/ReleaseFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/InitializeDB.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/ThreadTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/ThreadTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/action/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/Register.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -40,16 +57,44 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
-  <component name="RunManager" selected="Application.Login">
+  <component name="RunManager" selected="Application.ReleaseFrame">
+    <configuration name="ItemInfo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="client.itemList.ItemInfo" />
+      <module name="SDU-JAVA-PROJECT" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="client.itemList.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Login" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="client.login.Login" />
       <module name="SDU-JAVA-PROJECT" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="client.login.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ReleaseFrame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="client.itemList.ReleaseFrame" />
+      <module name="SDU-JAVA-PROJECT" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="client.itemList.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -72,8 +117,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Login" />
+        <item itemvalue="Application.ReleaseFrame" />
+        <item itemvalue="Application.ItemInfo" />
         <item itemvalue="Application.UserInfoFrame" />
+        <item itemvalue="Application.Login" />
       </list>
     </recent_temporary>
   </component>
@@ -87,6 +134,10 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1584962285029</updated>
+      <workItem from="1586591540693" duration="511000" />
+      <workItem from="1586678505371" duration="8200000" />
+      <workItem from="1586735239981" duration="1396000" />
+      <workItem from="1586760947764" duration="23488000" />
     </task>
     <task id="LOCAL-00001" summary="建包调组织结构">
       <created>1584964675421</created>
@@ -112,6 +163,9 @@
     <option name="localTasksCounter" value="4" />
     <servers />
   </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
@@ -135,30 +189,42 @@
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="552" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1586786037127">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1586786037127" />
     <state x="1141" y="232" key="#com.intellij.ide.util.MemberChooser" timestamp="1585141318919">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1141" y="232" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1585141318919" />
+    <state x="739" y="404" width="441" height="241" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1586779490456">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="739" y="404" width="441" height="241" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1920.1040@0.0.1920.1040" timestamp="1586779490456" />
+    <state x="644" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1586685178492">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="644" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1586685178492" />
     <state x="478" y="113" key="CommitChangelistDialog2" timestamp="1585154631148">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="478" y="113" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1585154631148" />
-    <state width="1921" height="288" key="GridCell.Tab.0.bottom" timestamp="1586364451408">
+    <state width="1921" height="288" key="GridCell.Tab.0.bottom" timestamp="1586694984537">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1921" height="288" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586364451408" />
-    <state width="1921" height="288" key="GridCell.Tab.0.center" timestamp="1586364451407">
+    <state width="1921" height="288" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586694984537" />
+    <state width="1921" height="288" key="GridCell.Tab.0.center" timestamp="1586694984537">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1921" height="288" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586364451407" />
-    <state width="1921" height="288" key="GridCell.Tab.0.left" timestamp="1586364451407">
+    <state width="1921" height="288" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586694984537" />
+    <state width="1921" height="288" key="GridCell.Tab.0.left" timestamp="1586694984537">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1921" height="288" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586364451407" />
-    <state width="1921" height="288" key="GridCell.Tab.0.right" timestamp="1586364451407">
+    <state width="1921" height="288" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586694984537" />
+    <state width="1921" height="288" key="GridCell.Tab.0.right" timestamp="1586694984537">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1921" height="288" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586364451407" />
+    <state width="1921" height="288" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586694984537" />
     <state width="1122" height="347" key="GridCell.Tab.1.bottom" timestamp="1585154466773">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -183,13 +249,21 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1585198731511" />
+    <state x="636" y="310" key="git4idea.merge.GitPullDialog" timestamp="1586591567736">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="636" y="310" key="git4idea.merge.GitPullDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1586591567736" />
     <state x="717" y="351" key="git4idea.ui.GitUnstashDialog" timestamp="1584962559740">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="717" y="351" key="git4idea.ui.GitUnstashDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1584962559740" />
-    <state x="1506" y="251" width="672" height="678" key="search.everywhere.popup" timestamp="1585124813670">
+    <state x="616" y="240" key="run.anything.popup" timestamp="1586796803575">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1506" y="251" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1585124813670" />
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1586796803575" />
+    <state x="1506" y="251" width="672" height="678" key="search.everywhere.popup" timestamp="1586796490532">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1506" y="251" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1586796490532" />
   </component>
 </project>

@@ -28,7 +28,7 @@ public class MyItems extends JPanel implements ActionListener {
             panel.add(new JLabel(bought[i].getName()), BorderLayout.SOUTH);
             bp.add(panel);
         }
-        if(bought.length>3){
+        if (bought.length > 3) {
             button = new JButton("更多");
             button.addActionListener(this);
             bp.add(button);
@@ -50,7 +50,7 @@ public class MyItems extends JPanel implements ActionListener {
             panel.add(new JLabel(bought[i].getName()), BorderLayout.SOUTH);
             sp.add(panel);
         }
-        if(bought.length>3){
+        if (bought.length > 3) {
             button = new JButton("更多");
             button.addActionListener(this);
             sp.add(button);
