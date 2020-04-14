@@ -1,94 +1,86 @@
 package client.login;
 
+import javafx.stage.FileChooser;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.io.File;
+import java.net.URL;
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.*;
-import java.util.HashSet;
 
-public class UpLoad {
+import static client.login.RegisterFrame.changedPanel;
+
+public class UpLoad implements ActionListener {
+    JFrame frame = new JFrame("选择头像图片");// 框架布局
+    JTabbedPane tabPane = new JTabbedPane();// 选项卡布局
+    Container con = new Container();//
+    JLabel label = new JLabel("选择图片");
+    JTextField text = new JTextField();// 文件的路径
+    JButton btChoose = new JButton("...");// 选择
+    JFileChooser jfc = new JFileChooser();// 文件选择器
+    JButton btSure = new JButton("确定");//确定按钮
+    File f;//f为选择好的图片文件
+    ImageIcon img;//头像图片
+
+    UpLoad() {
+        jfc.setCurrentDirectory(new File("d://"));// 文件选择器的初始目录定为d盘
+
+        double lx = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+
+        double ly = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+
+        frame.setLocation(new Point((int) (lx / 2) - 150, (int) (ly / 2) - 150));// 设定窗口出现位置
+        frame.setSize(280, 200);// 设定窗口大小
+        frame.setContentPane(tabPane);// 设置布局
+        label.setBounds(10, 35, 70, 20);
+        text.setBounds(75, 35, 120, 20);
+        btChoose.setBounds(210, 35, 50, 20);
+        btSure.setBounds(180, 90, 60, 20);
+        btChoose.addActionListener(this); // 添加事件处理
+        btSure.addActionListener(this); // 添加事件处理
+        con.add(label);
+        con.add(text);
+        con.add(btChoose);
+        con.add(btSure);
+        frame.setVisible(true);// 窗口可见
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);// 使能关闭窗口，结束程序
+        tabPane.add(con);// 添加布局1
+
+    }
     /**
-     *   * 文件上传功能
-     *   *
-     *   * @param developer
-     *   *            按钮控件名称
-     *  
+     * 事件监听的方法
      */
-    public static void eventOnImport(JButton developer) {
-        JFileChooser chooser = new JFileChooser();
-        chooser.setMultiSelectionEnabled(true);
-/** 过滤文件类型 * */
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("war", "xml", "txt", "doc", "docx");
-        chooser.setFileFilter(filter);
-        int returnVal = chooser.showOpenDialog(developer);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-/** 得到选择的文件* */
-            File[] arrfiles = chooser.getSelectedFiles();
-            if (arrfiles == null || arrfiles.length == 0) {
-                return;
-            }
-            FileInputStream input = null;
-            FileOutputStream out = null;
-            String path = "./";
-            try {
-                for (File f : arrfiles) {
-                    File dir = new File(path);
-/** 目标文件夹 * */
-                    File[] fs = dir.listFiles();
-                    HashSet<String> set = new HashSet<String>();
-                    for (File file : fs) {
-                        set.add(file.getName());
-                    }
-/** 判断是否已有该文件* */
-                    if (set.contains(f.getName())) {
-                        JOptionPane.showMessageDialog(new JDialog(), f.getName() + ":该文件已存在！");
-                        return;
-                    }
-                    input = new FileInputStream(f);
-                    byte[] buffer = new byte[1024];
-                    File des = new File(path, f.getName());
-                    out = new FileOutputStream(des);
-                    int len = 0;
-                    while (-1 != (len = input.read(buffer))) {
-                        out.write(buffer, 0, len);
-                    }
-                    out.close();
-                    input.close();
-                }
-                JOptionPane.showMessageDialog(null, "上传成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
-
-            } catch (FileNotFoundException e1) {
-                JOptionPane.showMessageDialog(null, "上传失败！", "提示", JOptionPane.ERROR_MESSAGE);
-                e1.printStackTrace();
-            } catch (IOException e1) {
-                JOptionPane.showMessageDialog(null, "上传失败！", "提示", JOptionPane.ERROR_MESSAGE);
-                e1.printStackTrace();
+    public void actionPerformed(ActionEvent e) {
+        // TODO Auto-generated method stub
+        // 绑定到选择文件，先择文件事件
+        if (e.getSource().equals(btChoose)) {
+            jfc.setFileSelectionMode(0);// 设定只能选择到文件
+            int state = jfc.showOpenDialog(null);// 此句是打开文件选择器界面的触发语句
+            if (state == 1) {
+                return;// 撤销则返回
+            } else {
+                f = jfc.getSelectedFile();// f为选择到的文件
+                text.setText(f.getAbsolutePath());
             }
         }
-    }
-
-    public void UpLoadFile(String title) {
-        JFrame jframe = new JFrame(title);// 实例化一个JFrame
-        JPanel jPanel = new JPanel(); // 创建一个轻量级容器
-        JToolBar jToolBar = new JToolBar(); // 提供了一个用来显示常用的 Action 或控件的组件
-        jframe.setVisible(true);// 可见
-        jframe.setSize(500, 500);// 窗体大小
-        jframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);// close的方式
-        jframe.setContentPane(jPanel); // 设置 contentPane 属性。
-        JLabel jl = new JLabel("请选择：");// 创建一个Label标签
-        jl.setHorizontalAlignment(SwingConstants.LEFT);// 样式，让文字居中
-        jPanel.add("North", jl);// 将标签添加到容器中
-        jPanel.add("North", jToolBar);
-        JButton developer = new JButton("上传文件");
-        developer.setHorizontalAlignment(SwingConstants.CENTER);
-        jToolBar.add(developer);// 上传文件按钮添加到容器
-        jPanel.add("North", jToolBar);
-        developer.addMouseListener(new MouseAdapter() { // 添加鼠标点击事件
-            public void mouseClicked(MouseEvent event) {
-                eventOnImport(new JButton());
+        if (e.getSource().equals(btSure) && !text.getText().isEmpty()) {
+            //尝试头像缩放
+            try {
+                img = new ImageIcon(f.getAbsolutePath());
+            } catch (Exception ex) {
+                System.out.println(ex);
             }
-        }); // 文件上传功能
+            img.setImage(img.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
+            changedPanel.removeAll();
+            changedPanel.repaint();
+            changedPanel.add(new JLabel(img));
+            changedPanel.revalidate();
+            frame.setVisible(false);
+        }
     }
-
+    public String getPath() {
+        return text.getText();
+    }
 }

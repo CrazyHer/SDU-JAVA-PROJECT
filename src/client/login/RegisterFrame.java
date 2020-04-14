@@ -4,11 +4,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
 
 public class RegisterFrame extends JFrame implements ActionListener {
 
     private static AbstractButton showPic;
     public JPanel panel;
+    public static JPanel changedPanel;//开始时存放“插入头像”按钮，后来存放头像图片
+    public JPanel fillInPanel;
     public JLabel lbPhoto;
     public JLabel lbName;//姓名
     public JLabel lbUserID;//学号
@@ -20,6 +25,7 @@ public class RegisterFrame extends JFrame implements ActionListener {
     public JPasswordField txConfirmPassword;
     public JButton btRegister;
     public JButton btAddPhoto;
+    String Path;
     ImageIcon image;
 
     public RegisterFrame() {
@@ -27,6 +33,7 @@ public class RegisterFrame extends JFrame implements ActionListener {
         c.setLayout(new FlowLayout());
         setSize(600, 450);
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowClose());
         setTitle("注册");
 
@@ -36,7 +43,7 @@ public class RegisterFrame extends JFrame implements ActionListener {
             System.out.println(e);
         }
         image.setImage(image.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));*/
-        JPanel fillInPanel = new JPanel();//填写注册信息面板
+        fillInPanel = new JPanel();//填写注册信息面板
         fillInPanel.setLayout(new GridLayout(6, 2));
         lbPhoto = new JLabel("头像");
         lbName = new JLabel("姓名");
@@ -49,12 +56,14 @@ public class RegisterFrame extends JFrame implements ActionListener {
         txPassword = new JTextField(22);
         txConfirmPassword = new JPasswordField(22);
         btAddPhoto = new JButton("插入头像");
+        btAddPhoto.addActionListener(this);
         btRegister = new JButton("注册");
         btRegister.addActionListener(this);
 
         fillInPanel.add(lbPhoto);
-        fillInPanel.add(btAddPhoto);
-        //fillInPanel.add(new JLabel(image));
+        changedPanel=new JPanel();
+        changedPanel.add(btAddPhoto);
+        fillInPanel.add(changedPanel);
         fillInPanel.add(lbName);
         fillInPanel.add(txName);
         fillInPanel.add(lbUserID);
@@ -79,27 +88,17 @@ public class RegisterFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("注册")) {
             if (txConfirmPassword.getPassword().equals(txPassword.getText()) && txName.getText() != null && txUserID.getText() != null && txPassword.getText() != null) {
-            /*try {
-            //连接数据库,将填写的信息导入数据库
-            Class.forName("com.mysql.JDBCDriver");
-            Connection con;
-            con= DriverManager.getConnection(dbUrl);
-            con=DriverManager.getConnection(dbUrl,user,password);
-
-             } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-            }*/
                 System.exit(0);
             } else if (txName.getText().isEmpty() || txUserID.getText().isEmpty() || txPassword.getText().isEmpty()) {
                 System.out.println("信息不完整!");
             } else if (!(txConfirmPassword.getPassword().equals(txPassword.getText()))) {
                 System.out.println("确认密码与密码不符!");
             }
-        } else if (e.getActionCommand().equals("插入头像")) {
-            new UpLoad().UpLoadFile("上传头像");
+        }
+        else if (e.getSource().equals(btAddPhoto)) {
+            Path = new UpLoad().getPath();
         }
 
     }
-
 
 }
