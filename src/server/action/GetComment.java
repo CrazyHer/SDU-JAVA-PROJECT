@@ -32,5 +32,6 @@ public class GetComment {
         }
         obj = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         obj.writeObject(comment);
+        database.close();
     }
 }
