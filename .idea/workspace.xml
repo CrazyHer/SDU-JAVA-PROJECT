@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6fcb9bbb-38be-4464-b4b0-02875be4de69" name="Default Changelist" comment="个人信息模块完成了一半">
-      <change afterPath="$PROJECT_DIR$/src/server/action/GetComment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/ThreadTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/ThreadTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/action/GetItemList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/GetItemList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/action/GetMyBoughtItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/GetMyBoughtItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/dataObjs/BuyItemData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/dataObjs/BuyItemData.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +50,7 @@
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
-  <component name="RunManager" selected="Application.ReleaseFrame">
+  <component name="RunManager" selected="Application.TestClient">
     <configuration name="ItemInfo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="client.itemList.ItemInfo" />
       <module name="SDU-JAVA-PROJECT" />
@@ -69,12 +64,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Login" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="client.login.Login" />
+    <configuration name="ReleaseFrame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="client.itemList.ReleaseFrame" />
       <module name="SDU-JAVA-PROJECT" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="client.login.*" />
+          <option name="PATTERN" value="client.itemList.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -82,12 +77,25 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ReleaseFrame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="client.itemList.ReleaseFrame" />
+    <configuration name="ServerMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="server.ServerMain" />
       <module name="SDU-JAVA-PROJECT" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="client.itemList.*" />
+          <option name="PATTERN" value="server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="server.TestClient" />
+      <module name="SDU-JAVA-PROJECT" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="server.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -110,10 +118,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.TestClient" />
+        <item itemvalue="Application.ServerMain" />
         <item itemvalue="Application.ReleaseFrame" />
         <item itemvalue="Application.ItemInfo" />
         <item itemvalue="Application.UserInfoFrame" />
-        <item itemvalue="Application.Login" />
       </list>
     </recent_temporary>
   </component>
@@ -132,6 +141,7 @@
       <workItem from="1586735239981" duration="1396000" />
       <workItem from="1586760947764" duration="23488000" />
       <workItem from="1586826548895" duration="8829000" />
+      <workItem from="1586847337800" duration="251000" />
     </task>
     <task id="LOCAL-00001" summary="建包调组织结构">
       <created>1584964675421</created>
@@ -203,22 +213,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="478" y="113" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1585154631148" />
-    <state width="1921" height="288" key="GridCell.Tab.0.bottom" timestamp="1586694984537">
+    <state width="1921" height="288" key="GridCell.Tab.0.bottom" timestamp="1586847369045">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1921" height="288" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586694984537" />
-    <state width="1921" height="288" key="GridCell.Tab.0.center" timestamp="1586694984537">
+    <state width="1921" height="288" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586847369045" />
+    <state width="1921" height="288" key="GridCell.Tab.0.center" timestamp="1586847369044">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1921" height="288" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586694984537" />
-    <state width="1921" height="288" key="GridCell.Tab.0.left" timestamp="1586694984537">
+    <state width="1921" height="288" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586847369044" />
+    <state width="1921" height="288" key="GridCell.Tab.0.left" timestamp="1586847369044">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1921" height="288" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586694984537" />
-    <state width="1921" height="288" key="GridCell.Tab.0.right" timestamp="1586694984537">
+    <state width="1921" height="288" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586847369044" />
+    <state width="1921" height="288" key="GridCell.Tab.0.right" timestamp="1586847369044">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1921" height="288" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586694984537" />
+    <state width="1921" height="288" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586847369044" />
     <state width="1122" height="347" key="GridCell.Tab.1.bottom" timestamp="1585154466773">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -239,14 +249,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="161" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1585121993232" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1585198731511">
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1586847715027">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1585198731511" />
-    <state x="636" y="310" key="git4idea.merge.GitPullDialog" timestamp="1586591567736">
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1586847715027" />
+    <state x="636" y="310" key="git4idea.merge.GitPullDialog" timestamp="1586847691693">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="636" y="310" key="git4idea.merge.GitPullDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1586591567736" />
+    <state x="636" y="310" key="git4idea.merge.GitPullDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1586847691693" />
     <state x="717" y="351" key="git4idea.ui.GitUnstashDialog" timestamp="1584962559740">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
