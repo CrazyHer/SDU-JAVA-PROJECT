@@ -6,10 +6,14 @@ import java.io.Serializable;
 public class UserData implements Serializable {
     private String username = null, ID = null, password = null;
 
-    public UserData(String username, String ID, String password) {
+    public UserData(String username, String ID, String password) {//注册用
         this.username = username;
         this.ID = ID;
         this.password = password;
+    }
+
+    public UserData(String ID,String password){ //登录用
+        this(null,ID,password);
     }
 
     public String getID() {
