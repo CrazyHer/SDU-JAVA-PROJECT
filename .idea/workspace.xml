@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6fcb9bbb-38be-4464-b4b0-02875be4de69" name="Default Changelist" comment="个人信息模块完成了一半">
+    <list default="true" id="6fcb9bbb-38be-4464-b4b0-02875be4de69" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/action/GetComment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/GetComment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/action/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/dataObjs/UserData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/dataObjs/UserData.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,7 +143,8 @@
       <workItem from="1586735239981" duration="1396000" />
       <workItem from="1586760947764" duration="23488000" />
       <workItem from="1586826548895" duration="8829000" />
-      <workItem from="1586847337800" duration="749000" />
+      <workItem from="1586847337800" duration="1033000" />
+      <workItem from="1587178449900" duration="210000" />
     </task>
     <task id="LOCAL-00001" summary="建包调组织结构">
       <created>1584964675421</created>
@@ -165,7 +167,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585154632385</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="完善服务端接口">
+      <created>1586848324333</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1586848324333</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -188,7 +197,8 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="建包调组织结构" />
     <MESSAGE value="个人信息模块完成了一半" />
-    <option name="LAST_COMMIT_MESSAGE" value="个人信息模块完成了一半" />
+    <MESSAGE value="完善服务端接口" />
+    <option name="LAST_COMMIT_MESSAGE" value="完善服务端接口" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -210,10 +220,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="644" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1586685178492" />
-    <state x="478" y="113" key="CommitChangelistDialog2" timestamp="1585154631148">
+    <state x="478" y="113" key="CommitChangelistDialog2" timestamp="1586848323420">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="478" y="113" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1585154631148" />
+    <state x="478" y="113" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1586848323420" />
+    <state x="102" y="86" key="DiffContextDialog" timestamp="1586848306102">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="102" y="86" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1586848306102" />
     <state width="1921" height="288" key="GridCell.Tab.0.bottom" timestamp="1586847369045">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -250,10 +264,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="161" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1585121993232" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1586847715027">
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1586848336762">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1586847715027" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1586848336762" />
     <state x="636" y="310" key="git4idea.merge.GitPullDialog" timestamp="1586847691693">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
