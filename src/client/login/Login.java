@@ -2,7 +2,7 @@ package client.login;
 
 public class Login {
     public static void main(String[] args) {
-        RegisterFrame testFrame = new RegisterFrame();
+        LoginFrame testFrame = new LoginFrame();
         testFrame.setVisible(true);
     }
 }

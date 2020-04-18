@@ -1,4 +1,4 @@
-package client.login;
+package client.itemList;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import javax.swing.*;
 
-import static client.login.RegisterFrame.changedPanel;
+import static client.itemList.ReleaseFrame.changedPanel;
 
 public class UpLoad implements ActionListener {
     JFrame frame = new JFrame("选择头像图片");// 框架布局
@@ -56,7 +56,8 @@ public class UpLoad implements ActionListener {
             int state = jfc.showOpenDialog(null);// 此句是打开文件选择器界面的触发语句
             if (state == 1) {
                 return;// 撤销则返回
-            } else {
+            }
+            else {
                 f = jfc.getSelectedFile();// f为选择到的文件
                 text.setText(f.getAbsolutePath());
             }
@@ -80,5 +81,7 @@ public class UpLoad implements ActionListener {
         return text.getText();
     }
 
-    public String getFileName() { return f.getName(); }
+    public String getFileName() {
+        return f.getName();
+    }
 }

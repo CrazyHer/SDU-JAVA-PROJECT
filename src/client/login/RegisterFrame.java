@@ -1,16 +1,21 @@
 package client.login;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import java.io.*;
+import java.net.Socket;
+
+
 
 public class RegisterFrame extends JFrame implements ActionListener {
 
-    private static AbstractButton showPic;
+    //private static AbstractButton showPic;
     public JPanel panel;
     public static JPanel changedPanel;//开始时存放“插入头像”按钮，后来存放头像图片
     public JPanel fillInPanel;
@@ -25,7 +30,10 @@ public class RegisterFrame extends JFrame implements ActionListener {
     public JPasswordField txConfirmPassword;
     public JButton btRegister;
     public JButton btAddPhoto;
-    String Path;
+    public String Path;
+    public String FileName;
+    static final int PORT=2333; //连接端口
+    Socket socket;
     ImageIcon image;
 
     public RegisterFrame() {
@@ -88,6 +96,43 @@ public class RegisterFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("注册")) {
             if (txConfirmPassword.getPassword().equals(txPassword.getText()) && txName.getText() != null && txUserID.getText() != null && txPassword.getText() != null) {
+                //new Link().send(new LoginData(txName.getText(), txPassword.getText(), txUserID.getText()));
+                //new Link().send(FileName.substring(FileName.lastIndexOf(".") + 1));
+                String suffix = FileName.substring(FileName.lastIndexOf(".") + 1);//后缀名
+                try {
+                    socket=new Socket("localhost",PORT); //创建客户端套接字
+                    System.out.println("成功连接" + socket.getRemoteSocketAddress());
+                    //客户端输出流，向服务器发消息
+                    BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+                    PrintWriter out = new PrintWriter(bw, true);//不自动刷新的话写完会阻塞
+                    //客户端输入流，接收服务器消息
+                    //BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                    //out.println("LOGIN");
+                    ObjectOutputStream obOut = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+                    //发送用户信息
+                    obOut.writeObject(new RegisterData(txName.getText(), txUserID.getText(), txPassword.getText()));
+                    obOut.flush();
+                    //发送头像图片文件后缀名
+                    out.println(suffix);
+                    BufferedImage bufferedImaged = ImageIO.read(new File(Path));
+                    ImageIO.write(bufferedImaged, suffix, socket.getOutputStream());
+                    //客户端输入流，接收服务器消息
+                    BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                    if(in.readLine().equals("1")){ System.out.println("注册成功");}
+                    else if(in.readLine().equals("-1")){ System.out.println("注册失败");}
+                    out.println("CLOSE SERVER");//发送关闭服务器指令
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }finally{
+                    if(null!=socket){try {
+                        socket.close(); //断开连接
+                        System.out.println("已断开连接");
+                    } catch (IOException e2) {
+                        e2.printStackTrace();
+                    }}
+                }
+
+
                 System.exit(0);
             } else if (txName.getText().isEmpty() || txUserID.getText().isEmpty() || txPassword.getText().isEmpty()) {
                 System.out.println("信息不完整!");
@@ -96,9 +141,15 @@ public class RegisterFrame extends JFrame implements ActionListener {
             }
         }
         else if (e.getSource().equals(btAddPhoto)) {
-            Path = new UpLoad().getPath();
+            UpLoad temp = new UpLoad();
+            Path = temp.getPath();
+            FileName = temp.getFileName();
         }
 
+    }
+    class RegisterData{
+        public RegisterData(String name, String ID, String password){
+        }
     }
 
 }

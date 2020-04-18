@@ -11,6 +11,7 @@ import java.awt.event.WindowEvent;
 public class ReleaseFrame extends JFrame implements ActionListener {
 
     public JPanel panel;
+    public static JPanel changedPanel;//开始存放“上传图片”按钮，后来存放商品图片
     public JLabel lbItemName;
     public JLabel lbItemQuantity;
     public JLabel lbItemPrice;
@@ -21,12 +22,13 @@ public class ReleaseFrame extends JFrame implements ActionListener {
     public JTextArea taItemIntroduction;
     public JButton btUpload;
     public JButton btRelease;
+    public String Path = "";
 
     public ReleaseFrame() {
 
         Container c = getContentPane();
         c.setLayout(new BorderLayout());
-        setSize(400, 300);
+        setSize(400, 400);
         setLocationRelativeTo(null);
         addWindowListener(new WindowClose());
         setTitle("发布商品");
@@ -58,7 +60,9 @@ public class ReleaseFrame extends JFrame implements ActionListener {
 
         JPanel p = new JPanel();
         p.setLayout(new FlowLayout(FlowLayout.CENTER));
-        p.add(btUpload);
+        changedPanel = new JPanel();
+        changedPanel.add(btUpload);
+        p.add(changedPanel);
         panel.add(p, BorderLayout.SOUTH);
         c.add(panel, BorderLayout.CENTER);
 
@@ -79,15 +83,17 @@ public class ReleaseFrame extends JFrame implements ActionListener {
         if (e.getActionCommand().equals("发布")) {
             if (txItemName.getText().isEmpty() || txItemQuantity.getText().isEmpty() || txItemPrice.getText().isEmpty() || taItemIntroduction.getText().isEmpty()) {
                 System.out.println("信息不完整!");
-            } else if (e.getActionCommand().equals("上传图片")) {
-
-            } else {
+            }
+            else if (Path.equals("")){
+                System.out.println("为上传图片");
+            }
+            else {
                 //上传数据库，上传商品列表
                 System.exit(0);
             }
 
         } else if (e.getActionCommand().equals("上传图片")) {
-
+            Path = new UpLoad().getPath();
         }
     }
 
@@ -101,10 +107,10 @@ public class ReleaseFrame extends JFrame implements ActionListener {
 
 
 
-/*class main{
+class main{
     public static void main(String[] args) {
-        TalkingFrame testFrame = new TalkingFrame();
+        ReleaseFrame testFrame = new ReleaseFrame();
         testFrame.setVisible(true);
 
     }
-}*/
+}

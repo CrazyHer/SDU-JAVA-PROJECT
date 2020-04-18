@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.*;
+import java.net.Socket;
 
 public class LoginFrame extends JFrame implements ActionListener {
 
@@ -22,6 +24,8 @@ public class LoginFrame extends JFrame implements ActionListener {
     public JMenuBar menuBar;
     public JMenuItem menuItem;
     public JPanel panel;
+    static final int PORT=2333; //连接端口
+    Socket socket;
 
     public LoginFrame() {
         Container c = getContentPane();
@@ -82,6 +86,31 @@ public class LoginFrame extends JFrame implements ActionListener {
             case "登录":
                 System.out.println("client.client.test.test.login:\nAccount:" + tfAccount.getText().trim() + "\nPassword:" + passwordField.getText());
                 System.out.println("记住密码？" + (remPswd.isSelected() ? "true" : "false") + "\n自动登录？" + (autoLogin.isSelected() ? "true" : "false"));
+                try {
+                    socket=new Socket("localhost",PORT); //创建客户端套接字
+                    System.out.println("成功连接" + socket.getRemoteSocketAddress());
+                    //客户端输出流，向服务器发消息
+                    BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+                    PrintWriter out = new PrintWriter(bw, true);//不自动刷新的话写完会阻塞
+                    //客户端输入流，接收服务器消息
+                    BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                    //out.println("LOGIN");
+
+                    ObjectOutputStream obOut = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+                    //obOut.writeObject(new LoginData("何锐","201900301198","666666"));
+                    obOut.writeObject(new LoginData(tfAccount.getText(),passwordField.getText()));
+                    obOut.flush();
+                    out.println("CLOSE SERVER");//发送关闭服务器指令
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }finally{
+                    if(null!=socket){try {
+                        socket.close(); //断开连接
+                        System.out.println("已断开连接");
+                    } catch (IOException e2) {
+                        e2.printStackTrace();
+                    }}
+                }
                 setVisible(false);
                 JFrame frame = new UserInfoFrame();
                 frame.setVisible(true);
@@ -91,6 +120,10 @@ public class LoginFrame extends JFrame implements ActionListener {
             default:
                 System.out.println("???");
                 break;
+        }
+    }
+    class LoginData{
+        public LoginData(String name, String ID, String password){
         }
     }
 }
