@@ -1,17 +1,15 @@
 package client.login;
 
+import server.dataObjs.UserData;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.io.*;
 import java.net.Socket;
-
-
 
 public class RegisterFrame extends JFrame implements ActionListener {
 
@@ -105,12 +103,10 @@ public class RegisterFrame extends JFrame implements ActionListener {
                     //客户端输出流，向服务器发消息
                     BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
                     PrintWriter out = new PrintWriter(bw, true);//不自动刷新的话写完会阻塞
-                    //客户端输入流，接收服务器消息
-                    //BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                     //out.println("LOGIN");
                     ObjectOutputStream obOut = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
                     //发送用户信息
-                    obOut.writeObject(new RegisterData(txName.getText(), txUserID.getText(), txPassword.getText()));
+                    obOut.writeObject(new UserData(txName.getText(), txUserID.getText(), txPassword.getText()));
                     obOut.flush();
                     //发送头像图片文件后缀名
                     out.println(suffix);
@@ -118,8 +114,8 @@ public class RegisterFrame extends JFrame implements ActionListener {
                     ImageIO.write(bufferedImaged, suffix, socket.getOutputStream());
                     //客户端输入流，接收服务器消息
                     BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                    if(in.readLine().equals("1")){ System.out.println("注册成功");}
-                    else if(in.readLine().equals("-1")){ System.out.println("注册失败");}
+                    if (in.readLine().equals("1")) System.out.println("注册成功");
+                    else if (in.readLine().equals("-1")) System.out.println("注册失败");
                     out.println("CLOSE SERVER");//发送关闭服务器指令
                 } catch (IOException e1) {
                     e1.printStackTrace();
@@ -147,9 +143,4 @@ public class RegisterFrame extends JFrame implements ActionListener {
         }
 
     }
-    class RegisterData{
-        public RegisterData(String name, String ID, String password){
-        }
-    }
-
 }

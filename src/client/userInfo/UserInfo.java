@@ -1,17 +1,18 @@
 package client.userInfo;
 
+import client.login.LoginFrame;
+
 import javax.swing.*;
 import java.awt.*;
-import java.net.URL;
 
 public class UserInfo extends JPanel {
     JPanel photoPanel;
     JLabel nameLable, IDLable;
-    Info user;
+    public static Info user;
 
     UserInfo() {
         setLayout(new GridBagLayout());
-        user = new Info("马云", "201900306666", "https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2605178066,625446438&fm=26&gp=0.jpg");
+        user = new Info("马云", "201900306666", LoginFrame.img);
         photoPanel = new JPanel();
         photoPanel.add(new JLabel(user.getImageIcon()));
         add(photoPanel, new GBC(0, 0, 2, 2).setWeight(0.1, 1).setAnchor(GridBagConstraints.EAST).setFill(GridBagConstraints.NONE));
@@ -22,20 +23,16 @@ public class UserInfo extends JPanel {
         add(IDLable, new GBC(3, 1, 1, 1).setWeight(0.8, 0.5).setAnchor(GridBagConstraints.NORTHWEST));
     }
 
-    class Info {
-        String name, ID, imageURL;
+    public class Info {
+        String name, ID;
         ImageIcon image;
 
-        Info(String name, String ID, String imageURL) {
+        Info(String name, String ID, ImageIcon image) {
             this.name = name;
             this.ID = ID;
-            this.imageURL = imageURL;
+            this.image = image;
             //以下将头像缩放为100*100尺寸
-            try {
-                image = new ImageIcon(new URL(this.imageURL));
-            } catch (Exception e) {
-                System.out.println(e);
-            }
+
             image.setImage(image.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
         }
 
@@ -43,7 +40,7 @@ public class UserInfo extends JPanel {
             return name;
         }
 
-        String getID() {
+        public String getID() {
             return ID;
         }
 
