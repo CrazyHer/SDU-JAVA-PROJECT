@@ -18,6 +18,30 @@ USE `trade`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `dialogue`
+--
+
+DROP TABLE IF EXISTS `dialogue`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `dialogue` (
+  `user1` varchar(255) DEFAULT NULL,
+  `user2` varchar(255) DEFAULT NULL,
+  `dialogueID` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`dialogueID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `dialogue`
+--
+
+LOCK TABLES `dialogue` WRITE;
+/*!40000 ALTER TABLE `dialogue` DISABLE KEYS */;
+/*!40000 ALTER TABLE `dialogue` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `item`
 --
 
@@ -37,7 +61,7 @@ CREATE TABLE `item` (
   `ItemID` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`ItemID`),
   FULLTEXT KEY `ft_index` (`ItemName`,`Introduction`) /*!50100 WITH PARSER `ngram` */ 
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,8 +70,33 @@ CREATE TABLE `item` (
 
 LOCK TABLES `item` WRITE;
 /*!40000 ALTER TABLE `item` DISABLE KEYS */;
-INSERT INTO `item` VALUES ('测试商品',50.00,'介绍',0,'201900301198','NOW()',3,2,'/home',1);
 /*!40000 ALTER TABLE `item` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `message`
+--
+
+DROP TABLE IF EXISTS `message`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `message` (
+  `text` varchar(2048) DEFAULT NULL,
+  `senderID` varchar(255) DEFAULT NULL,
+  `receiverID` varchar(255) DEFAULT NULL,
+  `time` varchar(255) DEFAULT NULL,
+  `messageid` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`messageid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `message`
+--
+
+LOCK TABLES `message` WRITE;
+/*!40000 ALTER TABLE `message` DISABLE KEYS */;
+/*!40000 ALTER TABLE `message` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -64,7 +113,7 @@ CREATE TABLE `orderlog` (
   `done` tinyint DEFAULT '0',
   `orderID` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`orderID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,7 +122,6 @@ CREATE TABLE `orderlog` (
 
 LOCK TABLES `orderlog` WRITE;
 /*!40000 ALTER TABLE `orderlog` DISABLE KEYS */;
-INSERT INTO `orderlog` VALUES (1,'201900301198','2020-04-13 22:08:49',0,1);
 /*!40000 ALTER TABLE `orderlog` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -91,7 +139,7 @@ CREATE TABLE `remark` (
   `releaseTime` varchar(255) DEFAULT NULL,
   `remarkID` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`remarkID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -100,7 +148,6 @@ CREATE TABLE `remark` (
 
 LOCK TABLES `remark` WRITE;
 /*!40000 ALTER TABLE `remark` DISABLE KEYS */;
-INSERT INTO `remark` VALUES (1,'very good','201900301198','2020-04-13 20:31:25',1);
 /*!40000 ALTER TABLE `remark` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -138,4 +185,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-14  1:32:39
+-- Dump completed on 2020-04-19 23:12:48

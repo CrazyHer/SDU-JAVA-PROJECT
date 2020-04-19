@@ -13,6 +13,7 @@ import java.sql.SQLException;
 /*
 登录接口
     1.接收一个UserData对象，里面包含学号、密码
+    除此之外，客户端还要连接聊天服务器端口，并把UserData传给聊天服务器
     2.无此用户，返回字符串-1；用户名存在，密码错误，返回字符串0；登陆成功，返回字符串1，再传输头像。
  */
 public class Login {
