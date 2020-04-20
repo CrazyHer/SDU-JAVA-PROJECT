@@ -30,7 +30,8 @@ public class RegisterFrame extends JFrame implements ActionListener {
     public JButton btAddPhoto;
     public String Path;
     public String FileName;
-    static final int PORT=2333; //连接端口
+    static final String HOST = "192.168.1.103"; //连接地址
+    static final int PORT = 2333; //连接端口
     Socket socket;
     ImageIcon image;
 

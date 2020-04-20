@@ -29,6 +29,7 @@ public class LoginFrame extends JFrame implements ActionListener {
     public JPanel panel;
     public static ImageIcon img;
     public String Password;
+    static final String HOST = "192.168.1.103"; //连接地址
     static final int PORT = 2333; //连接端口
     Socket socket;
 

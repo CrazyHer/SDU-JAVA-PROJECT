@@ -1,6 +1,5 @@
 package client.itemList;
 
-import client.userInfo.UserInfo;
 import server.dataObjs.BuyItemData;
 
 import javax.swing.*;
@@ -10,7 +9,10 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.Socket;
 
+import static client.userInfo.UserInfo.user;
+
 public class BoughtItemInfoFrame extends JFrame implements ActionListener {
+    static final String HOST = "192.168.1.103"; //连接地址
     static final int PORT = 2333; //连接端口
     public JPanel panel;
     public JButton btBuy;
@@ -22,13 +24,12 @@ public class BoughtItemInfoFrame extends JFrame implements ActionListener {
         c.setLayout(new BorderLayout());
         setTitle("商品购买信息");
         setSize(500, 400);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null);
 
         panel = new JPanel();
         panel.add(itemInfo);
         c.add(panel, BorderLayout.CENTER);
-
 
         panel = new JPanel();
         panel.setLayout(new GridBagLayout());
@@ -50,7 +51,7 @@ public class BoughtItemInfoFrame extends JFrame implements ActionListener {
                 PrintWriter out = new PrintWriter(bw, true);//不自动刷新的话写完会阻塞
                 //out.println("LOGIN");
                 ObjectOutputStream obOut = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-                obOut.writeObject(new BuyItemData(UserInfo.user.getID(), itemInfo.getName()));
+                obOut.writeObject(new BuyItemData(user.getID(), itemInfo.getName()));
                 //客户端输入流，接收服务器消息
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 if (in.readLine().equals("1")) System.out.println("购买成功");

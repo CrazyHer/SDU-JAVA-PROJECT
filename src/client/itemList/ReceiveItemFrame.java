@@ -9,6 +9,7 @@ public class ReceiveItemFrame extends JFrame implements ActionListener {
 
     JPanel panel;
     JButton btReceive;
+    public static ItemInfo itemInfo;
 
     public ReceiveItemFrame() {
         Container c = getContentPane();
@@ -19,7 +20,8 @@ public class ReceiveItemFrame extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
 
         panel = new JPanel();
-        panel.add(new ItemInfo());
+        itemInfo = new ItemInfo();
+        panel.add(itemInfo);
         c.add(panel, BorderLayout.CENTER);
 
 

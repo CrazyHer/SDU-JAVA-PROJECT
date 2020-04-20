@@ -1,7 +1,6 @@
 package client.transport;
 
 import java.io.*;
-import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -9,8 +8,6 @@ public class Link {
     static final String HOST="192.168.1.103"; //连接地址
     static final int PORT=2333; //连接端口
     Socket socket;
-    public Link() {
-    }
 
     public void send(Object o) {
         try {

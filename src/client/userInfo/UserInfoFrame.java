@@ -1,17 +1,25 @@
 package client.userInfo;
 
+import client.login.LoginFrame;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class UserInfoFrame extends JFrame {
+public class UserInfoFrame extends JFrame implements ActionListener {
     JScrollPane scrollPane;
     JPanel c;
+    public JMenu menu;
+    public JMenuBar menuBar;
+    public JMenuItem menuItem;
 
     public UserInfoFrame() {
         setTitle("用户信息");
         setSize(500, 400);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null);
+        addMenu();
 
         c = new JPanel();
 
@@ -25,6 +33,23 @@ public class UserInfoFrame extends JFrame {
         getContentPane().add(scrollPane);
 
         setVisible(true);
+    }
+
+    public void addMenu() {
+        JMenuBar menuBar = new JMenuBar();
+        menu = new JMenu("菜单");
+        menuBar.add(menu);
+        menuItem = new JMenuItem("退出登录");
+        menu.add(menuItem);
+        setJMenuBar(menuBar);
+        menuItem.addActionListener(this);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource().equals(menuItem)) {
+            setVisible(false);
+            new LoginFrame();
+        }
     }
 
     public static void main(String[] args) {
