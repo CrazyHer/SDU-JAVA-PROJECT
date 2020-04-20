@@ -30,6 +30,12 @@ public class ThreadTest extends Thread {
                 case "LOGIN":
                     new Login(socket);
                     break;
+                case "GET MSGS":
+                    new GetMsgs(socket);
+                    break;
+                case "SEND A MSG":
+                    new SendAMsg(socket);
+                    break;
                 case "REGISTER":
                     new Register(socket);
                     break;
@@ -56,6 +62,9 @@ public class ThreadTest extends Thread {
                     break;
                 case "REMARK":
                     new Remark(socket);
+                    break;
+                case "LOGOUT":
+                    new Logout(socket);
                     break;
                 default:
                     System.out.println("未知的命令，socket直接关闭");

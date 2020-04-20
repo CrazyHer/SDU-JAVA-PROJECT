@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.Socket;
 
 public class TestClient {
-    static int PORT = 2333;
+    static int PORT = 2335;
 
     public static void main(String[] args) {
         Socket socket;
