@@ -1,10 +1,9 @@
 package server.action;
 
+import com.alibaba.fastjson.JSON;
 import server.dataBase.DB;
 import server.dataObjs.UserData;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
 import java.sql.ResultSet;
@@ -13,42 +12,63 @@ import java.sql.SQLException;
 /*
 注册接口
     1.先接受UserData用户信息；
-    2.再接收字符串头像的后缀名，无.，例如JPG
-    3.接收头像图形，BufferedImage以ImageIO传输
-    3.注册成功返回1，注册失败返回-1，字符串类型；
+    2.注册成功返回1，注册失败返回-1，字符串类型；
+    3.接收头像文件传输
  */
 public class Register {
     Socket socket;
-    BufferedReader in;
-    PrintWriter out;
-    ObjectInputStream obj;
+
 
     UserData userData;
-    String userName, passWord, ID, profilePath, profileType;
+    String userName, passWord, ID, profilePath, Path;
     DB database;
     ResultSet resultSet;
+    DataOutputStream dos;
+    DataInputStream dis;
+    BufferedReader in;
 
-    public Register(Socket s) throws IOException, ClassNotFoundException, SQLException {
+    public Register(Socket s) throws IOException, SQLException {
         socket = s;
-        obj = new ObjectInputStream(socket.getInputStream());
+        dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+        dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
-        userData = (UserData) obj.readObject();
+        userData = JSON.parseObject(in.readLine(), UserData.class);
         userName = userData.getUsername();
         passWord = userData.getPassword();
         ID = userData.getID();
-        profileType = in.readLine();
         database = new DB();
-        resultSet = database.query("SELECT DISTINCT * FROM trade.user WHERE \"ID\"=" + ID);
-        profilePath = "./src/server/images/users/" + ID + "/" + "profile." + profileType;
+        resultSet = database.query("SELECT * FROM trade.user WHERE `ID` =" + ID);
+        profilePath = "C:\\Users\\Public\\Roaming\\" + ID;
         if (!resultSet.next()) {
-            database.update("INSERT INTO trade.user VALUES ('" + userName + "','" + ID + "','" + passWord + "','" + profilePath + "')");
-            BufferedImage bufferedImage = ImageIO.read(ImageIO.createImageInputStream(socket.getInputStream()));
-            ImageIO.write(bufferedImage, profileType, new File(profilePath));
-            out.println("1");
+            dos.writeUTF("1");
+            dos.flush();
+            getFile(profilePath);
+            database.update("INSERT INTO trade.user VALUES ('" + userName + "','" + ID + "','" + passWord + "','" + Path + "')");
         } else {
-            out.println("-1");
+            dos.writeUTF("-1");
+            dos.flush();
         }
         database.close();
+    }
+
+    public void getFile(String path) throws IOException {//接收文件的方法，直接用即可,参数为存放路径
+        FileOutputStream fos;
+        // 文件名
+        String fileName = dis.readUTF();
+        File directory = new File(path);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+        File file = new File(directory.getAbsolutePath() + File.separatorChar + fileName);
+        Path = directory.getAbsolutePath() + File.separatorChar + fileName;
+        fos = new FileOutputStream(file);
+        // 开始接收文件
+        byte[] bytes = new byte[1024];
+        int length;
+        while ((length = dis.read(bytes, 0, bytes.length)) != -1) {
+            fos.write(bytes, 0, length);
+            fos.flush();
+        }
+        System.out.println("======== 文件接收成功========");
     }
 }

@@ -1,14 +1,12 @@
 package server.action;
 
+import com.alibaba.fastjson.JSON;
 import server.dataBase.DB;
 import server.dataObjs.UserData;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 /*
 登录接口
@@ -18,44 +16,63 @@ import java.sql.SQLException;
  */
 public class Login {
     Socket socket;
-    ObjectInputStream in;
-    PrintWriter out;
-    String userName, passWord, ID, profilePath;
-    DB dataBase = new DB();
-    FileInputStream fileInputStream;
-    DataOutputStream dataOutputStream;
+    String passWord, ID, profilePath;
+    DB dataBase;
+    ResultSet resultSet;
 
-    public Login(Socket s) throws IOException, ClassNotFoundException, SQLException {
+
+    DataInputStream dis;
+    DataOutputStream dos;
+    BufferedReader in;
+
+    public Login(Socket s) throws Exception {
         socket = s;
-        in = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
-        out = new PrintWriter(new BufferedOutputStream(socket.getOutputStream()), true);
-        UserData user = (UserData) in.readObject();
-        userName = user.getUsername();
-        passWord = user.getPassword();
+        dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+        dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        UserData user = JSON.parseObject(in.readLine(), UserData.class);
         ID = user.getID();
-        System.out.println("用户名:" + userName + "\nID:" + passWord);
-        ResultSet resultSet = dataBase.query("SELECT DISTINCT * FROM trade.user WHERE \"ID\"=" + ID);
+        passWord = user.getPassword();
+        System.out.println("ID:" + ID + "\npassword:" + passWord);
+        dataBase = new DB();
+        resultSet = dataBase.query("SELECT DISTINCT * FROM trade.user WHERE `ID`='" + ID + "'");
         if (resultSet.next()) {
             if (resultSet.getString("password").equals(passWord)) {
-                out.println("1");
+                dos.writeUTF("1");
+                dos.flush();
                 profilePath = resultSet.getString("profilePath");
-                //使用ImageIO进行传输头像图片
-                BufferedImage bufferedImage = ImageIO.read(new File(profilePath));
-                ImageIO.write(bufferedImage, profilePath.substring(profilePath.lastIndexOf(".") + 1), socket.getOutputStream());
 
-                //客户端接收图片的方法：
-                /*
-                BufferedImage bufferedImage = ImageIO.read(ImageIO.createImageInputStream(socket.getInputStream()));
-                ImageIcon img = new ImageIcon(bufferedImage);
-                 */
+                sendFile(profilePath);
 
             } else {
-                out.println("0");
+                dos.writeUTF("0");
+                dos.flush();
             }
         } else {
-            out.println("-1");
+            dos.writeUTF("-1");
+            dos.flush();
         }
         dataBase.close();
+    }
+
+    private void sendFile(String path) throws Exception {//传图方法，直接用就行
+        FileInputStream fis;
+        File file = new File(path);
+        if (file.exists()) {
+            fis = new FileInputStream(file);
+            // 文件名
+            dos.writeUTF(file.getName());
+            dos.flush();
+            // 开始传输文件
+            System.out.println("======== 开始传输文件 ========");
+            byte[] bytes = new byte[1024];
+            int length;
+            while ((length = fis.read(bytes, 0, bytes.length)) != -1) {
+                dos.write(bytes, 0, length);
+                dos.flush();
+            }
+            System.out.println("======== 文件传输成功 ========");
+        }
     }
 }
 

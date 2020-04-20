@@ -1,8 +1,8 @@
 package client.login;
 
+import com.alibaba.fastjson.JSON;
 import server.dataObjs.UserData;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -30,12 +30,11 @@ public class RegisterFrame extends JFrame implements ActionListener {
     public JButton btAddPhoto;
     public String Path;
     public String FileName;
-    static final String HOST = "192.168.1.103"; //连接地址
-    static final int PORT = 2333; //连接端口
-    Socket socket;
-    ImageIcon image;
 
-    public RegisterFrame() {
+    public JFrame ParentFrame;
+
+    public RegisterFrame(JFrame parentFrame) {
+        this.ParentFrame = parentFrame;
         Container c = getContentPane();
         c.setLayout(new FlowLayout());
         setSize(600, 450);
@@ -94,54 +93,80 @@ public class RegisterFrame extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("注册")) {
-            if (txConfirmPassword.getPassword().equals(txPassword.getText()) && txName.getText() != null && txUserID.getText() != null && txPassword.getText() != null) {
-                //new Link().send(new LoginData(txName.getText(), txPassword.getText(), txUserID.getText()));
-                //new Link().send(FileName.substring(FileName.lastIndexOf(".") + 1));
-                String suffix = FileName.substring(FileName.lastIndexOf(".") + 1);//后缀名
+            if (String.valueOf(txConfirmPassword.getPassword()).equals(txPassword.getText()) && txName.getText() != null && txUserID.getText() != null && txPassword.getText() != null) {
                 try {
-                    socket=new Socket("localhost",PORT); //创建客户端套接字
-                    System.out.println("成功连接" + socket.getRemoteSocketAddress());
-                    //客户端输出流，向服务器发消息
-                    BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-                    PrintWriter out = new PrintWriter(bw, true);//不自动刷新的话写完会阻塞
-                    //out.println("LOGIN");
-                    ObjectOutputStream obOut = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-                    //发送用户信息
-                    obOut.writeObject(new UserData(txName.getText(), txUserID.getText(), txPassword.getText()));
-                    obOut.flush();
-                    //发送头像图片文件后缀名
-                    out.println(suffix);
-                    BufferedImage bufferedImaged = ImageIO.read(new File(Path));
-                    ImageIO.write(bufferedImaged, suffix, socket.getOutputStream());
-                    //客户端输入流，接收服务器消息
-                    BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                    if (in.readLine().equals("1")) System.out.println("注册成功");
-                    else if (in.readLine().equals("-1")) System.out.println("注册失败");
-                    out.println("CLOSE SERVER");//发送关闭服务器指令
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }finally{
-                    if(null!=socket){try {
-                        socket.close(); //断开连接
-                        System.out.println("已断开连接");
-                    } catch (IOException e2) {
-                        e2.printStackTrace();
-                    }}
+                    NET_Register net_register = new NET_Register(new UserData(txName.getText(), txUserID.getText(), txPassword.getText()), Path);
+                    if (net_register.getResultCode().equals("1")) {
+                        JOptionPane.showMessageDialog(this, "注册成功！");
+                    } else JOptionPane.showMessageDialog(this, "注册失败");
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this, ex.getMessage(), "错误", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
                 }
 
-
-                System.exit(0);
             } else if (txName.getText().isEmpty() || txUserID.getText().isEmpty() || txPassword.getText().isEmpty()) {
-                System.out.println("信息不完整!");
-            } else if (!(txConfirmPassword.getPassword().equals(txPassword.getText()))) {
-                System.out.println("确认密码与密码不符!");
+                JOptionPane.showMessageDialog(this, "信息不完整！");
+            } else if (!(String.valueOf(txConfirmPassword.getPassword()).equals(txPassword.getText()))) {
+                JOptionPane.showMessageDialog(this, "确认密码与密码不符!");
+            }
+        } else if (e.getSource().equals(btAddPhoto)) {
+            UpLoad temp = new UpLoad(this);
+        }
+
+    }
+
+    private class NET_Register {
+        private final String Command = "REGISTER";//请求类型
+        private final String Address = "localhost";
+        private final int PORT = 2333;//服务器端口
+        private Socket socket;
+        private DataOutputStream dos;
+        private DataInputStream dis;
+        private PrintWriter out;//输出
+
+        private String json, resultCode;
+        private BufferedImage img;
+
+        public NET_Register(UserData userData, String path) throws Exception {
+            this.socket = new Socket(this.Address, this.PORT);
+            dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+            dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            this.out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(this.socket.getOutputStream())), true);
+            dos.writeUTF(Command);
+            dos.flush();
+            //上面的照搬，只需要改一下请求类型Command即可
+            //下面是对接操作，对象用下面的方式传就行了，不要再用ObjectOutputStream了
+            json = JSON.toJSONString(userData);//使用JSON序列化对象传输过去
+            this.out.println(json);
+            resultCode = dis.readUTF();
+
+            sendFile(path);
+
+            this.socket.close();
+        }
+
+        private void sendFile(String path) throws Exception {//传图方法，直接用就行
+            FileInputStream fis;
+            File file = new File(path);
+            if (file.exists()) {
+                fis = new FileInputStream(file);
+                // 文件名
+                dos.writeUTF(file.getName());
+                dos.flush();
+                // 开始传输文件
+                System.out.println("======== 开始传输文件 ========");
+                byte[] bytes = new byte[1024];
+                int length;
+                while ((length = fis.read(bytes, 0, bytes.length)) != -1) {
+                    dos.write(bytes, 0, length);
+                    dos.flush();
+                }
+                System.out.println("======== 文件传输成功 ========");
             }
         }
-        else if (e.getSource().equals(btAddPhoto)) {
-            UpLoad temp = new UpLoad();
-            Path = temp.getPath();
-            FileName = temp.getFileName();
-        }
 
+        public String getResultCode() {
+            return resultCode;
+        }
     }
 }

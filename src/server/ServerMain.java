@@ -8,7 +8,7 @@ import java.net.Socket;
 import java.net.SocketException;
 
 public class ServerMain {
-    static int PORT = 2335;//端口号,聊天服务器端口号为(PORT+1)
+    static int PORT = 2333;//端口号,聊天服务器端口号为(PORT+1)
     static ServerSocket serverSocket;
     static Socket socket;
     static TalkingServer talkingServer;
@@ -32,5 +32,6 @@ public class ServerMain {
     public static void closeServer() throws IOException {//安全关闭服务器的方法
         talkingServer.getServerSocket().close();
         serverSocket.close();
+        System.exit(0);
     }
 }
