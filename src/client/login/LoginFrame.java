@@ -1,16 +1,14 @@
 package client.login;
 
-import client.userInfo.UserInfoFrame;
+import com.alibaba.fastjson.JSON;
 import server.dataObjs.UserData;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
 
@@ -28,10 +26,7 @@ public class LoginFrame extends JFrame implements ActionListener {
     public JMenuItem menuItem;
     public JPanel panel;
     public static ImageIcon img;
-    public String Password;
-    static final String HOST = "192.168.1.103"; //连接地址
-    static final int PORT = 2333; //连接端口
-    Socket socket;
+    private UserData userData;
 
     public LoginFrame() {
         Container c = getContentPane();
@@ -75,6 +70,13 @@ public class LoginFrame extends JFrame implements ActionListener {
         btLogin.addActionListener(this);
         panel.add(btLogin);
         c.add(panel);
+
+        panel = new JPanel();
+        panel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        btLogin = new JButton("注册");
+        btLogin.addActionListener(this);
+        panel.add(btLogin);
+        c.add(panel);
     }
 
     public void addMenu() {
@@ -90,45 +92,24 @@ public class LoginFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case "登录":
-                System.out.println("client.client.test.test.login:\nAccount:" + tfAccount.getText().trim() + "\nPassword:" + passwordField.getText());
-                System.out.println("记住密码？" + (remPswd.isSelected() ? "true" : "false") + "\n自动登录？" + (autoLogin.isSelected() ? "true" : "false"));
+                userData = new UserData(tfAccount.getText(), String.valueOf(passwordField.getPassword()));
+                NET_Login net_login = null;
                 try {
-                    socket = new Socket("localhost", PORT); //创建客户端套接字
-                    System.out.println("成功连接" + socket.getRemoteSocketAddress());
-                    //客户端输出流，向服务器发消息
-                    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-                    PrintWriter out = new PrintWriter(bw, true);//不自动刷新的话写完会阻塞
-
-                    //out.println("LOGIN");
-
-                    ObjectOutputStream obOut = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-                    Password = String.valueOf(passwordField.getPassword());
-                    obOut.writeObject(new UserData(tfAccount.getText(), Password));
-                    obOut.flush();
-                    //客户端输入流，接收服务器消息
-                    BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                    if (in.readLine().equals("-1")) System.out.println("无此用户");
-                    else if (in.readLine().equals("0")) System.out.println("密码错误");
-                    else if (in.readLine().equals("1")) {
-                        BufferedImage bufferedImage = ImageIO.read(ImageIO.createImageInputStream(socket.getInputStream()));
-                        img = new ImageIcon(bufferedImage);
-                        setVisible(false);
-                        JFrame frame = new UserInfoFrame();
-                        frame.setVisible(true);
-                    }
-                    out.println("CLOSE SERVER");//发送关闭服务器指令
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                } finally {
-                    if (null != socket) {
-                        try {
-                            socket.close(); //断开连接
-                            System.out.println("已断开连接");
-                        } catch (IOException e2) {
-                            e2.printStackTrace();
-                        }
-                    }
+                    net_login = new NET_Login(userData);
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(this, ex.getMessage(), "错误", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
                 }
+                String resultCode = net_login.getResultCode();
+                if (resultCode.equals("1")) {
+                    JOptionPane.showMessageDialog(this, "登陆成功！");
+                    System.out.println("接下来打开个人信息界面");
+                } else if (resultCode.equals("0")) JOptionPane.showMessageDialog(this, "密码错误！");
+                else if (resultCode.equals("-1")) JOptionPane.showMessageDialog(this, "无此用户！");
+                break;
+            case "注册":
+                new RegisterFrame(this).setVisible(true);
+                this.setVisible(false);
                 break;
             case "退出":
                 new WindowClose();
@@ -139,12 +120,73 @@ public class LoginFrame extends JFrame implements ActionListener {
         }
     }
 
-    class WindowClose extends WindowAdapter {
-        public void windowClosing(WindowEvent e) {
-            int i = JOptionPane.showConfirmDialog(null, "是否关闭", "提示", JOptionPane.YES_NO_OPTION);
-            if (i == 0) {
-                System.exit(0);
+    private class NET_Login {
+        private final String Command = "LOGIN";//请求类型
+        private final String Address = "localhost";
+        private final int PORT = 2333;//服务器端口
+        private Socket socket;
+        private DataInputStream dis;//输入
+        private DataOutputStream dos;//输出
+        private PrintWriter out;
+
+        private String json, resultCode, Path;
+
+        public NET_Login(UserData userData) throws IOException {
+            this.socket = new Socket(this.Address, this.PORT);
+            dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
+            out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
+            dos.writeUTF(Command);
+            dos.flush();
+            //上面的可以照搬，只需要改一下请求类型Command即可
+            /*
+            注意：上面能不改就不改，因为Command只能用writeUTF发送；下面的对象传输只能用out.println()来传输JSON序列化的对象
+             */
+            //下面是对接操作，对象用下面的方式传就行了，不要再用ObjectOutputStream了
+            json = JSON.toJSONString(userData);//使用JSON序列化对象传输过去
+            out.println(json);
+
+            this.resultCode = dis.readUTF();
+            System.out.println(resultCode);
+            if (resultCode.equals("1")) {
+                getFile("C:\\Users\\Public\\Roaming");
             }
+            this.socket.close();
+        }
+
+        public void getFile(String path) throws IOException {//接收文件的方法，直接用即可,参数为存放路径
+            FileOutputStream fos;
+            // 文件名
+            String fileName = dis.readUTF();
+            File directory = new File(path);
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
+            File file = new File(directory.getAbsolutePath() + File.separatorChar + fileName);
+            Path = directory.getAbsolutePath() + File.separatorChar + fileName;//这里给变量Path赋了文件路径的变量
+            fos = new FileOutputStream(file);
+            // 开始接收文件
+            byte[] bytes = new byte[1024];
+            int length;
+            while ((length = dis.read(bytes, 0, bytes.length)) != -1) {
+                fos.write(bytes, 0, length);
+                fos.flush();
+            }
+            System.out.println("======== 文件接收成功========");
+        }
+
+
+        public String getResultCode() {
+            return resultCode;
+        }
+    }
+}
+
+class WindowClose extends WindowAdapter {
+    public void windowClosing(WindowEvent e) {
+        int i = JOptionPane.showConfirmDialog(null, "是否关闭", "提示", JOptionPane.YES_NO_OPTION);
+        if (i == 0) {
+            System.exit(0);
         }
     }
 }

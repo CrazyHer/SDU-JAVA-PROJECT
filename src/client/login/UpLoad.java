@@ -1,10 +1,10 @@
 package client.login;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import javax.swing.*;
 
 import static client.login.RegisterFrame.changedPanel;
 
@@ -19,8 +19,10 @@ public class UpLoad implements ActionListener {
     JButton btSure = new JButton("确定");//确定按钮
     File f;//f为选择好的图片文件
     ImageIcon img;//头像图片
+    RegisterFrame ParentFrame;
 
-    public UpLoad() {
+    public UpLoad(RegisterFrame ParentFrame) {
+        this.ParentFrame = ParentFrame;
         jfc.setCurrentDirectory(new File("d://"));// 文件选择器的初始目录定为d盘
 
         double lx = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
@@ -74,6 +76,8 @@ public class UpLoad implements ActionListener {
             changedPanel.add(new JLabel(img));
             changedPanel.revalidate();
             frame.setVisible(false);
+            ParentFrame.Path = getPath();
+            ParentFrame.FileName = getFileName();
         }
     }
     public String getPath() {
