@@ -17,6 +17,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
     public JMenuItem menuItemSort;
     public JTextField tfSearch;
     public JButton btSearch;
+    public JScrollPane scPanel;//滚动面板
     public JPanel panel;
 
     public ItemListFrame() {
