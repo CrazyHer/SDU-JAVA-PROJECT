@@ -10,9 +10,9 @@ import java.sql.ResultSet;
 
 /*
 登录接口
-    1.接收一个UserData对象，里面包含学号、密码
+    1.接收一个UserData对象，里面包含学号、密码 println JSON传输
     除此之外，客户端还要连接聊天服务器端口，并把UserData传给聊天服务器
-    2.无此用户，返回字符串-1；用户名存在，密码错误，返回字符串0；登陆成功，返回字符串1，再传输头像。
+    2.无此用户，返回字符串-1；用户名存在，密码错误，返回字符串0；登陆成功，返回字符串1，再传输头像。 writeUTF传输
  */
 public class Login {
     Socket socket;
@@ -72,28 +72,53 @@ public class Login {
                 dos.flush();
             }
             System.out.println("======== 文件传输成功 ========");
-        }
+        } else System.out.println("文件不存在");
     }
 }
 
-/*  另一种传输头像文件的方法，比较复杂，不如ImageIO的方法简单
-                //下面开始传送头像文件
-                try {
-                    fileInputStream = new FileInputStream(profilePath);//通过数据库中的路径创建一个读入储存在服务器端的用户头像的文件流
-                    dataOutputStream = new DataOutputStream(socket.getOutputStream());//创建输出数据流
-                    int len = 0;
-                    byte[] buf = new byte[1024];//字节缓冲区，read()每读一个字符，存进这里
-                    while ((len = fileInputStream.read(buf, 0, buf.length)) != -1) {//一个字节一个字节传输,如果后面没有数据读了，read()就会返回-1，作为读完标识
-                        dataOutputStream.write(buf, 0, len);//将缓冲区的数据输出给客户端
-                        dataOutputStream.flush();
-                    }
+/*
+文件传输方法样板：
 
-                }catch (IOException e){
-                    System.out.println("传输数据异常");
-                    e.printStackTrace();
-                }finally {
-                    fileInputStream.close();
-                    dataOutputStream.close();
+        private void getFile(String path) throws IOException {//接收文件的方法，直接用即可,参数为存放文件夹路径，注意是文件夹
+            FileOutputStream fos;
+            // 文件名
+            String fileName = dis.readUTF();
+            System.out.println("接收到文件"+fileName);
+            File directory = new File(path);
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
+            File file = new File(directory.getAbsolutePath() + File.separatorChar + fileName);
+            Path = file.getAbsolutePath().replace('\\','/');    //Path是类变量，赋了文件的绝对路径
+            System.out.println(Path);
+            fos = new FileOutputStream(file);
+            // 开始接收文件
+            byte[] bytes = new byte[1024];
+            int length;
+            while ((length = dis.read(bytes, 0, bytes.length)) != -1) {
+                fos.write(bytes, 0, length);
+                fos.flush();
+            }
+            System.out.println("======== 文件接收成功========");
+        }
+
+        private void sendFile(String path) throws Exception {//传图方法，直接用就行，参数是文件的绝对路径
+            FileInputStream fis;
+            File file = new File(path);
+            if (file.exists()) {
+                fis = new FileInputStream(file);
+                // 文件名
+                dos.writeUTF(file.getName());
+                dos.flush();
+                // 开始传输文件
+                System.out.println("======== 开始传输文件 ========");
+                byte[] bytes = new byte[1024];
+                int length;
+                while ((length = fis.read(bytes, 0, bytes.length)) != -1) {
+                    dos.write(bytes, 0, length);
+                    dos.flush();
                 }
-                //头像文件传送完成
+                System.out.println("======== 文件传输成功 ========");
+            }
+        }
  */

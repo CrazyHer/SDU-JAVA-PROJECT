@@ -1,10 +1,9 @@
 package server.action;
 
+import com.alibaba.fastjson.JSON;
 import server.dataBase.DB;
 import server.dataObjs.ItemData;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
 import java.sql.ResultSet;
@@ -12,44 +11,63 @@ import java.sql.SQLException;
 
 /*
 发布商品接口
-    1.接收一个ItemData对象
-    2.接收字符串头像的后缀名，例如JPG
-    3.再接收一个图像，BufferedImage以ImageIO传输
-    4.创建成功返回1，失败返回-1
+    1.接收一个ItemData对象 println JSON传输
+    2.接收一个图像文件
+    3.创建成功返回1，失败返回-1 writeUTF传输
  */
 public class ReleaseItem {
     Socket socket;
     DB database;
-    BufferedInputStream bufferedInputStream;
+
+    DataOutputStream dos;
+    DataInputStream dis;
     BufferedReader in;
     PrintWriter out;
-    ObjectInputStream obj;
+
     ItemData itemData;
-    BufferedImage bufferedImage;
-    String typename, photoPath;
+
+    String Path;
     ResultSet resultSet;
 
-    public ReleaseItem(Socket s) throws IOException, ClassNotFoundException, SQLException {
+    public ReleaseItem(Socket s) throws IOException, SQLException {
         socket = s;
-        bufferedInputStream = new BufferedInputStream(socket.getInputStream());
-        obj = new ObjectInputStream(bufferedInputStream);
-        in = new BufferedReader(new InputStreamReader(new BufferedInputStream(socket.getInputStream())));
-        database = new DB();
-        itemData = (ItemData) obj.readObject();
-        typename = in.readLine();
-        bufferedImage = ImageIO.read(ImageIO.createImageInputStream(socket.getInputStream()));
+        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+        dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+        itemData = JSON.parseObject(in.readLine(), ItemData.class);
         out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
-        in = new BufferedReader(new InputStreamReader(bufferedInputStream));
-        photoPath = "./src/server/images/items/" + itemData.getName() + "/" + "profile." + typename;
-
+        database = new DB();
         resultSet = database.query("SELECT * FROM trade.item WHERE ItemName=" + itemData.getName());
         if (!resultSet.next()) {
-            ImageIO.write(bufferedImage, typename, new File(photoPath));
-            database.update("INSERT INTO trade.item VALUES ('" + itemData.getName() + "','" + itemData.getPrice() + "','" + itemData.getIntroduction() + "'," + itemData.isAuction() + ",'" + itemData.getOwnerID() + "',NOW()," + itemData.getQuantity() + ",0,'" + photoPath + "',null)");
+            getFile("C:/Users/Public/Roaming/items/" + itemData.getName());
+            database.update("INSERT INTO trade.item VALUES ('" + itemData.getName() + "','" + itemData.getPrice() + "','" + itemData.getIntroduction() + "'," + itemData.isAuction() + ",'" + itemData.getOwnerID() + "',NOW()," + itemData.getQuantity() + ",0,'" + Path + "',null)");
             out.println("1");
         } else {
             out.println("-1");
         }
         database.close();
+    }
+
+    private void getFile(String path) throws IOException {//接收文件的方法，直接用即可,参数为存放文件夹路径，注意是文件夹
+        FileOutputStream fos;
+        // 文件名
+        String fileName = dis.readUTF();
+        System.out.println("接收到文件" + fileName);
+        File directory = new File(path);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+        File file = new File(directory.getAbsolutePath() + File.separatorChar + fileName);
+        Path = file.getAbsolutePath().replace('\\', '/');    //Path是类变量，赋了文件的绝对路径
+        System.out.println(Path);
+        fos = new FileOutputStream(file);
+        // 开始接收文件
+        byte[] bytes = new byte[1024];
+        int length;
+        while ((length = dis.read(bytes, 0, bytes.length)) != -1) {
+            fos.write(bytes, 0, length);
+            fos.flush();
+        }
+        System.out.println("======== 文件接收成功========");
     }
 }

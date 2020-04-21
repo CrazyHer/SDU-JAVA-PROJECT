@@ -11,8 +11,8 @@ import java.sql.SQLException;
 
 /*
 注册接口
-    1.先接受UserData用户信息；
-    2.注册成功返回1，注册失败返回-1，字符串类型；
+    1.先接受UserData用户信息； println JSON传输
+    2.注册成功返回1，注册失败返回-1，字符串类型； writeUTF传输
     3.接收头像文件传输
  */
 public class Register {
@@ -38,7 +38,7 @@ public class Register {
         ID = userData.getID();
         database = new DB();
         resultSet = database.query("SELECT * FROM trade.user WHERE `ID` =" + ID);
-        profilePath = "C:\\Users\\Public\\Roaming\\" + ID;
+        profilePath = "C:/Users/Public/Roaming/" + ID;
         if (!resultSet.next()) {
             dos.writeUTF("1");
             dos.flush();
@@ -55,12 +55,14 @@ public class Register {
         FileOutputStream fos;
         // 文件名
         String fileName = dis.readUTF();
+        System.out.println("接收到文件" + fileName);
         File directory = new File(path);
         if (!directory.exists()) {
             directory.mkdir();
         }
         File file = new File(directory.getAbsolutePath() + File.separatorChar + fileName);
-        Path = directory.getAbsolutePath() + File.separatorChar + fileName;
+        Path = file.getAbsolutePath().replace('\\', '/');
+        System.out.println(Path);
         fos = new FileOutputStream(file);
         // 开始接收文件
         byte[] bytes = new byte[1024];
