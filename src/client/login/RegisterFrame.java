@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
@@ -136,12 +138,20 @@ public class RegisterFrame extends JFrame implements ActionListener {
             } else if (!(txConfirmPassword.getPassword().equals(txPassword.getText()))) {
                 System.out.println("确认密码与密码不符!");
             }
-        }
-        else if (e.getSource().equals(btAddPhoto)) {
+        } else if (e.getSource().equals(btAddPhoto)) {
             UpLoad temp = new UpLoad();
             Path = temp.getPath();
             FileName = temp.getFileName();
         }
 
+    }
+
+    class WindowClose extends WindowAdapter {
+        public void windowClosing(WindowEvent e) {
+            int i = JOptionPane.showConfirmDialog(null, "是否关闭", "提示", JOptionPane.YES_NO_OPTION);
+            if (i == 0) {
+                System.exit(0);
+            }
+        }
     }
 }

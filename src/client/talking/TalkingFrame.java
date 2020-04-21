@@ -20,7 +20,7 @@ public class TalkingFrame extends JFrame {
         JPanel p1 = new JPanel();
         JPanel p2 = new JPanel();
 
-        ta = new JTextArea();//实例化大型文本区
+        ta = new JTextArea();
         ta.disable();//设置成只读属性
 
         pp.setLayout(new GridLayout(2, 1));//把pp设成（2，1）网格布局
