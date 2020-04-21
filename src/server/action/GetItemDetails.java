@@ -1,25 +1,24 @@
 package server.action;
 
+import com.alibaba.fastjson.JSON;
 import server.dataBase.DB;
 import server.dataObjs.ItemData;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 /*
 获取商品详情接口
-    1.直接接收字符串：商品名称
-    2.返回该物品的ItemData对象
+    1.直接接收字符串：商品名称 writerUTF传输
+    2.返回该物品的ItemData对象 println JSON传输
     3.通过ImageIO返回一个图像
 */
 public class GetItemDetails {
     Socket socket;
-    BufferedReader in;
-    ObjectOutputStream obj;
+    PrintWriter out;
+    DataInputStream dis;
+    DataOutputStream dos;
     String itemName, introduction, ownerID, photoPath;
     int quantity;
     double price;
@@ -27,13 +26,14 @@ public class GetItemDetails {
     DB database;
     ResultSet resultSet;
     ItemData itemData = null;
-    BufferedImage img;
 
-    public GetItemDetails(Socket s) throws IOException, SQLException {
+
+    public GetItemDetails(Socket s) throws Exception {
         socket = s;
-        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        obj = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-        itemName = in.readLine();
+        dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+        dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+        out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
+        itemName = dis.readUTF();
         database = new DB();
         resultSet = database.query("SELECT * FROM `trade`.`item` WHERE `ItemName`='" + itemName + "'");
         if (resultSet.next()) {
@@ -44,10 +44,30 @@ public class GetItemDetails {
             auction = resultSet.getBoolean("auction");
             photoPath = resultSet.getString("photoPath");
             itemData = new ItemData(itemName, price, auction, quantity, introduction, ownerID);
-            obj.writeObject(itemData);
-            img = ImageIO.read(new File(photoPath));
-            ImageIO.write(img, photoPath.substring(photoPath.lastIndexOf(".") + 1), socket.getOutputStream());
+            out.println(JSON.toJSONString(itemName));
+            sendFile(photoPath);
+
         }
         database.close();
+    }
+
+    private void sendFile(String path) throws Exception {//传图方法，直接用就行，参数是文件的绝对路径
+        FileInputStream fis;
+        File file = new File(path);
+        if (file.exists()) {
+            fis = new FileInputStream(file);
+            // 文件名
+            dos.writeUTF(file.getName());
+            dos.flush();
+            // 开始传输文件
+            System.out.println("======== 开始传输文件 ========");
+            byte[] bytes = new byte[1024];
+            int length;
+            while ((length = fis.read(bytes, 0, bytes.length)) != -1) {
+                dos.write(bytes, 0, length);
+                dos.flush();
+            }
+            System.out.println("======== 文件传输成功 ========");
+        }
     }
 }

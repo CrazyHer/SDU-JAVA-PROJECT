@@ -2,28 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca7e7d5b-1ba8-43b8-b2d5-4ec52c55b194" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/fileChanges/last-build.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/gc.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SDU-JAVA-PROJECT.iml" beforeDir="false" afterPath="$PROJECT_DIR$/SDU-JAVA-PROJECT.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SDU-JAVA-PROJECT1.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Trade.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client/login/LoginFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/login/LoginFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/login/RegisterFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/login/RegisterFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/login/UpLoad.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/login/UpLoad.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/ServerMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/ServerMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/TestClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/TestClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/ThreadTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/ThreadTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/action/BuyItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/BuyItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/action/GetComment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/GetComment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/action/GetItemDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/GetItemDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/action/GetItemList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/GetItemList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/action/GetMsgs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/GetMsgs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/action/GetMyBoughtItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/GetMyBoughtItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/action/GetMySoldItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/GetMySoldItem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/action/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/Login.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/action/Logout.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/Logout.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/action/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/Register.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/dataBase/DB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/dataBase/DB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/action/ReleaseItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/ReleaseItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/action/Remark.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/Remark.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/action/SendAMsg.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/SendAMsg.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +38,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
   </component>
-  <component name="RunManager" selected="Application.Login">
+  <component name="RunManager" selected="Application.TestClient">
     <configuration name="Login" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="client.login.Login" />
       <module name="SDU-JAVA-Project" />
@@ -87,9 +80,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.TestClient" />
         <item itemvalue="Application.Login" />
         <item itemvalue="Application.ServerMain" />
-        <item itemvalue="Application.TestClient" />
       </list>
     </recent_temporary>
   </component>
@@ -105,29 +98,50 @@
       <updated>1587385746184</updated>
       <workItem from="1587385749034" duration="1772000" />
       <workItem from="1587387852760" duration="17346000" />
+      <workItem from="1587405242486" duration="150000" />
+      <workItem from="1587428807676" duration="7400000" />
     </task>
+    <task id="LOCAL-00001" summary="修bug">
+      <created>1587405317499</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1587405317499</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="修bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="修bug" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
   <component name="WindowStateProjectService">
-    <state width="1921" height="356" key="GridCell.Tab.0.bottom" timestamp="1587405214064">
+    <state x="560" y="113" key="CommitChangelistDialog2" timestamp="1587443576006">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1921" height="356" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1587405214064" />
-    <state width="1921" height="356" key="GridCell.Tab.0.center" timestamp="1587405214064">
+    <state x="560" y="113" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1587443576006" />
+    <state width="1921" height="128" key="GridCell.Tab.0.bottom" timestamp="1587443576041">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1921" height="356" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1587405214064" />
-    <state width="1921" height="356" key="GridCell.Tab.0.left" timestamp="1587405214064">
+    <state width="1921" height="128" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1587443576041" />
+    <state width="1921" height="128" key="GridCell.Tab.0.center" timestamp="1587443576041">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1921" height="356" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1587405214064" />
-    <state width="1921" height="356" key="GridCell.Tab.0.right" timestamp="1587405214064">
+    <state width="1921" height="128" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1587443576041" />
+    <state width="1921" height="128" key="GridCell.Tab.0.left" timestamp="1587443576040">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1921" height="356" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1587405214064" />
+    <state width="1921" height="128" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1587443576040" />
+    <state width="1921" height="128" key="GridCell.Tab.0.right" timestamp="1587443576041">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1921" height="128" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1587443576041" />
     <state width="1921" height="356" key="GridCell.Tab.1.bottom" timestamp="1587405214064">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -144,6 +158,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1921" height="356" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1587405214064" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1587405330373">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1587405330373" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1587404969303">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

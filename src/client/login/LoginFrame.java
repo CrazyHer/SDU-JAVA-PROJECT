@@ -27,6 +27,7 @@ public class LoginFrame extends JFrame implements ActionListener {
     public JPanel panel;
     public static ImageIcon img;
     private UserData userData;
+    public String Path;
 
     public LoginFrame() {
         Container c = getContentPane();
@@ -97,7 +98,7 @@ public class LoginFrame extends JFrame implements ActionListener {
                 try {
                     net_login = new NET_Login(userData);
                 } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(this, ex.getMessage(), "错误", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "服务器的头像文件不见了！", "Oops", JOptionPane.ERROR_MESSAGE);
                     ex.printStackTrace();
                 }
                 String resultCode = net_login.getResultCode();
@@ -129,7 +130,7 @@ public class LoginFrame extends JFrame implements ActionListener {
         private DataOutputStream dos;//输出
         private PrintWriter out;
 
-        private String json, resultCode, Path;
+        private String json, resultCode;
 
         public NET_Login(UserData userData) throws IOException {
             this.socket = new Socket(this.Address, this.PORT);
@@ -147,23 +148,24 @@ public class LoginFrame extends JFrame implements ActionListener {
             out.println(json);
 
             this.resultCode = dis.readUTF();
-            System.out.println(resultCode);
             if (resultCode.equals("1")) {
-                getFile("C:\\Users\\Public\\Roaming");
+                getFile("C:\\Users\\Public\\Roaming\\client");
             }
             this.socket.close();
         }
 
-        public void getFile(String path) throws IOException {//接收文件的方法，直接用即可,参数为存放路径
+        public void getFile(String path) throws IOException {//接收文件的方法，直接用即可,参数为存放文件夹路径，注意是文件夹
             FileOutputStream fos;
             // 文件名
             String fileName = dis.readUTF();
+            System.out.println("接收到文件" + fileName);
             File directory = new File(path);
             if (!directory.exists()) {
                 directory.mkdir();
             }
             File file = new File(directory.getAbsolutePath() + File.separatorChar + fileName);
-            Path = directory.getAbsolutePath() + File.separatorChar + fileName;//这里给变量Path赋了文件路径的变量
+            Path = file.getAbsolutePath().replace('\\', '/');
+            System.out.println(Path);
             fos = new FileOutputStream(file);
             // 开始接收文件
             byte[] bytes = new byte[1024];
@@ -190,3 +192,50 @@ class WindowClose extends WindowAdapter {
         }
     }
 }
+
+/*
+文件传输方法样板：
+
+        private void getFile(String path) throws IOException {//接收文件的方法，直接用即可,参数为存放文件夹路径，注意是文件夹
+            FileOutputStream fos;
+            // 文件名
+            String fileName = dis.readUTF();
+            System.out.println("接收到文件"+fileName);
+            File directory = new File(path);
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
+            File file = new File(directory.getAbsolutePath() + File.separatorChar + fileName);
+            Path = file.getAbsolutePath().replace('\\','/');    //Path是类变量，赋了文件的绝对路径
+            System.out.println(Path);
+            fos = new FileOutputStream(file);
+            // 开始接收文件
+            byte[] bytes = new byte[1024];
+            int length;
+            while ((length = dis.read(bytes, 0, bytes.length)) != -1) {
+                fos.write(bytes, 0, length);
+                fos.flush();
+            }
+            System.out.println("======== 文件接收成功========");
+        }
+
+        private void sendFile(String path) throws Exception {//传图方法，直接用就行，参数是文件的绝对路径
+            FileInputStream fis;
+            File file = new File(path);
+            if (file.exists()) {
+                fis = new FileInputStream(file);
+                // 文件名
+                dos.writeUTF(file.getName());
+                dos.flush();
+                // 开始传输文件
+                System.out.println("======== 开始传输文件 ========");
+                byte[] bytes = new byte[1024];
+                int length;
+                while ((length = fis.read(bytes, 0, bytes.length)) != -1) {
+                    dos.write(bytes, 0, length);
+                    dos.flush();
+                }
+                System.out.println("======== 文件传输成功 ========");
+            }
+        }
+ */

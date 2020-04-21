@@ -1,5 +1,6 @@
 package server.action;
 
+import com.alibaba.fastjson.JSON;
 import server.dataBase.DB;
 import server.dataObjs.MsgData;
 import server.talkingServer.OnlineUserPool;
@@ -11,21 +12,21 @@ import java.sql.SQLException;
 
 /*
     发送消息接口
-    1.接收一个MsgData对象
-    2.发送一行字符串通知接收者
+    1.接收一个MsgData对象  println JSON传输
+    2.发送一行字符串通知接收者  println传输
  */
 public class SendAMsg {
     Socket socket;
-    ObjectInputStream obj;
+    BufferedReader in;
     MsgData msgData;
     DB database = new DB();
     ResultSet resultSet;
     String user1, user2, text;
 
-    public SendAMsg(Socket s) throws IOException, ClassNotFoundException, SQLException {
+    public SendAMsg(Socket s) throws IOException, SQLException {
         socket = s;
-        obj = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
-        msgData = (MsgData) obj.readObject();
+        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        msgData = JSON.parseObject(in.readLine(), MsgData.class);
         user1 = msgData.getSenderID();
         user2 = msgData.getReceiverID();
         text = msgData.getText();
@@ -41,7 +42,7 @@ public class SendAMsg {
         database.close();
         Socket receiverSocket = OnlineUserPool.getSocket(user2);
         if (receiverSocket != null) {
-            PrintWriter out = new PrintWriter(new OutputStreamWriter(new BufferedOutputStream(receiverSocket.getOutputStream())), true);
+            PrintWriter out = new PrintWriter(new OutputStreamWriter(receiverSocket.getOutputStream()), true);
             out.println("NEW MSG");
         }
     }
