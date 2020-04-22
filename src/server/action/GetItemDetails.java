@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 获取商品详情接口
     1.直接接收字符串：商品名称 writerUTF传输
     2.返回该物品的ItemData对象 println JSON传输
-    3.通过ImageIO返回一个图像
+    3.通过println JSON返回一个图像
 */
 public class GetItemDetails {
     Socket socket;

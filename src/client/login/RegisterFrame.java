@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
 
@@ -39,8 +38,7 @@ public class RegisterFrame extends JFrame implements ActionListener {
         c.setLayout(new FlowLayout());
         setSize(600, 450);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        addWindowListener(new WindowClose());
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setTitle("注册");
 
         /*try {
@@ -110,7 +108,7 @@ public class RegisterFrame extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "确认密码与密码不符!");
             }
         } else if (e.getSource().equals(btAddPhoto)) {
-            UpLoad temp = new UpLoad(this);
+            new UpLoad(this);
         }
 
     }
@@ -125,7 +123,6 @@ public class RegisterFrame extends JFrame implements ActionListener {
         private PrintWriter out;//输出
 
         private String json, resultCode;
-        private BufferedImage img;
 
         public NET_Register(UserData userData, String path) throws Exception {
             this.socket = new Socket(this.Address, this.PORT);

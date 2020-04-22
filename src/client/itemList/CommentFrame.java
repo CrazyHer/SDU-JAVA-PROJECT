@@ -1,13 +1,12 @@
 package client.itemList;
 
+import com.alibaba.fastjson.JSON;
 import server.dataObjs.Comment;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.*;
 import java.net.Socket;
 
@@ -19,16 +18,14 @@ public class CommentFrame extends JFrame implements ActionListener {
     public JTextArea taComment;
     public JButton btComment;
     public JPanel panel;
-    static final String HOST = "192.168.1.103"; //连接地址
-    static final int PORT = 2333; //连接端口
-    Socket socket;
+    private Comment comment;
 
     public CommentFrame() {
         Container c = getContentPane();
         c.setLayout(new FlowLayout(FlowLayout.LEFT));
         setSize(400, 450);
         setLocationRelativeTo(null);
-        addWindowListener(new WindowClose());
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("评论");
 
         panel = new JPanel();
@@ -52,46 +49,51 @@ public class CommentFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("提交评论")) {
             if (taComment.getText().isEmpty()) {
-                System.out.println("未进行评论");
+                JOptionPane.showMessageDialog(this, "未进行评论！");
             } else {
+                comment = new Comment(itemInfo.getName(), taComment.getText(), user.getID());
+                NET_Remark net_remark = null;
                 try {
-                    socket = new Socket("localhost", PORT); //创建客户端套接字
-                    System.out.println("成功连接" + socket.getRemoteSocketAddress());
-                    //客户端输出流，向服务器发消息
-                    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-                    PrintWriter out = new PrintWriter(bw, true);//不自动刷新的话写完会阻塞
-                    //out.println("LOGIN");
-                    ObjectOutputStream obOut = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-                    obOut.writeObject(new Comment(itemInfo.getName(), taComment.getText(), user.getID()));
-                    obOut.flush();
-                    //客户端输入流，接收服务器消息
-                    BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                    if (in.readLine().equals("1")) System.out.println("评论成功");
-                    else if (in.readLine().equals("-1")) System.out.println("评论失败");
-                    out.println("CLOSE SERVER");//发送关闭服务器指令
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                } finally {
-                    if (null != socket) {
-                        try {
-                            socket.close(); //断开连接
-                            System.out.println("已断开连接");
-                        } catch (IOException e2) {
-                            e2.printStackTrace();
-                        }
-                    }
+                    net_remark = new NET_Remark(comment);
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(this, "错误！", "Oops", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
                 }
+                String resultCode = net_remark.getResultCode();
+                if (resultCode.equals("1")) JOptionPane.showMessageDialog(this, "评论成功！");
+                else if (resultCode.equals("-1")) JOptionPane.showMessageDialog(this, "评论失败！");
             }
 
         }
     }
 
-    //内部类
-    class WindowClose extends WindowAdapter {
-        public void windowClosing(WindowEvent e) {
-            System.exit(0);
+    private class NET_Remark {
+        private final String Command = "REMARK";//请求类型
+        private final String Address = "localhost";
+        private final int PORT = 2333;//服务器端口
+        private Socket socket;
+        private DataInputStream dis;//输入
+        private DataOutputStream dos;//输出
+        private PrintWriter out;
+
+        private String json, resultCode;
+
+        public NET_Remark(Comment comment) throws IOException {
+            this.socket = new Socket(this.Address, this.PORT);
+            dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
+            out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
+            dos.writeUTF(Command);
+            dos.flush();
+            json = JSON.toJSONString(comment);//使用JSON序列化对象传输过去
+            out.println(json);
+            this.resultCode = dis.readUTF();
+            this.socket.close();
+        }
+
+        public String getResultCode() {
+            return resultCode;
         }
     }
-
 }
 

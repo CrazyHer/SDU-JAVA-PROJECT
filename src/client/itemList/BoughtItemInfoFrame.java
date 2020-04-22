@@ -1,5 +1,6 @@
 package client.itemList;
 
+import com.alibaba.fastjson.JSON;
 import server.dataObjs.BuyItemData;
 
 import javax.swing.*;
@@ -17,7 +18,7 @@ public class BoughtItemInfoFrame extends JFrame implements ActionListener {
     public JPanel panel;
     public JButton btBuy;
     public ItemInfo itemInfo = new ItemInfo();
-    Socket socket;
+    private BuyItemData buyItemData;
 
     public BoughtItemInfoFrame() {
         Container c = getContentPane();
@@ -43,35 +44,50 @@ public class BoughtItemInfoFrame extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("购买")) {
+            buyItemData = new BuyItemData(user.getID(), itemInfo.getName());
+            NET_BuyItem net_buyItem = null;
             try {
-                socket = new Socket("localhost", PORT); //创建客户端套接字
-                System.out.println("成功连接" + socket.getRemoteSocketAddress());
-                //客户端输出流，向服务器发消息
-                BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-                PrintWriter out = new PrintWriter(bw, true);//不自动刷新的话写完会阻塞
-                //out.println("LOGIN");
-                ObjectOutputStream obOut = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-                obOut.writeObject(new BuyItemData(user.getID(), itemInfo.getName()));
-                //客户端输入流，接收服务器消息
-                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                if (in.readLine().equals("1")) System.out.println("购买成功");
-                else if (in.readLine().equals("0")) System.out.println("交易已经在进行中，无法重复购买");
-                else if (in.readLine().equals("-1")) System.out.println("购买失败");
-                obOut.flush();
-                out.println("CLOSE SERVER");//发送关闭服务器指令
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            } finally {
-                if (null != socket) {
-                    try {
-                        socket.close(); //断开连接
-                        System.out.println("已断开连接");
-                    } catch (IOException e2) {
-                        e2.printStackTrace();
-                    }
-                }
+                net_buyItem = new NET_BuyItem(buyItemData);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "数据丢失！", "Oops", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
             }
+            String resultCode = net_buyItem.getResultCode();
+            if (resultCode.equals("1")) {
+                JOptionPane.showMessageDialog(this, "购买成功！");
+            } else if (resultCode.equals("0")) JOptionPane.showMessageDialog(this, "交易已在进行中，无法购买！");
+            else if (resultCode.equals("-1")) JOptionPane.showMessageDialog(this, "购买失败！");
+
         }
     }
 
+    private class NET_BuyItem {
+        private final String Command = "BUY ITEM";//请求类型
+        private final String Address = "localhost";
+        private final int PORT = 2333;//服务器端口
+        private Socket socket;
+        private DataInputStream dis;//输入
+        private DataOutputStream dos;//输出
+        private PrintWriter out;
+
+        private String json, resultCode;
+
+        public NET_BuyItem(BuyItemData buyItemData) throws IOException {
+            this.socket = new Socket(this.Address, this.PORT);
+            dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
+            out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
+            dos.writeUTF(Command);
+            dos.flush();
+            json = JSON.toJSONString(buyItemData);//使用JSON序列化对象传输过去
+            out.println(json);
+            this.resultCode = dis.readUTF();
+            this.socket.close();
+
+        }
+
+        public String getResultCode() {
+            return resultCode;
+        }
+    }
 }

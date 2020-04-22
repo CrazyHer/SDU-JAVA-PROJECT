@@ -182,16 +182,18 @@ public class LoginFrame extends JFrame implements ActionListener {
             return resultCode;
         }
     }
-}
 
-class WindowClose extends WindowAdapter {
-    public void windowClosing(WindowEvent e) {
-        int i = JOptionPane.showConfirmDialog(null, "是否关闭", "提示", JOptionPane.YES_NO_OPTION);
-        if (i == 0) {
-            System.exit(0);
+    class WindowClose extends WindowAdapter {
+        public void windowClosing(WindowEvent e) {
+            int i = JOptionPane.showConfirmDialog(null, "是否关闭", "提示", JOptionPane.YES_NO_OPTION);
+            if (i == 0) {
+                System.exit(0);
+            }
         }
     }
 }
+
+
 
 /*
 文件传输方法样板：

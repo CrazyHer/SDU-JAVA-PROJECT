@@ -1,20 +1,26 @@
 package client.itemList;
 
 import client.login.LoginFrame;
+import com.alibaba.fastjson.JSON;
+import server.dataObjs.ItemData;
+import server.dataObjs.ItemListFilter;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.io.*;
+import java.net.Socket;
+
 
 public class ItemListFrame extends JFrame implements ActionListener {
 
     public JMenu menu;
     public JMenuBar menuBar;
     public JMenuItem menuItemLogout;
-    public JMenuItem menuItemSort;
+    public JMenuItem menuDefaultSort;
+    public JMenuItem menuTimeSort;
+    public JMenuItem menuSaleSort;
     public JTextField tfSearch;
     public JButton btSearch;
     public JScrollPane scPanel;//滚动面板
@@ -26,12 +32,11 @@ public class ItemListFrame extends JFrame implements ActionListener {
         setSize(600, 800);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        addWindowListener(new WindowClose());
         setTitle("商品列表");
         addMenu();
 
         panel = new JPanel();
-        panel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        panel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         tfSearch = new JTextField(20);
         btSearch = new JButton("搜索");
         panel.add(tfSearch);
@@ -39,14 +44,22 @@ public class ItemListFrame extends JFrame implements ActionListener {
         c.add(panel, BorderLayout.NORTH);
 
         panel = new JPanel();
-        //访问端口，获取商品数组，循环输出展示
-        panel.add(new JLabel("2"));
+        panel.setLayout(new GridLayout(4, 1024));
+        try {
+            new NET_GetItemList(new ItemListFilter("*", 0));
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "服务器的头像文件不见了！", "Oops", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+        scPanel = new JScrollPane();
+        scPanel.add(panel);
+        c.add(scPanel, BorderLayout.CENTER);
 
 
     }
 
     public static void main(String[] args) {
-        new ItemListFrame().setVisible(true);
+
     }
 
     public void addMenu() {
@@ -55,27 +68,152 @@ public class ItemListFrame extends JFrame implements ActionListener {
         menuBar.add(menu);
         menuItemLogout = new JMenuItem("退出登录");
         menu.add(menuItemLogout);
-        menuItemSort = new JMenuItem("按时间排序");//尚未实现******************************
-        menu.add(menuItemSort);
+        menuDefaultSort = new JMenuItem("默认排序");
+        menu.add(menuDefaultSort);
+        menuTimeSort = new JMenuItem("按时间排序");
+        menu.add(menuTimeSort);
+        menuSaleSort = new JMenuItem("按销量排序");
+        menu.add(menuSaleSort);
         setJMenuBar(menuBar);
         menuItemLogout.addActionListener(this);
-        //menuItemSort.addActionListener(this);
+        menuDefaultSort.addActionListener(this);
+        menuTimeSort.addActionListener(this);
+        menuSaleSort.addActionListener(this);
     }
 
     public void actionPerformed(ActionEvent e) {
+        String search = btSearch.getText();
+        if (tfSearch.getText().equals("")) search = "*";
         if (e.getSource().equals(menuItemLogout)) {
-            System.exit(0);
+            this.dispose();
             new LoginFrame();
+        } else if (e.getSource().equals(menuDefaultSort) || e.getSource().equals(btSearch)) {
+            panel.removeAll();
+            panel.repaint();
+            try {
+                new NET_GetItemList(new ItemListFilter(search, 0));
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "服务器的头像文件不见了！", "Oops", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            }
+            panel.revalidate();
+        } else if (e.getSource().equals(menuTimeSort)) {
+            panel.removeAll();
+            panel.repaint();
+            try {
+                new NET_GetItemList(new ItemListFilter(search, 2));
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "服务器的头像文件不见了！", "Oops", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            }
+            panel.revalidate();
+        } else if (e.getSource().equals(menuSaleSort)) {
+            panel.removeAll();
+            panel.repaint();
+            try {
+                new NET_GetItemList(new ItemListFilter(search, 1));
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "服务器的头像文件不见了！", "Oops", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            }
+            panel.revalidate();
+
         }
+
+
     }
 
-    class WindowClose extends WindowAdapter {
-        public void windowClosing(WindowEvent e) {
-            int i = JOptionPane.showConfirmDialog(null, "是否关闭", "提示", JOptionPane.YES_NO_OPTION);
-            if (i == 0) {
-                System.exit(0);
+    public void deleteAll(String path) {
+        File filePar = new File(path);
+        if (filePar.exists()) {
+            File files[] = filePar.listFiles();
+            for (int i = 0; i < files.length; i++) {
+                if (files[i].isFile()) {
+                    files[i].delete();
+                } else if (files[i].isDirectory()) {
+                    deleteAll(files[i].getAbsolutePath());
+                    files[i].delete();
+                }
             }
         }
     }
 
+    private class NET_GetItemList {
+        private final String Command1 = "GET ITEM LIST";//请求类型
+        private final String Command2 = "GET ITEM DETAILS";//请求类型
+        private final String Address = "localhost";
+        private final int PORT = 2333;//服务器端口
+        private Socket socket;
+        private DataInputStream dis;//输入
+        private DataOutputStream dos;//输出
+        private BufferedReader in;
+        private PrintWriter out;
+        private String Path;
+        private String json;
+        private String[] itemList;
+
+        public NET_GetItemList(ItemListFilter itemListFilter) throws IOException {
+            this.socket = new Socket(this.Address, this.PORT);
+            dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
+            dos.writeUTF(Command1);
+            dos.flush();
+            /*
+            注意：上面能不改就不改，因为Command只能用writeUTF发送；下面的对象传输只能用out.println()来传输JSON序列化的对象
+             */
+            //下面是对接操作，对象用下面的方式传就行了，不要再用ObjectOutputStream了
+            json = JSON.toJSONString(itemListFilter);//使用JSON序列化对象传输过去
+            out.println(json);
+
+            itemList = (String[]) JSON.parseArray(in.readLine()).toArray();
+            for (int i = 0; i < itemList.length; i++) {
+                NET_GetItemDetails(itemList[i]);
+            }
+            deleteAll("F:/java project/Item");
+            this.socket.close();
+        }
+
+        public void NET_GetItemDetails(String item) throws IOException {
+            dos.writeUTF(Command2);
+            dos.flush();
+            json = JSON.toJSONString(item);//使用JSON序列化对象传输过去
+            out.println(json);
+            ItemData itemData = JSON.parseObject(in.readLine(), ItemData.class);
+            getFile("F:/java project/Item");
+            ImageIcon itemImage = new ImageIcon(Path);
+            JPanel tempPanel = new JPanel();
+            tempPanel.setLayout(new BorderLayout());
+            tempPanel.add(new JLabel(itemData.getName()), BorderLayout.NORTH);
+            tempPanel.add(new JLabel(itemImage), BorderLayout.CENTER);
+            tempPanel.add(new JButton("详情"), BorderLayout.SOUTH);
+            panel.repaint();
+            panel.add(tempPanel);
+            panel.revalidate();
+        }
+
+        public void getFile(String path) throws IOException {//接收文件的方法，直接用即可,参数为存放路径
+            FileOutputStream fos;
+            // 文件名
+            String fileName = dis.readUTF();
+            System.out.println("接收到文件" + fileName);
+            File directory = new File(path);
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
+            File file = new File(directory.getAbsolutePath() + File.separatorChar + fileName);
+            Path = file.getAbsolutePath().replace('\\', '/');
+            System.out.println(Path);
+            fos = new FileOutputStream(file);
+            // 开始接收文件
+            byte[] bytes = new byte[1024];
+            int length;
+            while ((length = dis.read(bytes, 0, bytes.length)) != -1) {
+                fos.write(bytes, 0, length);
+                fos.flush();
+            }
+            System.out.println("======== 文件接收成功========");
+        }
+    }
 }
