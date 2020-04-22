@@ -1,8 +1,10 @@
 package client.login;
 
+import client.userInfo.UserInfoFrame;
 import com.alibaba.fastjson.JSON;
 import server.dataObjs.UserData;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -25,8 +27,8 @@ public class LoginFrame extends JFrame implements ActionListener {
     public JMenuBar menuBar;
     public JMenuItem menuItem;
     public JPanel panel;
-    public static ImageIcon img;
-    private UserData userData;
+    public ImageIcon img;
+    public UserData userData;
     public String Path;
 
     public LoginFrame() {
@@ -104,7 +106,11 @@ public class LoginFrame extends JFrame implements ActionListener {
                 String resultCode = net_login.getResultCode();
                 if (resultCode.equals("1")) {
                     JOptionPane.showMessageDialog(this, "登陆成功！");
-                    System.out.println("接下来打开个人信息界面");
+                    try {
+                        new UserInfoFrame(this).setVisible(true);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
                 } else if (resultCode.equals("0")) JOptionPane.showMessageDialog(this, "密码错误！");
                 else if (resultCode.equals("-1")) JOptionPane.showMessageDialog(this, "无此用户！");
                 break;
@@ -149,7 +155,8 @@ public class LoginFrame extends JFrame implements ActionListener {
 
             this.resultCode = dis.readUTF();
             if (resultCode.equals("1")) {
-                getFile("C:\\Users\\Public\\Roaming\\client");
+                getFile("C:\\Users\\Public\\client");
+                img = new ImageIcon(ImageIO.read(new File(Path)));
             }
             this.socket.close();
         }

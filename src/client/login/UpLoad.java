@@ -24,7 +24,6 @@ public class UpLoad implements ActionListener {
     public UpLoad(RegisterFrame ParentFrame) {
         this.ParentFrame = ParentFrame;
         jfc.setCurrentDirectory(new File("d://"));// 文件选择器的初始目录定为d盘
-
         double lx = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 
         double ly = Toolkit.getDefaultToolkit().getScreenSize().getHeight();

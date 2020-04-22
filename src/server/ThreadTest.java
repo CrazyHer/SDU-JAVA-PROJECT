@@ -28,6 +28,9 @@ public class ThreadTest extends Thread {
                 case "LOGIN":
                     new Login(socket);
                     break;
+                case "GET USER DATA":
+                    new GetUserData(socket);
+                    break;
                 case "GET MSGS":
                     new GetMsgs(socket);
                     break;
