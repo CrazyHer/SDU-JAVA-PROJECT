@@ -3,7 +3,7 @@ package server.dataObjs;
 import java.io.Serializable;
 
 public class ItemData implements Serializable {
-    String name, introduction, ownerID;
+    String name, introduction, ownerID, itemID;
     int quantity;
     double price;
     boolean auction;
@@ -39,5 +39,37 @@ public class ItemData implements Serializable {
 
     public boolean isAuction() {
         return auction;
+    }
+
+    public String getItemID() {
+        return itemID;
+    }
+
+    public void setItemID(String itemID) {
+        this.itemID = itemID;
+    }
+
+    public void setAuction(boolean auction) {
+        this.auction = auction;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setOwnerID(String ownerID) {
+        this.ownerID = ownerID;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

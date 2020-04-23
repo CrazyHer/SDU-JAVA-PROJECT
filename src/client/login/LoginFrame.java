@@ -155,7 +155,7 @@ public class LoginFrame extends JFrame implements ActionListener {
 
             this.resultCode = dis.readUTF();
             if (resultCode.equals("1")) {
-                getFile("C:\\Users\\Public\\client");
+                getFile("C:/Users/Public/client");
                 img = new ImageIcon(ImageIO.read(new File(Path)));
             }
             this.socket.close();
