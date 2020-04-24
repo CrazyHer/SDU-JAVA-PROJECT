@@ -191,7 +191,7 @@ public class ItemInfo extends JPanel {
             dos.flush();
             json = JSON.toJSONString(itemName);//使用JSON序列化对象传输过去
             out.println(json);
-            comments = (Comment[]) JSON.parseArray(in.readLine()).toArray();
+            comments = JSON.parseObject(in.readLine(), Comment[].class);
 
             this.socket.close();
         }

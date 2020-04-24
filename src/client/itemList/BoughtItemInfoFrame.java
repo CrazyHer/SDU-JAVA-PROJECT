@@ -26,7 +26,7 @@ public class BoughtItemInfoFrame extends JFrame implements ActionListener {
         c.setLayout(new BorderLayout());
         setTitle("商品购买信息");
         setSize(500, 400);
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
         panel = new JPanel();

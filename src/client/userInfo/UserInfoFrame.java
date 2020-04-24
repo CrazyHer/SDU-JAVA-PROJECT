@@ -46,7 +46,7 @@ public class UserInfoFrame extends JFrame implements ActionListener {
     }
 
     public void addMenu() {
-        JMenuBar menuBar = new JMenuBar();
+        menuBar = new JMenuBar();
         menu = new JMenu("菜单");
         menuBar.add(menu);
         menuItem = new JMenuItem("退出登录");
@@ -57,7 +57,8 @@ public class UserInfoFrame extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(menuItem)) {
-            setVisible(false);
+            //setVisible(false);
+            this.dispose();
             new LoginFrame().setVisible(true);
         }
     }
