@@ -1,6 +1,7 @@
 package server.action;
 
 import com.alibaba.fastjson.JSON;
+import server.ServerMain;
 import server.dataBase.DB;
 import server.dataObjs.ItemData;
 
@@ -39,7 +40,7 @@ public class ReleaseItem {
         database = new DB();
         resultSet = database.query("SELECT * FROM trade.item WHERE ItemName=" + itemData.getName());
         if (!resultSet.next()) {
-            getFile("C:/Users/Public/items/" + itemData.getName());
+            getFile(ServerMain.PATH + itemData.getName());
             database.update("INSERT INTO trade.item VALUES ('" + itemData.getName() + "','" + itemData.getPrice() + "','" + itemData.getIntroduction() + "'," + itemData.isAuction() + ",'" + itemData.getOwnerID() + "',NOW()," + itemData.getQuantity() + ",0,'" + Path + "',null)");
             out.println("1");
         } else {

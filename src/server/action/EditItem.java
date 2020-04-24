@@ -1,6 +1,7 @@
 package server.action;
 
 import com.alibaba.fastjson.JSON;
+import server.ServerMain;
 import server.dataBase.DB;
 import server.dataObjs.ItemData;
 
@@ -58,7 +59,7 @@ public class EditItem {
                 dos.writeUTF("-1");
                 dos.flush();
             } else {
-                getFile("C:/Users/Public/items/" + itemData.getName());
+                getFile(ServerMain.PATH + itemData.getName());
                 database.update("UPDATE `trade`.`item` SET `ItemName` = '" + itemData.getName() + "', `ItemPrice` = '" + itemData.getPrice() + "', `Introduction` = '" + itemData.getIntroduction() + "', `auction` = '" + (itemData.isAuction() ? "1" : "0") + "', `remains` = '" + itemData.getQuantity() + "', `photoPath` = '" + Path + "' WHERE (`ItemID` = '" + itemData.getItemID() + "')");
                 dos.writeUTF("1");
                 dos.flush();
