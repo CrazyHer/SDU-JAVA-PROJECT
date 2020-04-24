@@ -1,5 +1,8 @@
 package client.userInfo;
 
+import client.itemList.ItemInfo;
+import client.itemList.ItemListFrame;
+import client.itemList.ReleaseFrame;
 import com.alibaba.fastjson.JSON;
 import server.dataObjs.ItemData;
 
@@ -8,6 +11,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.*;
 import java.net.Socket;
 
@@ -15,26 +20,24 @@ public class MyItems extends JPanel implements ActionListener {
     JPanel panel, bp, sp;
     JButton button;
     Items[] bought, sold;
+    OnClick onClick;
 
     MyItems(String ID) throws IOException {
         bought = new NET_GetMyBoughtItem(ID).getBought();
         sold = new NET_GetMySoldItem(ID).getSold();
+        onClick = new OnClick();
         setLayout(new GridBagLayout());
         add(new JLabel("我买的商品"), new GBC(0, 0, 1, 1).setWeight(0.1, 1).setAnchor(GridBagConstraints.WEST));
         bp = new JPanel();
         bp.setLayout(new GridLayout(1, 0, 30, 10));
-        for (int i = 0; i < 3; i++) {
-            if (i == bought.length) break;
+        for (int i = 0; i < bought.length; i++) {
             panel = new JPanel();
             panel.setLayout(new BorderLayout());
             panel.add(new JLabel(bought[i].getImageIcon()), BorderLayout.CENTER);
             panel.add(new JLabel(bought[i].getName()), BorderLayout.SOUTH);
+            panel.setName(bought[i].getName());
+            panel.addMouseListener(onClick);
             bp.add(panel);
-        }
-        if (bought.length > 3) {
-            button = new JButton("更多");
-            button.addActionListener(this);
-            bp.add(button);
         }
         button = new JButton("购买商品");
         button.addActionListener(this);
@@ -45,18 +48,14 @@ public class MyItems extends JPanel implements ActionListener {
         add(new JLabel("我卖的商品"), new GBC(0, 4, 1, 1).setWeight(0.1, 1).setAnchor(GridBagConstraints.WEST));
         sp = new JPanel();
         sp.setLayout(new GridLayout(1, 0, 30, 10));
-        for (int i = 0; i < 3; i++) {
-            if (i == sold.length) break;
+        for (int i = 0; i < sold.length; i++) {
             panel = new JPanel();
             panel.setLayout(new BorderLayout());
             panel.add(new JLabel(sold[i].getImageIcon()), BorderLayout.CENTER);
             panel.add(new JLabel(sold[i].getName()), BorderLayout.SOUTH);
+            panel.setName(sold[i].getName());
+            panel.addMouseListener(onClick);
             sp.add(panel);
-        }
-        if (sold.length > 3) {
-            button = new JButton("更多");
-            button.addActionListener(this);
-            sp.add(button);
         }
         button = new JButton("发布商品");
         button.addActionListener(this);
@@ -67,18 +66,30 @@ public class MyItems extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
-            case "更多":
-
-                break;
             case "购买商品":
-
+                new ItemListFrame().setVisible(true);
                 break;
             case "发布商品":
-
+                new ReleaseFrame().setVisible(true);
                 break;
-
             default:
                 break;
+        }
+    }
+
+    private class OnClick extends MouseAdapter {
+        public OnClick() {
+            super();
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            try {
+                new ItemInfo(e.getComponent().getName()).setVisible(true);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "错误", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            }
         }
     }
 

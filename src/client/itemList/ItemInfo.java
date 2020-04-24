@@ -18,7 +18,7 @@ public class ItemInfo extends JPanel {
     ImageIcon itemImage;
     Comment[] comments;
 
-    ItemInfo(String itemName) throws IOException {
+    public ItemInfo(String itemName) throws IOException {
         try {
             new NET_GetOneItemDetail(itemName);
         } catch (IOException ex) {
@@ -141,7 +141,7 @@ public class ItemInfo extends JPanel {
             json = JSON.toJSONString(itemName);//使用JSON序列化对象传输过去
             out.println(json);
             itemData = JSON.parseObject(in.readLine(), ItemData.class);
-            getFile("F:/java project/Item");
+            getFile("C:/Users/Public/Item");
             itemImage = new ImageIcon(Path);
             this.socket.close();
         }

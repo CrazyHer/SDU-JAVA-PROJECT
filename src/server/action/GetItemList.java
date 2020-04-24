@@ -33,8 +33,10 @@ public class GetItemList {
         if (!filter.getKeyWord().equals("*")) {
             resultSet = database.query("SELECT ItemName FROM trade.item WHERE MATCH (`ItemName`,`Introduction`) AGAINST ('" + filter.getKeyWord() + "' WITH QUERY EXPANSION);");
         } else resultSet = database.query("SELECT * FROM trade.item");
-
-        itemList = new String[resultSet.getRow()];
+        resultSet.last();
+        int n = resultSet.getRow();
+        resultSet.beforeFirst();
+        itemList = new String[n];
         for (int i = 0; resultSet.next(); i++) {
             itemList[i] = resultSet.getString("ItemName");
         }
