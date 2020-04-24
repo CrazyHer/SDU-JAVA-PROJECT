@@ -17,10 +17,11 @@ public class BoughtItemInfoFrame extends JFrame implements ActionListener {
     static final int PORT = 2333; //连接端口
     public JPanel panel;
     public JButton btBuy;
-    public ItemInfo itemInfo = new ItemInfo();
     private BuyItemData buyItemData;
+    ItemInfo itemInfo;
 
-    public BoughtItemInfoFrame() {
+    public BoughtItemInfoFrame(ItemInfo itemInfo) {
+        this.itemInfo = itemInfo;
         Container c = getContentPane();
         c.setLayout(new BorderLayout());
         setTitle("商品购买信息");

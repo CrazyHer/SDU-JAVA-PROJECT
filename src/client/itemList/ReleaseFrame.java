@@ -4,8 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 
 public class ReleaseFrame extends JFrame implements ActionListener {
@@ -30,7 +28,7 @@ public class ReleaseFrame extends JFrame implements ActionListener {
         c.setLayout(new BorderLayout());
         setSize(400, 400);
         setLocationRelativeTo(null);
-        addWindowListener(new WindowClose());
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("发布商品");
 
         JPanel fillInPanel = new JPanel();//填写发布信息面板
@@ -73,12 +71,6 @@ public class ReleaseFrame extends JFrame implements ActionListener {
         c.add(panel, BorderLayout.SOUTH);
     }
 
-    public static void main(String[] args) {
-        ReleaseFrame releaseFrame = new ReleaseFrame();
-        releaseFrame.setVisible(true);
-
-    }
-
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("发布")) {
             if (txItemName.getText().isEmpty() || txItemQuantity.getText().isEmpty() || txItemPrice.getText().isEmpty() || taItemIntroduction.getText().isEmpty()) {
@@ -93,21 +85,10 @@ public class ReleaseFrame extends JFrame implements ActionListener {
             }
 
         } else if (e.getActionCommand().equals("上传图片")) {
-            Path = new UpLoad().getPath();
+            new UpLoad(this);
         }
     }
 
-    //内部类
-    class WindowClose extends WindowAdapter {
-        public void windowClosing(WindowEvent e) {
-            System.exit(0);
-        }
-    }
-}
-
-
-
-class main{
     public static void main(String[] args) {
         ReleaseFrame testFrame = new ReleaseFrame();
         testFrame.setVisible(true);

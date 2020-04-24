@@ -25,6 +25,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
     public JButton btSearch;
     public JScrollPane scPanel;//滚动面板
     public JPanel panel;
+    public JButton btDetail;
 
     public ItemListFrame() {
         Container c = getContentPane();
@@ -54,11 +55,6 @@ public class ItemListFrame extends JFrame implements ActionListener {
         scPanel = new JScrollPane();
         scPanel.add(panel);
         c.add(scPanel, BorderLayout.CENTER);
-
-
-    }
-
-    public static void main(String[] args) {
 
     }
 
@@ -93,7 +89,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
             try {
                 new NET_GetItemList(new ItemListFilter(search, 0));
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(this, "服务器的头像文件不见了！", "Oops", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "错误！", "Oops", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }
             panel.revalidate();
@@ -103,7 +99,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
             try {
                 new NET_GetItemList(new ItemListFilter(search, 2));
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(this, "服务器的头像文件不见了！", "Oops", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "错误！", "Oops", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }
             panel.revalidate();
@@ -113,14 +109,11 @@ public class ItemListFrame extends JFrame implements ActionListener {
             try {
                 new NET_GetItemList(new ItemListFilter(search, 1));
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(this, "服务器的头像文件不见了！", "Oops", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "错误！", "Oops", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }
             panel.revalidate();
-
         }
-
-
     }
 
     public void deleteAll(String path) {
@@ -187,7 +180,15 @@ public class ItemListFrame extends JFrame implements ActionListener {
             tempPanel.setLayout(new BorderLayout());
             tempPanel.add(new JLabel(itemData.getName()), BorderLayout.NORTH);
             tempPanel.add(new JLabel(itemImage), BorderLayout.CENTER);
-            tempPanel.add(new JButton("详情"), BorderLayout.SOUTH);
+            btDetail = new JButton("详情");
+            btDetail.addActionListener(e -> {
+                try {
+                    new BoughtItemInfoFrame(new ItemInfo(itemData.getName()));
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            });//内部类监听器
+            tempPanel.add(btDetail, BorderLayout.SOUTH);
             panel.repaint();
             panel.add(tempPanel);
             panel.revalidate();
@@ -215,5 +216,8 @@ public class ItemListFrame extends JFrame implements ActionListener {
             }
             System.out.println("======== 文件接收成功========");
         }
+
+
     }
+
 }

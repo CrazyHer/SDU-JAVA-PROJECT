@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.Socket;
 
-import static client.itemList.ReceiveItemFrame.itemInfo;
 import static client.userInfo.UserInfo.user;
 
 public class CommentFrame extends JFrame implements ActionListener {
@@ -19,8 +18,10 @@ public class CommentFrame extends JFrame implements ActionListener {
     public JButton btComment;
     public JPanel panel;
     private Comment comment;
+    ItemInfo itemInfo;
 
-    public CommentFrame() {
+    public CommentFrame(ItemInfo itemInfo) {
+        this.itemInfo = itemInfo;
         Container c = getContentPane();
         c.setLayout(new FlowLayout(FlowLayout.LEFT));
         setSize(400, 450);

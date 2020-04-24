@@ -11,7 +11,8 @@ public class ReceiveItemFrame extends JFrame implements ActionListener {
     JButton btReceive;
     public static ItemInfo itemInfo;
 
-    public ReceiveItemFrame() {
+    public ReceiveItemFrame(ItemInfo itemInfo) {
+        this.itemInfo = itemInfo;
         Container c = getContentPane();
         c.setLayout(new BorderLayout());
         setTitle("商品购买信息");
@@ -20,7 +21,6 @@ public class ReceiveItemFrame extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
 
         panel = new JPanel();
-        itemInfo = new ItemInfo();
         panel.add(itemInfo);
         c.add(panel, BorderLayout.CENTER);
 
@@ -37,7 +37,7 @@ public class ReceiveItemFrame extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("确认收货")) {
-            //从数据库中删除
+            new CommentFrame(itemInfo);
         }
 
     }
