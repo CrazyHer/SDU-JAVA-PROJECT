@@ -160,11 +160,11 @@ public class ItemListFrame extends JFrame implements ActionListener {
             json = JSON.toJSONString(itemListFilter);//使用JSON序列化对象传输过去
             out.println(json);
 
-            itemList = (String[]) JSON.parseArray(in.readLine()).toArray();
+            itemList = JSON.parseObject(in.readLine(), String[].class);
             for (int i = 0; i < itemList.length; i++) {
                 NET_GetItemDetails(itemList[i]);
             }
-            deleteAll("F:/java project/Item");
+            deleteAll("C:/Users/Public/Item");
             this.socket.close();
         }
 
@@ -174,7 +174,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
             json = JSON.toJSONString(item);//使用JSON序列化对象传输过去
             out.println(json);
             ItemData itemData = JSON.parseObject(in.readLine(), ItemData.class);
-            getFile("F:/java project/Item");
+            getFile("C:/Users/Public/Item");
             ImageIcon itemImage = new ImageIcon(Path);
             JPanel tempPanel = new JPanel();
             tempPanel.setLayout(new BorderLayout());
