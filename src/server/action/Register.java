@@ -38,7 +38,7 @@ public class Register {
         ID = userData.getID();
         database = new DB();
         resultSet = database.query("SELECT * FROM trade.user WHERE `ID` =" + ID);
-        profilePath = "C:/Users/Public/Roaming/" + ID;
+        profilePath = "C:/Users/Public/" + ID;
         if (!resultSet.next()) {
             dos.writeUTF("1");
             dos.flush();

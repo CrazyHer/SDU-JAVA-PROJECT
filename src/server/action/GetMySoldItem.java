@@ -20,7 +20,7 @@ public class GetMySoldItem {
     String userID;
     DB database = new DB();
     ResultSet resultSet;
-    int n, m;
+    int n;
     String[] mySoldItemList;
 
     public GetMySoldItem(Socket s) throws IOException, SQLException {
@@ -29,7 +29,9 @@ public class GetMySoldItem {
         dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
         userID = dis.readUTF();
         resultSet = database.query("SELECT * FROM `trade`.`item` WHERE `ownerID`='" + userID + "'");
+        resultSet.last();
         n = resultSet.getRow();
+        resultSet.beforeFirst();
         mySoldItemList = new String[n];
         for (int i = 0; resultSet.next(); i++) {
             mySoldItemList[i] = resultSet.getString("ItemName");

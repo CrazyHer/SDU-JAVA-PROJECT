@@ -1,6 +1,6 @@
 package client.userInfo;
 
-import client.login.LoginFrame;
+import server.dataObjs.UserData;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,9 +10,9 @@ public class UserInfo extends JPanel {
     JLabel nameLable, IDLable;
     public static Info user;
 
-    UserInfo() {
+    UserInfo(UserData userData, ImageIcon img) {
         setLayout(new GridBagLayout());
-        user = new Info("马云", "201900306666", LoginFrame.img);
+        user = new Info(userData.getUsername(), userData.getID(), img);
         photoPanel = new JPanel();
         photoPanel.add(new JLabel(user.getImageIcon()));
         add(photoPanel, new GBC(0, 0, 2, 2).setWeight(0.1, 1).setAnchor(GridBagConstraints.EAST).setFill(GridBagConstraints.NONE));

@@ -96,6 +96,8 @@ public class RegisterFrame extends JFrame implements ActionListener {
                     NET_Register net_register = new NET_Register(new UserData(txName.getText(), txUserID.getText(), txPassword.getText()), Path);
                     if (net_register.getResultCode().equals("1")) {
                         JOptionPane.showMessageDialog(this, "注册成功！");
+                        this.setVisible(false);
+                        ParentFrame.setVisible(true);
                     } else JOptionPane.showMessageDialog(this, "注册失败");
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(this, ex.getMessage(), "错误", JOptionPane.ERROR_MESSAGE);

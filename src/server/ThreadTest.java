@@ -28,6 +28,9 @@ public class ThreadTest extends Thread {
                 case "LOGIN":
                     new Login(socket);
                     break;
+                case "GET USER DATA":
+                    new GetUserData(socket);
+                    break;
                 case "GET MSGS":
                     new GetMsgs(socket);
                     break;
@@ -51,6 +54,12 @@ public class ThreadTest extends Thread {
                     break;
                 case "GET ITEM LIST":
                     new GetItemList(socket);
+                    break;
+                case "DELETE ITEM":
+                    new DeleteItem(socket);
+                    break;
+                case "EDIT ITEM":
+                    new EditItem(socket);
                     break;
                 case "GET MY BOUGHT ITEM":
                     new GetMyBoughtItem(socket);

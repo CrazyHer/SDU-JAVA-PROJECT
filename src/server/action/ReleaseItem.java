@@ -39,7 +39,7 @@ public class ReleaseItem {
         database = new DB();
         resultSet = database.query("SELECT * FROM trade.item WHERE ItemName=" + itemData.getName());
         if (!resultSet.next()) {
-            getFile("C:/Users/Public/Roaming/items/" + itemData.getName());
+            getFile("C:/Users/Public/items/" + itemData.getName());
             database.update("INSERT INTO trade.item VALUES ('" + itemData.getName() + "','" + itemData.getPrice() + "','" + itemData.getIntroduction() + "'," + itemData.isAuction() + ",'" + itemData.getOwnerID() + "',NOW()," + itemData.getQuantity() + ",0,'" + Path + "',null)");
             out.println("1");
         } else {

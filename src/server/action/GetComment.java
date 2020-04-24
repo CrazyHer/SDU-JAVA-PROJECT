@@ -27,7 +27,11 @@ public class GetComment {
         dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
         itemName = dis.readUTF();
         resultSet = database.query("SELECT * FROM `trade`.`remark` WHERE `ItemID`=(SELECT `ItemID` FROM `trade`.`item` WHERE `ItemName`='" + itemName + "')");
-        comment = new Comment[resultSet.getRow()];
+        int n;
+        resultSet.last();
+        n = resultSet.getRow();
+        resultSet.beforeFirst();
+        comment = new Comment[n];
         for (int i = 0; resultSet.next(); i++) {
             comment[i] = new Comment(itemName, resultSet.getString("text"), resultSet.getString("authorID"));
         }

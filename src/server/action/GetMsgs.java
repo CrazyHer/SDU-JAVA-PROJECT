@@ -41,12 +41,19 @@ public class GetMsgs {
         filter = dis.readUTF();
         if (filter.equals("ALL")) {
             resultSet = database.query("SELECT * FROM trade.dialogue");
-            msgData = new MsgData[resultSet.getRow()][];
+            int n;
+            resultSet.last();
+            n = resultSet.getRow();
+            resultSet.beforeFirst();
+            msgData = new MsgData[n][];
             for (int i = 0; resultSet.next(); i++) {
                 user1 = resultSet.getString("user1");
                 user2 = resultSet.getString("user2");
                 resultSet1 = database.query("SELECT * FROM trade.message WHERE (`senderID`=" + user1 + " AND `receiverID`=" + user2 + ") OR(`senderID`=" + user2 + " AND `receiverID`=" + user1 + ")");
-                msgData[i] = new MsgData[resultSet1.getRow()];
+                resultSet1.last();
+                int m = resultSet1.getRow();
+                resultSet1.beforeFirst();
+                msgData[i] = new MsgData[m];
                 for (int j = 0; resultSet1.next(); j++) {
                     msgData[i][j] = new MsgData(resultSet1.getString("senderID"), resultSet1.getString("receiverID"), resultSet1.getString("text"), resultSet1.getString("time"));
                 }
