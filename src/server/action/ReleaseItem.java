@@ -35,21 +35,17 @@ public class ReleaseItem {
         dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
         itemData = JSON.parseObject(in.readLine(), ItemData.class);
-        System.out.println("试试");
         database = new DB();
         resultSet = database.query("SELECT * FROM trade.item WHERE `ItemName` = '" + itemData.getName() + "'");
         if (!resultSet.next()) {
-            database.update("INSERT INTO `trade`.`item` (`ItemName`, `ItemPrice`, `Introduction`, `auction`, `ownerID`, `releaseTime`, `remains`, `sale`, `photoPath`, `ItemID`) VALUES ('" + itemData.getName() + "', '" + itemData.getPrice() + "', '" + itemData.getIntroduction() + "', '" + (itemData.isAuction() ? "0" : "1") + "', '" + itemData.getOwnerID() + "', NOW(), '5', '0', '" + Path + "', null)");
             dos.writeUTF("1");
             dos.flush();
             getFile(ServerMain.PATH + itemData.getName());
-            System.out.println("发布完成");
+            database.update("INSERT INTO `trade`.`item` (`ItemName`, `ItemPrice`, `Introduction`, `auction`, `ownerID`, `releaseTime`, `remains`, `sale`, `photoPath`, `ItemID`) VALUES ('" + itemData.getName() + "', '" + itemData.getPrice() + "', '" + itemData.getIntroduction() + "', '" + (itemData.isAuction() ? "0" : "1") + "', '" + itemData.getOwnerID() + "', NOW(), '5', '0', '" + Path + "', null)");
         } else {
             dos.writeUTF("-1");
             dos.flush();
-            System.out.println("发布失败");
         }
-        System.out.println("what？？？");
         database.close();
     }
 
