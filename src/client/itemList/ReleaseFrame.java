@@ -129,9 +129,9 @@ public class ReleaseFrame extends JFrame implements ActionListener {
             json = JSON.toJSONString(itemData);//使用JSON序列化对象传输过去
             out.println(json);
 
+            this.resultCode = dis.readUTF();
             sendFile(path);
             System.out.println("eee");
-            this.resultCode = dis.readUTF();
 
             this.socket.close();
         }
