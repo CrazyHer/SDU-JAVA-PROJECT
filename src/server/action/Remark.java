@@ -28,6 +28,7 @@ public class Remark {
         try {
             comment = JSON.parseObject(in.readLine(), Comment.class);
             database.update("INSERT INTO `trade`.`remark` (`ItemID`, `text`, `authorID`, `releaseTime`, `remarkID`) VALUES ((SELECT `ItemID` FROM `trade`.`item` WHERE `ItemName`='" + comment.getItemName() + "' ), '" + comment.getText() + "', '" + comment.getAuthorID() + "', NOW(), null);");
+            database.update("UPDATE `trade`.`orderlog` SET `done` = '1' WHERE `itemID` = (SELECT `ItemID` FROM `trade`.`item` WHERE `ItemName` = '" + comment.getItemName() + "') AND `buyerID` = '" + comment.getAuthorID() + "'");
             dos.writeUTF("1");
             dos.flush();
         } catch (Exception e) {

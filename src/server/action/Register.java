@@ -1,6 +1,7 @@
 package server.action;
 
 import com.alibaba.fastjson.JSON;
+import server.ServerMain;
 import server.dataBase.DB;
 import server.dataObjs.UserData;
 
@@ -38,7 +39,7 @@ public class Register {
         ID = userData.getID();
         database = new DB();
         resultSet = database.query("SELECT * FROM trade.user WHERE `ID` =" + ID);
-        profilePath = "C:/Users/Public/" + ID;
+        profilePath = ServerMain.PATH + ID;
         if (!resultSet.next()) {
             dos.writeUTF("1");
             dos.flush();
