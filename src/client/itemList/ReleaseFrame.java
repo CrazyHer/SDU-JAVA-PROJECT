@@ -1,15 +1,20 @@
 package client.itemList;
 
+import com.alibaba.fastjson.JSON;
+import server.dataObjs.ItemData;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
+import java.net.Socket;
 
 
 public class ReleaseFrame extends JFrame implements ActionListener {
 
     public JPanel panel;
-    public static JPanel changedPanel;//开始存放“上传图片”按钮，后来存放商品图片
+    public JPanel changedPanel;//开始存放“上传图片”按钮，后来存放商品图片
     public JLabel lbItemName;
     public JLabel lbItemQuantity;
     public JLabel lbItemPrice;
@@ -21,6 +26,7 @@ public class ReleaseFrame extends JFrame implements ActionListener {
     public JButton btUpload;
     public JButton btRelease;
     public String Path = "";
+    public ItemData itemData;
 
     public ReleaseFrame() {
 
@@ -28,7 +34,7 @@ public class ReleaseFrame extends JFrame implements ActionListener {
         c.setLayout(new BorderLayout());
         setSize(400, 400);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("发布商品");
 
         JPanel fillInPanel = new JPanel();//填写发布信息面板
@@ -74,18 +80,84 @@ public class ReleaseFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("发布")) {
             if (txItemName.getText().isEmpty() || txItemQuantity.getText().isEmpty() || txItemPrice.getText().isEmpty() || taItemIntroduction.getText().isEmpty()) {
-                System.out.println("信息不完整!");
+                JOptionPane.showMessageDialog(this, "信息不完整！", "Oops", JOptionPane.ERROR_MESSAGE);
             }
             else if (Path.equals("")){
-                System.out.println("为上传图片");
+                JOptionPane.showMessageDialog(this, "未上传图片！", "Oops", JOptionPane.ERROR_MESSAGE);
             }
             else {
-                //上传数据库，上传商品列表
-                System.exit(0);
+                itemData = new ItemData(txItemName.getText(), Double.valueOf(txItemPrice.getText()), false, Integer.valueOf(txItemQuantity.getText()), taItemIntroduction.getText(), "123");
+                NET_ReleaseItem net_releaseItem = null;
+                try {
+                    net_releaseItem = new NET_ReleaseItem(itemData, Path);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                System.out.println("发布已完成");
+                String resultCode = net_releaseItem.getResultCode();
+                if (resultCode.equals("1")) {
+                    JOptionPane.showMessageDialog(this, "发布成功！");
+                    System.out.println("fabuchenggong ");
+                    this.dispose();
+                } else if (resultCode.equals("-1")) JOptionPane.showMessageDialog(this, "上传失败！");
             }
 
         } else if (e.getActionCommand().equals("上传图片")) {
             new UpLoad(this);
+        }
+    }
+
+    private class NET_ReleaseItem {
+        private final String Command = "RELEASE ITEM";//请求类型
+        private final String Address = "localhost";
+        private final int PORT = 2333;//服务器端口
+        private Socket socket;
+        private DataInputStream dis;//输入
+        private DataOutputStream dos;//输出
+        private PrintWriter out;
+
+        private String json, resultCode;
+
+        public NET_ReleaseItem(ItemData itemData, String path) throws Exception {
+            this.socket = new Socket(this.Address, this.PORT);
+            dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
+            out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
+            dos.writeUTF(Command);
+            dos.flush();
+
+            json = JSON.toJSONString(itemData);//使用JSON序列化对象传输过去
+            out.println(json);
+
+            sendFile(path);
+            System.out.println("eee");
+            this.resultCode = dis.readUTF();
+
+            this.socket.close();
+        }
+
+        public String getResultCode() {
+            return resultCode;
+        }
+
+        private void sendFile(String path) throws Exception {//传图方法，直接用就行
+            FileInputStream fis;
+            File file = new File(path);
+            if (file.exists()) {
+                fis = new FileInputStream(file);
+                // 文件名
+                dos.writeUTF(file.getName());
+                dos.flush();
+                // 开始传输文件
+                System.out.println("======== 开始传输文件 ========");
+                byte[] bytes = new byte[1024];
+                int length;
+                while ((length = fis.read(bytes, 0, bytes.length)) != -1) {
+                    dos.write(bytes, 0, length);
+                    dos.flush();
+                }
+                System.out.println("======== 文件传输成功 ========");
+            }
         }
     }
 

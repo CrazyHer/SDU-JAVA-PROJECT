@@ -6,8 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-import static client.itemList.ReleaseFrame.changedPanel;
-
 public class UpLoad implements ActionListener {
     JFrame frame = new JFrame("选择头像图片");// 框架布局
     JTabbedPane tabPane = new JTabbedPane();// 选项卡布局
@@ -72,10 +70,10 @@ public class UpLoad implements ActionListener {
                 System.out.println(ex);
             }
             img.setImage(img.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
-            changedPanel.removeAll();
-            changedPanel.repaint();
-            changedPanel.add(new JLabel(img));
-            changedPanel.revalidate();
+            parentFrame.changedPanel.removeAll();
+            parentFrame.changedPanel.repaint();
+            parentFrame.changedPanel.add(new JLabel(img));
+            parentFrame.changedPanel.revalidate();
             parentFrame.Path = getPath();
             frame.dispose();
         }

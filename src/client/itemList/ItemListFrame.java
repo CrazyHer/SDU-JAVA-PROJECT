@@ -1,7 +1,9 @@
 package client.itemList;
 
 import client.login.LoginFrame;
+import client.userInfo.UserInfo;
 import com.alibaba.fastjson.JSON;
+import itemState.ItemState;
 import server.dataObjs.ItemData;
 import server.dataObjs.ItemListFilter;
 
@@ -164,7 +166,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
             for (int i = 0; i < itemList.length; i++) {
                 NET_GetItemDetails(itemList[i]);
             }
-            deleteAll("C:/Users/Public/Item");
+            deleteAll("C:/Users/Public/client/");
             this.socket.close();
         }
 
@@ -174,7 +176,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
             json = JSON.toJSONString(item);//使用JSON序列化对象传输过去
             out.println(json);
             ItemData itemData = JSON.parseObject(in.readLine(), ItemData.class);
-            getFile("C:/Users/Public/Item");
+            getFile("C:/Users/Public/client/");
             ImageIcon itemImage = new ImageIcon(Path);
             JPanel tempPanel = new JPanel();
             tempPanel.setLayout(new BorderLayout());
@@ -183,7 +185,8 @@ public class ItemListFrame extends JFrame implements ActionListener {
             btDetail = new JButton("详情");
             btDetail.addActionListener(e -> {
                 try {
-                    new BoughtItemInfoFrame(new ItemInfo(itemData.getName()));
+                    new ItemState(itemData.getName(), UserInfo.user.getID());
+                    //new BoughtItemInfoFrame(new ItemInfo(itemData.getName()));
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
