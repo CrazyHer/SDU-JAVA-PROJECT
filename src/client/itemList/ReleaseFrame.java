@@ -34,7 +34,7 @@ public class ReleaseFrame extends JFrame implements ActionListener {
         c.setLayout(new BorderLayout());
         setSize(400, 400);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("发布商品");
 
         JPanel fillInPanel = new JPanel();//填写发布信息面板
