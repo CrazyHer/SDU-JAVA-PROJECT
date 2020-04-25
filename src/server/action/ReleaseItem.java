@@ -13,8 +13,8 @@ import java.sql.SQLException;
 /*
 发布商品接口
     1.接收一个ItemData对象 println JSON传输
-    2.接收一个图像文件
-    3.创建成功返回1，失败返回-1 writeUTF传输
+    2.创建成功返回1，失败返回-1 writeUTF传输
+    3.接收一个图像文件
  */
 public class ReleaseItem {
     Socket socket;
@@ -23,7 +23,6 @@ public class ReleaseItem {
     DataOutputStream dos;
     DataInputStream dis;
     BufferedReader in;
-    PrintWriter out;
 
     ItemData itemData;
 
@@ -36,15 +35,16 @@ public class ReleaseItem {
         dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
         itemData = JSON.parseObject(in.readLine(), ItemData.class);
-        out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
         database = new DB();
-        resultSet = database.query("SELECT * FROM trade.item WHERE ItemName=" + itemData.getName());
+        resultSet = database.query("SELECT * FROM trade.item WHERE `ItemName` = '" + itemData.getName() + "'");
         if (!resultSet.next()) {
+            dos.writeUTF("1");
+            dos.flush();
             getFile(ServerMain.PATH + itemData.getName());
-            database.update("INSERT INTO trade.item VALUES ('" + itemData.getName() + "','" + itemData.getPrice() + "','" + itemData.getIntroduction() + "'," + itemData.isAuction() + ",'" + itemData.getOwnerID() + "',NOW()," + itemData.getQuantity() + ",0,'" + Path + "',null)");
-            out.println("1");
+            database.update("INSERT INTO `trade`.`item` (`ItemName`, `ItemPrice`, `Introduction`, `auction`, `ownerID`, `releaseTime`, `remains`, `sale`, `photoPath`, `ItemID`) VALUES ('" + itemData.getName() + "', '" + itemData.getPrice() + "', '" + itemData.getIntroduction() + "', '" + (itemData.isAuction() ? "0" : "1") + "', '" + itemData.getOwnerID() + "', NOW(), '5', '0', '" + Path + "', null)");
         } else {
-            out.println("-1");
+            dos.writeUTF("-1");
+            dos.flush();
         }
         database.close();
     }
