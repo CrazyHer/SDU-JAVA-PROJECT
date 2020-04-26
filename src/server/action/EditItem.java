@@ -15,8 +15,8 @@ import java.sql.SQLException;
     1.接收字符串商品名称 writeUTF传输
     2.返回该商品带有itemID的一个ItemData对象 println JSON传输
     3.接收带有该itemID的修改后的一个ItemData对象,即把传过去的对象改一改传回来就行了 println JSON传输
-    4.接收该商品的图片文件
-    5.成功返回1，商品名与其他商品重复或失败都返回-1 writeUTF传输
+    4.成功返回1，商品名与其他商品重复或失败都返回-1 writeUTF传输
+    5.接收该商品的图片文件
  */
 public class EditItem {
     Socket socket;
@@ -59,10 +59,10 @@ public class EditItem {
                 dos.writeUTF("-1");
                 dos.flush();
             } else {
-                getFile(ServerMain.PATH + itemData.getName());
-                database.update("UPDATE `trade`.`item` SET `ItemName` = '" + itemData.getName() + "', `ItemPrice` = '" + itemData.getPrice() + "', `Introduction` = '" + itemData.getIntroduction() + "', `auction` = '" + (itemData.isAuction() ? "1" : "0") + "', `remains` = '" + itemData.getQuantity() + "', `photoPath` = '" + Path + "' WHERE (`ItemID` = '" + itemData.getItemID() + "')");
                 dos.writeUTF("1");
                 dos.flush();
+                getFile(ServerMain.PATH + itemData.getName());
+                database.update("UPDATE `trade`.`item` SET `ItemName` = '" + itemData.getName() + "', `ItemPrice` = '" + itemData.getPrice() + "', `Introduction` = '" + itemData.getIntroduction() + "', `auction` = '" + (itemData.isAuction() ? "1" : "0") + "', `remains` = '" + itemData.getQuantity() + "', `photoPath` = '" + Path + "' WHERE (`ItemID` = '" + itemData.getItemID() + "')");
             }
         }
         database.close();
