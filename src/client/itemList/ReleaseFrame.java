@@ -130,8 +130,8 @@ public class ReleaseFrame extends JFrame implements ActionListener {
             out.println(json);
 
             this.resultCode = dis.readUTF();
+
             sendFile(path);
-            System.out.println("eee");
 
             this.socket.close();
         }
