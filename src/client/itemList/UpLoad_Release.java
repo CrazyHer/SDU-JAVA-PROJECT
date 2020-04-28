@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-public class UpLoad implements ActionListener {
+public class UpLoad_Release implements ActionListener {
     JFrame frame = new JFrame("选择头像图片");// 框架布局
     JTabbedPane tabPane = new JTabbedPane();// 选项卡布局
     Container con = new Container();//
@@ -19,7 +19,7 @@ public class UpLoad implements ActionListener {
     ImageIcon img;//头像图片
     ReleaseFrame parentFrame;
 
-    public UpLoad(ReleaseFrame parentFrame) {
+    public UpLoad_Release(ReleaseFrame parentFrame) {
         this.parentFrame = parentFrame;
         jfc.setCurrentDirectory(new File("d://"));// 文件选择器的初始目录定为d盘
 
@@ -45,6 +45,7 @@ public class UpLoad implements ActionListener {
         tabPane.add(con);// 添加布局1
 
     }
+
     /**
      * 事件监听的方法
      */

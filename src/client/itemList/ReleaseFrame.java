@@ -93,17 +93,15 @@ public class ReleaseFrame extends JFrame implements ActionListener {
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
-                System.out.println("发布已完成");
                 String resultCode = net_releaseItem.getResultCode();
                 if (resultCode.equals("1")) {
                     JOptionPane.showMessageDialog(this, "发布成功！");
-                    System.out.println("fabuchenggong ");
                     this.dispose();
                 } else if (resultCode.equals("-1")) JOptionPane.showMessageDialog(this, "上传失败！");
             }
 
         } else if (e.getActionCommand().equals("上传图片")) {
-            new UpLoad(this);
+            new UpLoad_Release(this);
         }
     }
 

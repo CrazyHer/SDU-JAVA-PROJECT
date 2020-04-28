@@ -24,14 +24,15 @@ public class EditItemInfoFrame extends JFrame implements ActionListener {
     public JTextField txItemPrice;
     public JTextArea taItemIntroduction;
     public JButton btUpload;
-    public JButton btRelease;
+    public JButton btEdit;
     public String Path = "";
-    public ItemData itemData;
+    public String ItemName;
 
-    public EditItemInfoFrame() {
+    public EditItemInfoFrame(String ItemName) {
+        this.ItemName = ItemName;
         Container c = getContentPane();
         c.setLayout(new BorderLayout());
-        setSize(400, 400);
+        setSize(600, 500);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("修改商品信息");
@@ -50,7 +51,8 @@ public class EditItemInfoFrame extends JFrame implements ActionListener {
         btUpload = new JButton("上传图片");
         btUpload.addActionListener(this);
 
-        fillInPanel.add(lbExplain, new GBC(0, 0, 1, 2).setWeight(0.8, 1));
+        c.add(lbExplain, BorderLayout.NORTH);
+
         fillInPanel.add(lbItemName, new GBC(0, 2, 1, 1).setWeight(0.8, 1));
         fillInPanel.add(txItemName, new GBC(1, 2, 1, 10).setWeight(0.8, 1));
         fillInPanel.add(lbItemQuantity, new GBC(0, 4, 1, 1).setWeight(0.8, 1));
@@ -71,53 +73,80 @@ public class EditItemInfoFrame extends JFrame implements ActionListener {
         panel.add(p, BorderLayout.SOUTH);
         c.add(panel, BorderLayout.CENTER);
 
-        btRelease = new JButton("提交修改信息");
-        btRelease.addActionListener(this);
+        btEdit = new JButton("提交修改信息");
+        btEdit.addActionListener(this);
         panel = new JPanel();
-        panel.add(btRelease);
+        panel.add(btEdit);
         c.add(panel, BorderLayout.SOUTH);
+    }
+
+    public static void main(String[] args) {
+        new EditItemInfoFrame("商品").setVisible(true);
     }
 
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("提交修改信息")) {
-            if (txItemName.getText().isEmpty() || txItemQuantity.getText().isEmpty() || txItemPrice.getText().isEmpty() || taItemIntroduction.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "信息不完整！", "Oops", JOptionPane.ERROR_MESSAGE);
-            } else if (Path.equals("")) {
-                JOptionPane.showMessageDialog(this, "未上传图片！", "Oops", JOptionPane.ERROR_MESSAGE);
+            NET_EditItem net_editItem = null;
+            if (Path.equals("")) {
+                JOptionPane.showMessageDialog(this, "未上传图片！", "Oops", JOptionPane.WARNING_MESSAGE);
             } else {
+                try {
+                    net_editItem = new NET_EditItem(ItemName, Path);
+                    System.out.println("3");
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this, "图片路径出错！", "Oops", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
+                }
+                String resultCode = net_editItem.getResultCode();
+                if (resultCode.equals("1")) {
+                    JOptionPane.showMessageDialog(this, "修改成功！");
+
+                } else if (resultCode.equals("-1")) JOptionPane.showMessageDialog(this, "修改失败！");
+
             }
 
         } else if (e.getActionCommand().equals("上传图片")) {
-            //new UpLoad(this);
+            new UpLoad_EditItemInfo(this);
         }
     }
 
-    private class NET_ReleaseItem {
-        private final String Command = "RELEASE ITEM";//请求类型
+    private class NET_EditItem {
+        private final String Command = "EDIT ITEM";//请求类型
         private final String Address = "localhost";
         private final int PORT = 2333;//服务器端口
         private Socket socket;
         private DataInputStream dis;//输入
         private DataOutputStream dos;//输出
+        private BufferedReader in;
         private PrintWriter out;
-
+        private ItemData itemData;
         private String json, resultCode;
 
-        public NET_ReleaseItem(ItemData itemData, String path) throws Exception {
+        public NET_EditItem(String itemName, String path) throws Exception {
             this.socket = new Socket(this.Address, this.PORT);
             dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
             dos.writeUTF(Command);
             dos.flush();
 
+            dos.writeUTF(itemName);
+
+            itemData = JSON.parseObject(in.readLine(), ItemData.class);
+
+            if (!(txItemName.getText().equals(""))) itemData.setName(txItemName.getText());
+            if (!(txItemQuantity.getText().isEmpty())) itemData.setQuantity(Integer.parseInt(txItemQuantity.getText()));
+            if (!(txItemPrice.getText().isEmpty())) itemData.setPrice(Double.parseDouble(txItemPrice.getText()));
+            if (!(taItemIntroduction.getText().isEmpty())) itemData.setIntroduction(taItemIntroduction.getText());
+
             json = JSON.toJSONString(itemData);//使用JSON序列化对象传输过去
             out.println(json);
 
-            sendFile(path);
-            System.out.println("eee");
             this.resultCode = dis.readUTF();
-
+            System.out.println("1");
+            sendFile(path);
+            System.out.println("2");
             this.socket.close();
         }
 

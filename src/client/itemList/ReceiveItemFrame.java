@@ -42,7 +42,7 @@ public class ReceiveItemFrame extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("确认收货")) {
-            new CommentFrame(itemInfo);
+            new CommentFrame(itemInfo).setVisible(true);
         } else if (e.getActionCommand().equals("联系卖家")) {
 
         }
