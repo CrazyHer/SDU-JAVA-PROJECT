@@ -1,8 +1,8 @@
 package client.userInfo;
 
-import client.itemList.ItemInfo;
 import client.itemList.ItemListFrame;
 import client.itemList.ReleaseFrame;
+import client.itemState.ItemState;
 import com.alibaba.fastjson.JSON;
 import server.dataObjs.ItemData;
 
@@ -21,8 +21,10 @@ public class MyItems extends JPanel implements ActionListener {
     JButton button;
     Items[] bought, sold;
     OnClick onClick;
+    String userID;
 
     MyItems(String ID) throws IOException {
+        userID = ID;
         bought = new NET_GetMyBoughtItem(ID).getBought();
         sold = new NET_GetMySoldItem(ID).getSold();
         onClick = new OnClick();
@@ -85,7 +87,7 @@ public class MyItems extends JPanel implements ActionListener {
         @Override
         public void mouseClicked(MouseEvent e) {
             try {
-                new ItemInfo(e.getComponent().getName()).setVisible(true);
+                new ItemState(e.getComponent().getName(), userID);
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "错误", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();

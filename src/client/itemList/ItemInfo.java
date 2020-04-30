@@ -138,8 +138,8 @@ public class ItemInfo extends JPanel {
             out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
             dos.writeUTF(Command);
             dos.flush();
-            json = JSON.toJSONString(itemName);//使用JSON序列化对象传输过去
-            out.println(json);
+            dos.writeUTF(itemName);
+            dos.flush();
             itemData = JSON.parseObject(in.readLine(), ItemData.class);
             getFile("C:/Users/Public/Item");
             itemImage = new ImageIcon(Path);
@@ -179,7 +179,6 @@ public class ItemInfo extends JPanel {
         private DataOutputStream dos;//输出
         private BufferedReader in;
         private PrintWriter out;
-        private String json;
 
         public NET_GetComment(String itemName) throws IOException {
             this.socket = new Socket(this.Address, this.PORT);
@@ -189,8 +188,8 @@ public class ItemInfo extends JPanel {
             out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
             dos.writeUTF(Command);
             dos.flush();
-            json = JSON.toJSONString(itemName);//使用JSON序列化对象传输过去
-            out.println(json);
+            dos.writeUTF(itemName);
+            dos.flush();
             comments = JSON.parseObject(in.readLine(), Comment[].class);
 
             this.socket.close();

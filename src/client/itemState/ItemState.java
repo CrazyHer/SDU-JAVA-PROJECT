@@ -1,10 +1,9 @@
-package itemState;
+package client.itemState;
 
 import client.itemList.BoughtItemInfoFrame;
 import client.itemList.ItemInfo;
 import client.itemList.ReceiveItemFrame;
 import client.itemList.SoldItemInfoFrame;
-import com.alibaba.fastjson.JSON;
 
 import javax.swing.*;
 import java.awt.*;
@@ -65,11 +64,11 @@ public class ItemState extends Component {
             dos.writeUTF(Command);
             dos.flush();
 
-            json = JSON.toJSONString(userID);//使用JSON序列化对象传输过去
-            out.println(json);
+            dos.writeUTF(userID);
+            dos.flush();
 
-            json = JSON.toJSONString(itemName);//使用JSON序列化对象传输过去
-            out.println(json);
+            dos.writeUTF(itemName);
+            dos.flush();
 
             this.resultCode = dis.readUTF();
             this.socket.close();

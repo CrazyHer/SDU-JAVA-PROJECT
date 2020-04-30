@@ -52,6 +52,9 @@ public class ThreadTest extends Thread {
                 case "GET ITEM DETAILS":
                     new GetItemDetails(socket);
                     break;
+                case "GET ITEM STATE":
+                    new GetItemState(socket);
+                    break;
                 case "GET ITEM LIST":
                     new GetItemList(socket);
                     break;

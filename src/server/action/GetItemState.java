@@ -38,6 +38,7 @@ public class GetItemState {
                 dos.writeUTF("2");
             } else dos.writeUTF("1");
         }
+        dos.flush();
         database.close();
     }
 }
