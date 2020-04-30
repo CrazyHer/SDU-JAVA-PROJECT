@@ -28,7 +28,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
     public JScrollPane scPanel;//滚动面板
     public JPanel panel;
     public JButton btDetail;
-    public String[] itemList;
+    public String[] itemList = null;
 
     public ItemListFrame() {
         Container c = getContentPane();
@@ -251,5 +251,9 @@ public class ItemListFrame extends JFrame implements ActionListener {
             }
             System.out.println("======== 文件接收成功========");
         }
+    }
+
+    public static void main(String[] args) {
+
     }
 }

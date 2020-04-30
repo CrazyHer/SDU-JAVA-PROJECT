@@ -13,9 +13,8 @@ import java.net.Socket;
 import static client.userInfo.UserInfo.user;
 
 public class BoughtItemInfoFrame extends JFrame implements ActionListener {
-    static final String HOST = "192.168.1.103"; //连接地址
-    static final int PORT = 2333; //连接端口
     public JPanel panel;
+    public JButton btChat;
     public JButton btBuy;
     private BuyItemData buyItemData;
     ItemInfo itemInfo;
@@ -36,8 +35,10 @@ public class BoughtItemInfoFrame extends JFrame implements ActionListener {
         panel = new JPanel();
         panel.setLayout(new GridBagLayout());
 
+        btChat = new JButton("联系卖家");
         btBuy = new JButton("购买");
         panel.add(btBuy, new GBC(0, 0, 1, 1).setAnchor(GridBagConstraints.EAST));
+        panel.add(btBuy, new GBC(0, 1, 1, 1).setAnchor(GridBagConstraints.EAST));
         panel.add(new JPanel(), new GBC(0, 2, 1, 1));
         c.add(panel, BorderLayout.SOUTH);
 
@@ -59,6 +60,8 @@ public class BoughtItemInfoFrame extends JFrame implements ActionListener {
             } else if (resultCode.equals("0")) JOptionPane.showMessageDialog(this, "交易已在进行中，无法购买！");
             else if (resultCode.equals("-1")) JOptionPane.showMessageDialog(this, "购买失败！");
 
+        } else if (e.getActionCommand().equals("联系卖家")) {
+            //new聊天窗口
         }
     }
 
