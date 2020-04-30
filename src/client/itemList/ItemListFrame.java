@@ -28,6 +28,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
     public JScrollPane scPanel;//滚动面板
     public JPanel panel;
     public JButton btDetail;
+    public String[] itemList;
 
     public ItemListFrame() {
         Container c = getContentPane();
@@ -90,6 +91,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
             panel.repaint();
             try {
                 new NET_GetItemList(new ItemListFilter(search, 0));
+                ShowEveryItem();
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this, "错误！", "Oops", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
@@ -100,6 +102,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
             panel.repaint();
             try {
                 new NET_GetItemList(new ItemListFilter(search, 2));
+                ShowEveryItem();
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this, "错误！", "Oops", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
@@ -110,6 +113,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
             panel.repaint();
             try {
                 new NET_GetItemList(new ItemListFilter(search, 1));
+                ShowEveryItem();
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this, "错误！", "Oops", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
@@ -133,9 +137,20 @@ public class ItemListFrame extends JFrame implements ActionListener {
         }
     }
 
+    public void ShowEveryItem() throws IOException {
+        for (int i = 0; i < itemList.length; i++) {
+            try {
+                new NET_GetItemDetails(itemList[i]);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "错误！", "Oops", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            }
+        }
+        deleteAll("C:/Users/Public/client/");
+    }
+
     private class NET_GetItemList {
-        private final String Command1 = "GET ITEM LIST";//请求类型
-        private final String Command2 = "GET ITEM DETAILS";//请求类型
+        private final String Command = "GET ITEM LIST";//请求类型
         private final String Address = "localhost";
         private final int PORT = 2333;//服务器端口
         private Socket socket;
@@ -145,7 +160,6 @@ public class ItemListFrame extends JFrame implements ActionListener {
         private PrintWriter out;
         private String Path;
         private String json;
-        private String[] itemList;
 
         public NET_GetItemList(ItemListFilter itemListFilter) throws IOException {
             this.socket = new Socket(this.Address, this.PORT);
@@ -153,7 +167,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
             dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
-            dos.writeUTF(Command1);
+            dos.writeUTF(Command);
             dos.flush();
             /*
             注意：上面能不改就不改，因为Command只能用writeUTF发送；下面的对象传输只能用out.println()来传输JSON序列化的对象
@@ -163,15 +177,31 @@ public class ItemListFrame extends JFrame implements ActionListener {
             out.println(json);
 
             itemList = JSON.parseObject(in.readLine(), String[].class);
-            for (int i = 0; i < itemList.length; i++) {
-                NET_GetItemDetails(itemList[i]);
-            }
-            deleteAll("C:/Users/Public/client/");
+
             this.socket.close();
         }
 
-        public void NET_GetItemDetails(String item) throws IOException {
-            dos.writeUTF(Command2);
+    }
+
+    private class NET_GetItemDetails {
+        private final String Command = "GET ITEM DETAILS";//请求类型
+        private final String Address = "localhost";
+        private final int PORT = 2333;//服务器端口
+        private Socket socket;
+        private DataInputStream dis;//输入
+        private DataOutputStream dos;//输出
+        private BufferedReader in;
+        private PrintWriter out;
+        private String Path;
+        private String json;
+
+        public NET_GetItemDetails(String item) throws IOException {
+            this.socket = new Socket(this.Address, this.PORT);
+            dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
+            dos.writeUTF(Command);
             dos.flush();
             json = JSON.toJSONString(item);//使用JSON序列化对象传输过去
             out.println(json);
@@ -195,6 +225,8 @@ public class ItemListFrame extends JFrame implements ActionListener {
             panel.repaint();
             panel.add(tempPanel);
             panel.revalidate();
+
+            this.socket.close();
         }
 
         public void getFile(String path) throws IOException {//接收文件的方法，直接用即可,参数为存放路径
@@ -219,8 +251,5 @@ public class ItemListFrame extends JFrame implements ActionListener {
             }
             System.out.println("======== 文件接收成功========");
         }
-
-
     }
-
 }
