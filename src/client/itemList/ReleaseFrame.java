@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.Socket;
 
+import static client.userInfo.UserInfo.user;
+
 
 public class ReleaseFrame extends JFrame implements ActionListener {
 
@@ -86,7 +88,7 @@ public class ReleaseFrame extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "未上传图片！", "Oops", JOptionPane.ERROR_MESSAGE);
             }
             else {
-                itemData = new ItemData(txItemName.getText(), Double.valueOf(txItemPrice.getText()), false, Integer.valueOf(txItemQuantity.getText()), taItemIntroduction.getText(), "123");
+                itemData = new ItemData(txItemName.getText(), Double.valueOf(txItemPrice.getText()), false, Integer.valueOf(txItemQuantity.getText()), taItemIntroduction.getText(), user.getID());
                 NET_ReleaseItem net_releaseItem = null;
                 try {
                     net_releaseItem = new NET_ReleaseItem(itemData, Path);
