@@ -2,26 +2,26 @@ package client.userInfo;
 
 import com.alibaba.fastjson.JSON;
 import server.dataObjs.MsgData;
+import server.dataObjs.UserData;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.Socket;
-import java.net.URL;
 
 public class MyNotification extends JPanel implements ActionListener {
 
-    String URL1 = "https://i.guancha.cn/bbs/2020/03/19/20200319110252686.jpg?imageMogr2/cut/634x634x28x28/thumbnail/60x60/format/jpg";
-    String URL2 = "https://i.guancha.cn/bbs/2019/03/22/20190322174945138.png?imageMogr2/thumbnail/90x90";
-    MySession mySession[] = {new MySession("张三", "201900301234", URL1, "2020-03-26", "干啥呢，吃了屎吗"), new MySession("赵四", "201900308888", URL2, "2019-12-12", "吃屎啦你")};
+    MySession[] mySession;
 
     JPanel p;
     JLabel label;
     JButton button;
 
-    public MyNotification() {
+    public MyNotification(String myID) throws IOException {
+        mySession = new NET_GetMessages(myID).getMySessions();
         setLayout(new GridLayout(0, 1, 20, 20));
         add(new JLabel("聊天消息"));
         for (int i = 0; i < mySession.length; i++) {
@@ -61,7 +61,7 @@ public class MyNotification extends JPanel implements ActionListener {
         String myID;
         MsgData[][] msgData;
 
-        public NET_GetMessages(String myID) throws IOException {
+        public NET_GetMessages(String myID) throws IOException {//获取对话消息通知
             this.myID = myID;
             this.socket = new Socket(this.Address, this.PORT);
             dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
@@ -74,23 +74,29 @@ public class MyNotification extends JPanel implements ActionListener {
             注意：上面能不改就不改，因为Command只能用writeUTF发送；下面的对象传输只能用out.println()来传输JSON序列化的对象
              */
             //下面是对接操作，对象用下面的方式传就行了，不要再用ObjectOutputStream了
-            dos.writeUTF(myID+";ALL");
+            dos.writeUTF(myID + ";ALL");
             dos.flush();
 
-            msgData = JSON.parseObject(in.readLine(),MsgData[][].class);
-
+            msgData = JSON.parseObject(in.readLine(), MsgData[][].class);
+            socket.close();
         }
-        public MySession[] getMySessions(){
-            MySession[] mySessions = new MySession[msgData.length];
-            for (int i =0;i<msgData.length;i++){
-                String userID = (myID.equals(msgData[i][0].getSenderID())?msgData[i][0].getReceiverID():msgData[i][0].getSenderID());
 
-                mySessions[i] = new MySession()
+        public MySession[] getMySessions() throws IOException {
+            MySession[] mySessions = new MySession[msgData.length];
+            for (int i = 0; i < msgData.length; i++) {
+                String userID = (myID.equals(msgData[i][0].getSenderID()) ? msgData[i][0].getReceiverID() : msgData[i][0].getSenderID());
+                String name = new NET_GetUserInfo(userID).getUserName();
+                ImageIcon img = new NET_GetUserProfile(userID).getUserProfile();
+                String time = msgData[i][msgData.length - 1].getTime();
+                String body = msgData[i][msgData.length - 1].getText();
+                mySessions[i] = new MySession(name, userID, img, time, body);
             }
+            return mySessions;
         }
     }
-    private class NET_GetUserInfo{
-        private final String Command = "GET MSGS";//请求类型
+
+    private class NET_GetUserInfo {//获取对话用户的用户名
+        private final String Command = "GET USER DATA";//请求类型
         private final String Address = "localhost";
         private final int PORT = 2333;//服务器端口
         private Socket socket;
@@ -98,11 +104,10 @@ public class MyNotification extends JPanel implements ActionListener {
         private DataOutputStream dos;//输出
 
         private BufferedReader in;
-        String myID;
-        MsgData[][] msgData;
+        private UserData userData;
 
-        public NET_GetUserInfo(String myID) throws IOException {
-            this.myID = myID;
+
+        public NET_GetUserInfo(String userID) throws IOException {
             this.socket = new Socket(this.Address, this.PORT);
             dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
@@ -114,29 +119,87 @@ public class MyNotification extends JPanel implements ActionListener {
             注意：上面能不改就不改，因为Command只能用writeUTF发送；下面的对象传输只能用out.println()来传输JSON序列化的对象
              */
             //下面是对接操作，对象用下面的方式传就行了，不要再用ObjectOutputStream了
-            dos.writeUTF(myID+";ALL");
+            dos.writeUTF(userID);
             dos.flush();
-            //....这个
-            msgData = JSON.parseObject(in.readLine(),MsgData[][].class);
+            userData = JSON.parseObject(in.readLine(), UserData.class);
+            socket.close();
+        }
+
+        public String getUserName() {
+            return userData.getUsername();
         }
     }
 
-    private class MySession {
-        String withWhoName, withWhoID, imageURL, body, time;
+    private class NET_GetUserProfile {//获取对话用户的头像
+        private final String Command = "GET USER PROFILE";//请求类型
+        private final String Address = "localhost";
+        private final int PORT = 2333;//服务器端口
+        private Socket socket;
+        private DataInputStream dis;//输入
+        private DataOutputStream dos;//输出
+
+        private BufferedReader in;
+        private String Path;
+        private ImageIcon img;
+
+        public NET_GetUserProfile(String userID) throws IOException {
+            this.socket = new Socket(this.Address, this.PORT);
+            dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            dos.writeUTF(Command);
+            dos.flush();
+            //上面的可以照搬，只需要改一下请求类型Command即可
+            /*
+            注意：上面能不改就不改，因为Command只能用writeUTF发送；下面的对象传输只能用out.println()来传输JSON序列化的对象
+             */
+            //下面是对接操作，对象用下面的方式传就行了，不要再用ObjectOutputStream了
+            dos.writeUTF(userID);
+            dos.flush();
+            getFile("C:/Users/Public/client");
+            img = new ImageIcon(ImageIO.read(new File(Path)));
+            socket.close();
+        }
+
+        public void getFile(String path) throws IOException {//接收文件的方法，直接用即可,参数为存放文件夹路径，注意是文件夹
+            FileOutputStream fos;
+            // 文件名
+            String fileName = dis.readUTF();
+            System.out.println("接收到文件" + fileName);
+            File directory = new File(path);
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
+            File file = new File(directory.getAbsolutePath() + File.separatorChar + fileName);
+            Path = file.getAbsolutePath().replace('\\', '/');
+            System.out.println(Path);
+            fos = new FileOutputStream(file);
+            // 开始接收文件
+            byte[] bytes = new byte[1024];
+            int length;
+            while ((length = dis.read(bytes, 0, bytes.length)) != -1) {
+                fos.write(bytes, 0, length);
+                fos.flush();
+            }
+            System.out.println("======== 文件接收成功========");
+        }
+
+        public ImageIcon getUserProfile() {
+            return img;
+        }
+    }
+
+    private class MySession {//每一栏对话信息的载体
+        String withWhoName, withWhoID, body, time;
         ImageIcon image;
 
-        MySession(String name, String ID, String imageURL, String time, String body) {
+        MySession(String name, String ID, ImageIcon img, String time, String body) {
             this.withWhoName = name;
             this.withWhoID = ID;
             this.body = body;
-            this.imageURL = imageURL;
             this.time = time;
-            try {
-                image = new ImageIcon(new URL(imageURL));
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-            image.setImage(image.getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
+            this.image = img;
+            this.image.setImage(image.getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
         }
 
         String getBody() {

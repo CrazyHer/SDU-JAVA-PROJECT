@@ -11,7 +11,6 @@ import server.dataBase.DB;
 import java.io.*;
 import java.net.Socket;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class GetUserProfile {
     Socket socket;
@@ -20,31 +19,40 @@ public class GetUserProfile {
     String userID;
     DB database;
     ResultSet resultSet;
+    String profileURL;
 
 
-    public GetUserProfile(Socket s) throws IOException, SQLException {
-        socket =s ;
+    public GetUserProfile(Socket s) throws Exception {
+        socket = s;
         dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
         dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         userID = dis.readUTF();
         database = new DB();
         resultSet = database.query("SELECT DISTINCT * FROM trade.user WHERE `ID`='" + userID + "'");
         if (resultSet.next()) {
-            if (resultSet.getString("password").equals(passWord)) {
-                dos.writeUTF("1");
-                dos.flush();
-                profilePath = resultSet.getString("profilePath");
+            profileURL = resultSet.getString("profilePath");
+            sendFile(profileURL);
+        }
+        database.close();
+    }
 
-                sendFile(profilePath);
-
-            } else {
-                dos.writeUTF("0");
+    private void sendFile(String path) throws Exception {//传图方法，直接用就行
+        FileInputStream fis;
+        File file = new File(path);
+        if (file.exists()) {
+            fis = new FileInputStream(file);
+            // 文件名
+            dos.writeUTF(file.getName());
+            dos.flush();
+            // 开始传输文件
+            System.out.println("======== 开始传输文件 ========");
+            byte[] bytes = new byte[1024];
+            int length;
+            while ((length = fis.read(bytes, 0, bytes.length)) != -1) {
+                dos.write(bytes, 0, length);
                 dos.flush();
             }
-        } else {
-            dos.writeUTF("-1");
-            dos.flush();
-        }
-        dataBase.close();
+            System.out.println("======== 文件传输成功 ========");
+        } else System.out.println("文件不存在");
     }
 }
