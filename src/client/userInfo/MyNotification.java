@@ -1,9 +1,14 @@
 package client.userInfo;
 
+import com.alibaba.fastjson.JSON;
+import server.dataObjs.MsgData;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
+import java.net.Socket;
 import java.net.URL;
 
 public class MyNotification extends JPanel implements ActionListener {
@@ -16,7 +21,7 @@ public class MyNotification extends JPanel implements ActionListener {
     JLabel label;
     JButton button;
 
-    MyNotification() {
+    public MyNotification() {
         setLayout(new GridLayout(0, 1, 20, 20));
         add(new JLabel("聊天消息"));
         for (int i = 0; i < mySession.length; i++) {
@@ -44,8 +49,79 @@ public class MyNotification extends JPanel implements ActionListener {
             //直接打开聊天模块面板
         }
     }
+    private class NET_GetMessages{
+        private final String Command = "GET MSGS";//请求类型
+        private final String Address = "localhost";
+        private final int PORT = 2333;//服务器端口
+        private Socket socket;
+        private DataInputStream dis;//输入
+        private DataOutputStream dos;//输出
 
-    class MySession {
+        private BufferedReader in;
+        String myID;
+        MsgData[][] msgData;
+
+        public NET_GetMessages(String myID) throws IOException {
+            this.myID = myID;
+            this.socket = new Socket(this.Address, this.PORT);
+            dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            dos.writeUTF(Command);
+            dos.flush();
+            //上面的可以照搬，只需要改一下请求类型Command即可
+            /*
+            注意：上面能不改就不改，因为Command只能用writeUTF发送；下面的对象传输只能用out.println()来传输JSON序列化的对象
+             */
+            //下面是对接操作，对象用下面的方式传就行了，不要再用ObjectOutputStream了
+            dos.writeUTF(myID+";ALL");
+            dos.flush();
+
+            msgData = JSON.parseObject(in.readLine(),MsgData[][].class);
+
+        }
+        public MySession[] getMySessions(){
+            MySession[] mySessions = new MySession[msgData.length];
+            for (int i =0;i<msgData.length;i++){
+                String userID = (myID.equals(msgData[i][0].getSenderID())?msgData[i][0].getReceiverID():msgData[i][0].getSenderID());
+
+                mySessions[i] = new MySession()
+            }
+        }
+    }
+    private class NET_GetUserInfo{
+        private final String Command = "GET MSGS";//请求类型
+        private final String Address = "localhost";
+        private final int PORT = 2333;//服务器端口
+        private Socket socket;
+        private DataInputStream dis;//输入
+        private DataOutputStream dos;//输出
+
+        private BufferedReader in;
+        String myID;
+        MsgData[][] msgData;
+
+        public NET_GetUserInfo(String myID) throws IOException {
+            this.myID = myID;
+            this.socket = new Socket(this.Address, this.PORT);
+            dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            dos.writeUTF(Command);
+            dos.flush();
+            //上面的可以照搬，只需要改一下请求类型Command即可
+            /*
+            注意：上面能不改就不改，因为Command只能用writeUTF发送；下面的对象传输只能用out.println()来传输JSON序列化的对象
+             */
+            //下面是对接操作，对象用下面的方式传就行了，不要再用ObjectOutputStream了
+            dos.writeUTF(myID+";ALL");
+            dos.flush();
+            //....这个
+            msgData = JSON.parseObject(in.readLine(),MsgData[][].class);
+        }
+    }
+
+    private class MySession {
         String withWhoName, withWhoID, imageURL, body, time;
         ImageIcon image;
 
