@@ -31,7 +31,7 @@ public class MyItems extends JPanel implements ActionListener {
         setLayout(new GridBagLayout());
         add(new JLabel("我买的商品"), new GBC(0, 0, 1, 1).setWeight(0.1, 1).setAnchor(GridBagConstraints.WEST));
         bp = new JPanel();
-        bp.setLayout(new GridLayout(1, 0, 30, 10));
+        bp.setLayout(new GridLayout(0, 4, 30, 10));
         for (int i = 0; i < bought.length; i++) {
             panel = new JPanel();
             panel.setLayout(new BorderLayout());
@@ -49,7 +49,7 @@ public class MyItems extends JPanel implements ActionListener {
 
         add(new JLabel("我卖的商品"), new GBC(0, 4, 1, 1).setWeight(0.1, 1).setAnchor(GridBagConstraints.WEST));
         sp = new JPanel();
-        sp.setLayout(new GridLayout(1, 0, 30, 10));
+        sp.setLayout(new GridLayout(0, 4, 30, 10));
         for (int i = 0; i < sold.length; i++) {
             panel = new JPanel();
             panel.setLayout(new BorderLayout());

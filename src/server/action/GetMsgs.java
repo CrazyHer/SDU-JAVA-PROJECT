@@ -20,9 +20,8 @@ import java.sql.SQLException;
 因此对于一个用户，一个长连接socket用于接收信号，另外的发送消息、获取消息只需要瞬时请求即可
 
 获取聊天消息接口
-    1.接收一行字符串。ALL代表获取所有的消息，201900301198;201900301200代表获取两个用户之间的对话，学号小的在前大的在后，中间用英文分号;分隔。 writerUTF传输
-    2.返回一个MsgData二维数组，这里面是用户收到和发送的所有消息。第一个维度为聊天对象的所有消息的数组，第二个维度为具体的消息内容。即MsgData[i][j],i代表对话对象，j代表具体信息对象。MsgData[i][]表示这个发送者的所有消息对象的一维数组. println JSON传输
-    获取两个用户间的对话时，第一个维度长度只为1；
+    1.接收字符串，writeUTF传输，格式为 学号;学号 或 学号;ALL。前者表示获取两者之间的对话，后者表示获取该用户的对话列表的所有对话
+    2.返回一个MsgData二维数组。前者的第一个维度为1，第二维度表示具体的消息。后者第一个维度为聊天对象的数量，第二个维度为具体的消息。
  */
 public class GetMsgs {
     Socket socket;
@@ -39,8 +38,9 @@ public class GetMsgs {
         this.socket = s;
         dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
         filter = dis.readUTF();
-        if (filter.equals("ALL")) {
-            resultSet = database.query("SELECT * FROM trade.dialogue");
+        users = filter.split(";");
+        if (users[1].equals("ALL")) {
+            resultSet = database.query("SELECT * FROM trade.dialogue WHERE `user1`='"+users[0]+"' OR `user2`='"+users[0]+"'");
             int n;
             resultSet.last();
             n = resultSet.getRow();
@@ -59,7 +59,6 @@ public class GetMsgs {
                 }
             }
         } else {
-            users = filter.split(";");
             resultSet1 = database.query("SELECT * FROM trade.message WHERE (`senderID`=" + users[0] + " AND `receiverID`=" + users[1] + ") OR(`senderID`=" + users[1] + " AND `receiverID`=" + users[0] + ")");
             msgData = new MsgData[1][];
             msgData[0] = new MsgData[resultSet1.getRow()];

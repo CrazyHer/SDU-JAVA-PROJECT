@@ -41,6 +41,7 @@ public class GetItemList {
             itemList[i] = resultSet.getString("ItemName");
         }
         out.println(JSON.toJSONString(itemList));
+        System.out.println(JSON.toJSONString(itemList));
         database.close();
     }
 }

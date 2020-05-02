@@ -37,7 +37,7 @@ public class UserInfoFrame extends JFrame implements ActionListener {
         c.add(new UserInfo(userData, parentFrame.img), new GBC(0, 0, 1, 1).setWeight(1, 0.2).setAnchor(GridBagConstraints.WEST));
         c.add(new MyItems(userData.getID()), new GBC(0, 1, 1, 1).setWeight(1, 0.4).setAnchor(GridBagConstraints.WEST).setFill(GridBagConstraints.BOTH));
         c.add(new MyStatistics(), new GBC(0, 2, 1, 1).setWeight(1, 0.2));
-        c.add(new MyNotification(), new GBC(0, 3, 1, 1).setWeight(1, 0.2).setAnchor(GridBagConstraints.WEST).setFill(GridBagConstraints.NONE));
+        c.add(new MyNotification(userData.getID()), new GBC(0, 3, 1, 1).setWeight(1, 0.2).setAnchor(GridBagConstraints.WEST).setFill(GridBagConstraints.NONE));
 
         scrollPane = new JScrollPane(c);
         getContentPane().add(scrollPane);
