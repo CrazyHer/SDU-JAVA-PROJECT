@@ -27,7 +27,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
     public JScrollPane scPanel;//滚动面板
     public JPanel panel;
     public JButton btDetail;
-    public String[] itemList = null;
+    public NET_GetItemList net_getItemList = null;
 
     public ItemListFrame() {
         Container c = getContentPane();
@@ -38,28 +38,31 @@ public class ItemListFrame extends JFrame implements ActionListener {
         setTitle("商品列表");
         addMenu();
 
+        //添加搜索模块
         panel = new JPanel();
         panel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         tfSearch = new JTextField(20);
         btSearch = new JButton("搜索");
+        btSearch.addActionListener(this);
         panel.add(tfSearch);
         panel.add(btSearch);
         c.add(panel, BorderLayout.NORTH);
 
+        //添加商品列表
         panel = new JPanel();
         panel.setLayout(new GridLayout(4, 1024));
+        scPanel = new JScrollPane();
+        scPanel.add(panel);
+        c.add(scPanel, BorderLayout.CENTER);
         System.out.println("开始创建初始列表");
         try {
-            new NET_GetItemList(new ItemListFilter("*", 0));
+            net_getItemList = new NET_GetItemList(new ItemListFilter("*", 0));
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, "服务器的头像文件不见了！", "Oops", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
         ShowEveryItem();
         System.out.println("初始列表创建完成");
-        scPanel = new JScrollPane();
-        scPanel.add(panel);
-        c.add(scPanel, BorderLayout.CENTER);
 
     }
 
@@ -148,17 +151,46 @@ public class ItemListFrame extends JFrame implements ActionListener {
     }
 
     public void ShowEveryItem() {
+        String[] itemList = net_getItemList.getItemList();
+        NET_GetItemDetails net_getItemDetails = null;
         for (int i = 0; i < itemList.length; i++) {
             try {
-                new NET_GetItemDetails(itemList[i]);
+                net_getItemDetails = new NET_GetItemDetails(itemList[i]);
                 System.out.println(itemList[i]);
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this, "错误！", "Oops", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }
+            AddAItem(net_getItemDetails.getItemData(), net_getItemDetails.getPath());
         }
         deleteAll("C:/Users/Public/client/temp/");
         System.out.println("删除干净了");
+    }
+
+    public void AddAItem(ItemData itemData, String Path) {
+        ImageIcon itemImage = new ImageIcon(Path);
+        JPanel tempPanel = new JPanel();
+        tempPanel.setLayout(new BorderLayout());
+        tempPanel.add(new JLabel(itemData.getName()), BorderLayout.NORTH);
+        tempPanel.add(new JLabel(itemImage), BorderLayout.CENTER);
+        btDetail = new JButton("详情");
+        btDetail.addActionListener(e -> {
+            try {
+                //new ItemState(itemData.getName(), UserInfo.user.getID());
+                System.out.println("创建对应窗口");
+                new ItemState(itemData.getName(), "201922301279");
+                //new BoughtItemInfoFrame(new ItemInfo(itemData.getName()));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            System.out.println("对应详情窗口创建完成");
+        });//内部类监听器
+        System.out.println("完成内部监听");
+        tempPanel.add(btDetail, BorderLayout.SOUTH);
+        panel.repaint();
+        panel.add(tempPanel);
+        panel.revalidate();
+        System.out.println("完成绘制");
     }
 
     private class NET_GetItemList {
@@ -172,6 +204,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
         private PrintWriter out;
         private String Path;
         private String json;
+        public String[] itemList = null;
 
         public NET_GetItemList(ItemListFilter itemListFilter) throws IOException {
             this.socket = new Socket(this.Address, this.PORT);
@@ -194,6 +227,10 @@ public class ItemListFrame extends JFrame implements ActionListener {
             this.socket.close();
         }
 
+        public String[] getItemList() {
+            return itemList;
+        }
+
     }
 
     private class NET_GetItemDetails {
@@ -207,6 +244,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
         private PrintWriter out;
         private String Path;
         private String json;
+        private ItemData itemData;
 
         public NET_GetItemDetails(String item) throws IOException {
             this.socket = new Socket(this.Address, this.PORT);
@@ -218,41 +256,21 @@ public class ItemListFrame extends JFrame implements ActionListener {
             dos.flush();
             System.out.println("接收到搜索数据:" + item);
             dos.writeUTF(item);
-            ItemData itemData = JSON.parseObject(in.readLine(), ItemData.class);
+            dos.flush();
+            itemData = JSON.parseObject(in.readLine(), ItemData.class);
             System.out.println("接收到商品数据");
-            getFile("C:/Users/Public/client/temp/", itemData.getName());
-            ImageIcon itemImage = new ImageIcon(Path);
-            JPanel tempPanel = new JPanel();
-            tempPanel.setLayout(new BorderLayout());
-            tempPanel.add(new JLabel(itemData.getName()), BorderLayout.NORTH);
-            tempPanel.add(new JLabel(itemImage), BorderLayout.CENTER);
-            btDetail = new JButton("详情");
-            btDetail.addActionListener(e -> {
-                try {
-                    //new ItemState(itemData.getName(), UserInfo.user.getID());
-                    System.out.println("创建对应窗口");
-                    new ItemState(itemData.getName(), "201922301279");
-                    //new BoughtItemInfoFrame(new ItemInfo(itemData.getName()));
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-                System.out.println("对应详情窗口创建完成");
-            });//内部类监听器
-            System.out.println("完成内部监听");
-            tempPanel.add(btDetail, BorderLayout.SOUTH);
-            panel.repaint();
-            panel.add(tempPanel);
-            panel.revalidate();
-            System.out.println("完成绘制");
+
+            getFile("C:/Users/Public/client/temp/");
 
             this.socket.close();
         }
 
-        public void getFile(String path, String fileName) throws IOException {//接收文件的方法，直接用即可,参数为存放路径
+        public void getFile(String path) throws IOException {//接收文件的方法，直接用即可,参数为存放路径
             FileOutputStream fos;
             // 文件名
-            //String fileName = dis.readUTF();
-            System.out.println("接收到文件" + fileName);
+            String fileName = dis.readUTF();
+
+            System.out.println("接收到文件:" + fileName);
             File directory = new File(path);
             if (!directory.exists()) {
                 directory.mkdir();
@@ -269,6 +287,14 @@ public class ItemListFrame extends JFrame implements ActionListener {
                 fos.flush();
             }
             System.out.println("======== 文件接收成功========");
+        }
+
+        public String getPath() {
+            return Path;
+        }
+
+        public ItemData getItemData() {
+            return itemData;
         }
     }
 }
