@@ -40,6 +40,7 @@ public class RepaintDemo extends JFrame implements ActionListener {
             panel.add(new JLabel("测试二"));
             panel.revalidate();
         } else if (e.getActionCommand().equals("清空")) {
+            //清空面板测试===============================================
             panel.removeAll();
             panel.repaint();
             panel.add(new JLabel("清空成功"));
