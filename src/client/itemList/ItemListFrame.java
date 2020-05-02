@@ -2,7 +2,6 @@ package client.itemList;
 
 import client.itemState.ItemState;
 import client.login.LoginFrame;
-import client.userInfo.UserInfo;
 import com.alibaba.fastjson.JSON;
 import server.dataObjs.ItemData;
 import server.dataObjs.ItemListFilter;
@@ -49,12 +48,15 @@ public class ItemListFrame extends JFrame implements ActionListener {
 
         panel = new JPanel();
         panel.setLayout(new GridLayout(4, 1024));
+        System.out.println("开始创建初始列表");
         try {
             new NET_GetItemList(new ItemListFilter("*", 0));
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, "服务器的头像文件不见了！", "Oops", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
+        ShowEveryItem();
+        System.out.println("初始列表创建完成");
         scPanel = new JScrollPane();
         scPanel.add(panel);
         c.add(scPanel, BorderLayout.CENTER);
@@ -80,6 +82,25 @@ public class ItemListFrame extends JFrame implements ActionListener {
         menuSaleSort.addActionListener(this);
     }
 
+    public static void main(String[] args) {
+        new ItemListFrame().setVisible(true);
+    }
+
+    public void deleteAll(String path) {
+        File filePar = new File(path);
+        if (filePar.exists()) {
+            File files[] = filePar.listFiles();
+            for (int i = 0; i < files.length; i++) {
+                if (files[i].isFile()) {
+                    files[i].delete();
+                } else if (files[i].isDirectory()) {
+                    deleteAll(files[i].getAbsolutePath());
+                    files[i].delete();
+                }
+            }
+        }
+    }
+
     public void actionPerformed(ActionEvent e) {
         String search = btSearch.getText();
         if (tfSearch.getText().equals("")) search = "*";
@@ -87,6 +108,8 @@ public class ItemListFrame extends JFrame implements ActionListener {
             this.dispose();
             new LoginFrame();
         } else if (e.getSource().equals(menuDefaultSort) || e.getSource().equals(btSearch)) {
+            System.out.println("搜索1");
+
             panel.removeAll();
             panel.repaint();
             try {
@@ -113,40 +136,29 @@ public class ItemListFrame extends JFrame implements ActionListener {
             panel.repaint();
             try {
                 new NET_GetItemList(new ItemListFilter(search, 1));
-                ShowEveryItem();
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this, "错误！", "Oops", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }
+
+            ShowEveryItem();
+
             panel.revalidate();
         }
     }
 
-    public void deleteAll(String path) {
-        File filePar = new File(path);
-        if (filePar.exists()) {
-            File files[] = filePar.listFiles();
-            for (int i = 0; i < files.length; i++) {
-                if (files[i].isFile()) {
-                    files[i].delete();
-                } else if (files[i].isDirectory()) {
-                    deleteAll(files[i].getAbsolutePath());
-                    files[i].delete();
-                }
-            }
-        }
-    }
-
-    public void ShowEveryItem() throws IOException {
+    public void ShowEveryItem() {
         for (int i = 0; i < itemList.length; i++) {
             try {
                 new NET_GetItemDetails(itemList[i]);
+                System.out.println(itemList[i]);
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this, "错误！", "Oops", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }
         }
-        deleteAll("C:/Users/Public/client/");
+        deleteAll("C:/Users/Public/client/temp/");
+        System.out.println("删除干净了");
     }
 
     private class NET_GetItemList {
@@ -177,6 +189,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
             out.println(json);
 
             itemList = JSON.parseObject(in.readLine(), String[].class);
+            if (itemList != null) System.out.println("有东西");
 
             this.socket.close();
         }
@@ -203,10 +216,11 @@ public class ItemListFrame extends JFrame implements ActionListener {
             out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
             dos.writeUTF(Command);
             dos.flush();
-            json = JSON.toJSONString(item);//使用JSON序列化对象传输过去
-            out.println(json);
+            System.out.println("接收到搜索数据:" + item);
+            dos.writeUTF(item);
             ItemData itemData = JSON.parseObject(in.readLine(), ItemData.class);
-            getFile("C:/Users/Public/client/");
+            System.out.println("接收到商品数据");
+            getFile("C:/Users/Public/client/temp/", itemData.getName());
             ImageIcon itemImage = new ImageIcon(Path);
             JPanel tempPanel = new JPanel();
             tempPanel.setLayout(new BorderLayout());
@@ -215,24 +229,29 @@ public class ItemListFrame extends JFrame implements ActionListener {
             btDetail = new JButton("详情");
             btDetail.addActionListener(e -> {
                 try {
-                    new ItemState(itemData.getName(), UserInfo.user.getID());
+                    //new ItemState(itemData.getName(), UserInfo.user.getID());
+                    System.out.println("创建对应窗口");
+                    new ItemState(itemData.getName(), "201922301279");
                     //new BoughtItemInfoFrame(new ItemInfo(itemData.getName()));
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
+                System.out.println("对应详情窗口创建完成");
             });//内部类监听器
+            System.out.println("完成内部监听");
             tempPanel.add(btDetail, BorderLayout.SOUTH);
             panel.repaint();
             panel.add(tempPanel);
             panel.revalidate();
+            System.out.println("完成绘制");
 
             this.socket.close();
         }
 
-        public void getFile(String path) throws IOException {//接收文件的方法，直接用即可,参数为存放路径
+        public void getFile(String path, String fileName) throws IOException {//接收文件的方法，直接用即可,参数为存放路径
             FileOutputStream fos;
             // 文件名
-            String fileName = dis.readUTF();
+            //String fileName = dis.readUTF();
             System.out.println("接收到文件" + fileName);
             File directory = new File(path);
             if (!directory.exists()) {
@@ -251,9 +270,5 @@ public class ItemListFrame extends JFrame implements ActionListener {
             }
             System.out.println("======== 文件接收成功========");
         }
-    }
-
-    public static void main(String[] args) {
-
     }
 }

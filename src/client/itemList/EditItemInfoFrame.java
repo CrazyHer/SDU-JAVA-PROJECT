@@ -119,7 +119,7 @@ public class EditItemInfoFrame extends JFrame implements ActionListener {
         private DataOutputStream dos;//输出
         private BufferedReader in;
         private PrintWriter out;
-        private ItemData itemData;
+        private ItemData itemData = null;
         private String json, resultCode;
 
         public NET_EditItem(String itemName, String path) throws Exception {
@@ -135,10 +135,13 @@ public class EditItemInfoFrame extends JFrame implements ActionListener {
 
             itemData = JSON.parseObject(in.readLine(), ItemData.class);
 
-            if (!(txItemName.getText().equals(""))) itemData.setName(txItemName.getText());
-            if (!(txItemQuantity.getText().isEmpty())) itemData.setQuantity(Integer.parseInt(txItemQuantity.getText()));
-            if (!(txItemPrice.getText().isEmpty())) itemData.setPrice(Double.parseDouble(txItemPrice.getText()));
-            if (!(taItemIntroduction.getText().isEmpty())) itemData.setIntroduction(taItemIntroduction.getText());
+            if (itemData != null) {
+                if (!(txItemName.getText().equals(""))) itemData.setName(txItemName.getText());
+                if (!(txItemQuantity.getText().isEmpty()))
+                    itemData.setQuantity(Integer.parseInt(txItemQuantity.getText()));
+                if (!(txItemPrice.getText().isEmpty())) itemData.setPrice(Double.parseDouble(txItemPrice.getText()));
+                if (!(taItemIntroduction.getText().isEmpty())) itemData.setIntroduction(taItemIntroduction.getText());
+            }
 
             json = JSON.toJSONString(itemData);//使用JSON序列化对象传输过去
             out.println(json);
