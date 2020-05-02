@@ -19,7 +19,7 @@ public class UserInfoFrame extends JFrame implements ActionListener {
     public JMenuItem menuItem;
     public LoginFrame ParentFrame;
     public ImageIcon Profile;
-    UserData userData;
+    public UserData userData;
 
     public UserInfoFrame(LoginFrame parentFrame) throws IOException {
         ParentFrame = parentFrame;

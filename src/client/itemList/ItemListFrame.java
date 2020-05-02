@@ -2,6 +2,7 @@ package client.itemList;
 
 import client.itemState.ItemState;
 import client.login.LoginFrame;
+import client.userInfo.UserInfo;
 import com.alibaba.fastjson.JSON;
 import server.dataObjs.ItemData;
 import server.dataObjs.ItemListFilter;
@@ -32,14 +33,14 @@ public class ItemListFrame extends JFrame implements ActionListener {
     public ItemListFrame() {
         Container c = getContentPane();
         c.setLayout(new BorderLayout());
-        setSize(600, 800);
+        setSize(700, 800);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setTitle("商品列表");
         addMenu();
 
         //添加搜索模块
-        panel = new JPanel();
+        panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         panel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         tfSearch = new JTextField(20);
         btSearch = new JButton("搜索");
@@ -49,12 +50,13 @@ public class ItemListFrame extends JFrame implements ActionListener {
         c.add(panel, BorderLayout.NORTH);
 
         //添加商品列表
-        panel = new JPanel();
-        panel.setLayout(new GridLayout(4, 1024));
-        scPanel = new JScrollPane();
-        scPanel.add(panel);
+        panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        //panel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        scPanel = new JScrollPane(panel);
+        panel.setPreferredSize(new Dimension(400, 400));
         c.add(scPanel, BorderLayout.CENTER);
-        System.out.println("开始创建初始列表");
+        System.out.println("开始创建初始列表60");
+
         try {
             net_getItemList = new NET_GetItemList(new ItemListFilter("*", 0));
         } catch (IOException ex) {
@@ -62,7 +64,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
             ex.printStackTrace();
         }
         ShowEveryItem();
-        System.out.println("初始列表创建完成");
+        System.out.println("初始列表创建完成69");
 
     }
 
@@ -105,13 +107,13 @@ public class ItemListFrame extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        String search = btSearch.getText();
+        String search = tfSearch.getText();
         if (tfSearch.getText().equals("")) search = "*";
         if (e.getSource().equals(menuItemLogout)) {
             this.dispose();
             new LoginFrame();
         } else if (e.getSource().equals(menuDefaultSort) || e.getSource().equals(btSearch)) {
-            System.out.println("搜索1");
+            System.out.println(search);
 
             panel.removeAll();
             panel.repaint();
@@ -122,6 +124,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "错误！", "Oops", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }
+            ShowEveryItem();
             panel.revalidate();
         } else if (e.getSource().equals(menuTimeSort)) {
             panel.removeAll();
@@ -133,6 +136,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "错误！", "Oops", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }
+            ShowEveryItem();
             panel.revalidate();
         } else if (e.getSource().equals(menuSaleSort)) {
             panel.removeAll();
@@ -143,20 +147,21 @@ public class ItemListFrame extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "错误！", "Oops", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }
-
             ShowEveryItem();
 
-            panel.revalidate();
         }
     }
 
     public void ShowEveryItem() {
-        String[] itemList = net_getItemList.getItemList();
+        String itemList[];
+        itemList = net_getItemList.getItemList();
+        System.out.println(itemList[0]);
+        System.out.println("开始逐个展示商品164");
         NET_GetItemDetails net_getItemDetails = null;
         for (int i = 0; i < itemList.length; i++) {
             try {
                 net_getItemDetails = new NET_GetItemDetails(itemList[i]);
-                System.out.println(itemList[i]);
+                System.out.println(itemList[i] + "169");
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this, "错误！", "Oops", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
@@ -164,33 +169,35 @@ public class ItemListFrame extends JFrame implements ActionListener {
             AddAItem(net_getItemDetails.getItemData(), net_getItemDetails.getPath());
         }
         deleteAll("C:/Users/Public/client/temp/");
-        System.out.println("删除干净了");
+        System.out.println("删除干净了177");
     }
 
     public void AddAItem(ItemData itemData, String Path) {
         ImageIcon itemImage = new ImageIcon(Path);
+        itemImage.setImage(itemImage.getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT));
         JPanel tempPanel = new JPanel();
+        tempPanel.setSize(150, 200);
         tempPanel.setLayout(new BorderLayout());
         tempPanel.add(new JLabel(itemData.getName()), BorderLayout.NORTH);
         tempPanel.add(new JLabel(itemImage), BorderLayout.CENTER);
         btDetail = new JButton("详情");
         btDetail.addActionListener(e -> {
             try {
-                //new ItemState(itemData.getName(), UserInfo.user.getID());
+                new ItemState(itemData.getName(), UserInfo.user.getID());
                 System.out.println("创建对应窗口");
-                new ItemState(itemData.getName(), "201922301279");
+                //new ItemState(itemData.getName(), "201922301279");
                 //new BoughtItemInfoFrame(new ItemInfo(itemData.getName()));
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-            System.out.println("对应详情窗口创建完成");
+            System.out.println("对应详情窗口创建完成196");
         });//内部类监听器
-        System.out.println("完成内部监听");
+        System.out.println("完成内部监听198");
         tempPanel.add(btDetail, BorderLayout.SOUTH);
         panel.repaint();
         panel.add(tempPanel);
         panel.revalidate();
-        System.out.println("完成绘制");
+        System.out.println("完成绘制203");
     }
 
     private class NET_GetItemList {
@@ -223,6 +230,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
 
             itemList = JSON.parseObject(in.readLine(), String[].class);
             if (itemList != null) System.out.println("有东西");
+            System.out.println(itemList.length);
 
             this.socket.close();
         }
@@ -254,11 +262,11 @@ public class ItemListFrame extends JFrame implements ActionListener {
             out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
             dos.writeUTF(Command);
             dos.flush();
-            System.out.println("接收到搜索数据:" + item);
+            System.out.println("接收到搜索数据:" + item + "267");
             dos.writeUTF(item);
             dos.flush();
             itemData = JSON.parseObject(in.readLine(), ItemData.class);
-            System.out.println("接收到商品数据");
+            System.out.println("接收到商品数据271");
 
             getFile("C:/Users/Public/client/temp/");
 
@@ -270,7 +278,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
             // 文件名
             String fileName = dis.readUTF();
 
-            System.out.println("接收到文件:" + fileName);
+            System.out.println("接收到文件:" + fileName + "283");
             File directory = new File(path);
             if (!directory.exists()) {
                 directory.mkdir();
@@ -286,7 +294,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
                 fos.write(bytes, 0, length);
                 fos.flush();
             }
-            System.out.println("======== 文件接收成功========");
+            System.out.println("======== 文件接收成功========299");
         }
 
         public String getPath() {
