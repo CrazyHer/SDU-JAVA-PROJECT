@@ -2,7 +2,6 @@ package client.itemList;
 
 import client.itemState.ItemState;
 import client.login.LoginFrame;
-import client.userInfo.UserInfo;
 import com.alibaba.fastjson.JSON;
 import server.dataObjs.ItemData;
 import server.dataObjs.ItemListFilter;
@@ -29,8 +28,10 @@ public class ItemListFrame extends JFrame implements ActionListener {
     public JPanel panel;
     public JButton btDetail;
     public NET_GetItemList net_getItemList = null;
+    public String userID;
 
-    public ItemListFrame() {
+    public ItemListFrame(String userID) {
+        this.userID = userID;
         Container c = getContentPane();
         c.setLayout(new BorderLayout());
         setSize(700, 800);
@@ -88,7 +89,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        new ItemListFrame().setVisible(true);
+        new ItemListFrame("201922301279").setVisible(true);
     }
 
     public void deleteAll(String path) {
@@ -117,9 +118,9 @@ public class ItemListFrame extends JFrame implements ActionListener {
 
             panel.removeAll();
             panel.repaint();
+            net_getItemList = null;
             try {
-                new NET_GetItemList(new ItemListFilter(search, 0));
-                ShowEveryItem();
+                net_getItemList = new NET_GetItemList(new ItemListFilter(search, 0));
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this, "错误！", "Oops", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
@@ -129,9 +130,9 @@ public class ItemListFrame extends JFrame implements ActionListener {
         } else if (e.getSource().equals(menuTimeSort)) {
             panel.removeAll();
             panel.repaint();
+            net_getItemList = null;
             try {
-                new NET_GetItemList(new ItemListFilter(search, 2));
-                ShowEveryItem();
+                net_getItemList = new NET_GetItemList(new ItemListFilter(search, 2));
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this, "错误！", "Oops", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
@@ -141,8 +142,9 @@ public class ItemListFrame extends JFrame implements ActionListener {
         } else if (e.getSource().equals(menuSaleSort)) {
             panel.removeAll();
             panel.repaint();
+            net_getItemList = null;
             try {
-                new NET_GetItemList(new ItemListFilter(search, 1));
+                net_getItemList = new NET_GetItemList(new ItemListFilter(search, 1));
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this, "错误！", "Oops", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
@@ -155,7 +157,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
     public void ShowEveryItem() {
         String itemList[];
         itemList = net_getItemList.getItemList();
-        System.out.println(itemList[0]);
+        //System.out.println(itemList[0]);
         System.out.println("开始逐个展示商品164");
         NET_GetItemDetails net_getItemDetails = null;
         for (int i = 0; i < itemList.length; i++) {
@@ -183,7 +185,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
         btDetail = new JButton("详情");
         btDetail.addActionListener(e -> {
             try {
-                new ItemState(itemData.getName(), UserInfo.user.getID());
+                new ItemState(itemData.getName(), userID);
                 System.out.println("创建对应窗口");
                 //new ItemState(itemData.getName(), "201922301279");
                 //new BoughtItemInfoFrame(new ItemInfo(itemData.getName()));

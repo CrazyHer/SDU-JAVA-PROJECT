@@ -69,7 +69,7 @@ public class MyItems extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case "购买商品":
-                new ItemListFrame().setVisible(true);
+                new ItemListFrame(userID).setVisible(true);
                 break;
             case "发布商品":
                 new ReleaseFrame().setVisible(true);
