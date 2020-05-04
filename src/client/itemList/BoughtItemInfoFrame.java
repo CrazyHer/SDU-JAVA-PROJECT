@@ -50,7 +50,8 @@ public class BoughtItemInfoFrame extends JFrame implements ActionListener {
         if (e.getActionCommand().equals("购买")) {
             int i = JOptionPane.showConfirmDialog(null, "是否购买", "提示", JOptionPane.YES_NO_OPTION);
             if (i == 0) {
-                buyItemData = new BuyItemData(user.getID(), itemInfo.getName());
+                buyItemData = new BuyItemData(user.getID(), itemInfo.getItemName());
+                System.out.println(itemInfo.getName());
                 NET_BuyItem net_buyItem = null;
                 try {
                     net_buyItem = new NET_BuyItem(buyItemData);
@@ -62,7 +63,6 @@ public class BoughtItemInfoFrame extends JFrame implements ActionListener {
                 if (resultCode.equals("1")) JOptionPane.showMessageDialog(this, "购买成功！");
                 else if (resultCode.equals("0")) JOptionPane.showMessageDialog(this, "交易已在进行中，无法购买！");
                 else if (resultCode.equals("-1")) JOptionPane.showMessageDialog(this, "购买失败！");
-
             }
 
         } else if (e.getActionCommand().equals("联系卖家")) {

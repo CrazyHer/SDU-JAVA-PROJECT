@@ -13,12 +13,13 @@ public class ItemInfo extends JPanel {
     JPanel photoPanel;
     JLabel nameLabel, priceLabel, quantityLabel, introductionLabel, commentLabel;
     Info item;
-    String comment = "";
+    String comment = "", itemName;
     ItemData itemData;
     ImageIcon itemImage;
     Comment[] comments;
 
     public ItemInfo(String itemName) throws IOException {
+        this.itemName = itemName;
         try {
             new NET_GetOneItemDetail(itemName);
         } catch (IOException ex) {
@@ -57,6 +58,10 @@ public class ItemInfo extends JPanel {
         commentLabel = new JLabel("商品评价:\n" + comment);
         commentLabel.setFont(new Font("黑体", Font.ITALIC, 12));
         add(commentLabel, new GBC(5, 4, 1, 1).setWeight(0.8, 0.5).setAnchor(GridBagConstraints.NORTHWEST));
+    }
+
+    public String getItemName() {
+        return itemName;
     }
 
     public void deleteAll(String path) {

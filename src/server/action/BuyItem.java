@@ -28,9 +28,12 @@ public class BuyItem {
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         database = new DB();
         buyItemData = JSON.parseObject(in.readLine(), BuyItemData.class);
+        System.out.println(buyItemData.getItemName());
         try {
             resultSet = database.query("SELECT * FROM `trade`.`orderlog` WHERE `ItemID`=(SELECT `ItemID` FROM `trade`.`item` WHERE `ItemName`='" + buyItemData.getItemName() + "' ) AND `buyerID`='" + buyItemData.getBuyerID() + "' AND `done`=0");
             if (!resultSet.next()) {
+                resultSet = database.query("SELECT * FROM `trade`.`item` WHERE `ItemName`='" + buyItemData.getItemName() + "'");
+                resultSet.next();
                 String itemID = resultSet.getString("ItemID");
                 database.update("INSERT INTO `trade`.`orderlog` (`itemID`, `buyerID`, `time`, `done`) VALUES (" + itemID + ", '" + buyItemData.getBuyerID() + "', NOW(), '0')");
                 database.update("UPDATE `trade`.`item` SET `remains` = `remains`-1, `sale` = `sale`+1 WHERE (`ItemID` = " + itemID + ")");

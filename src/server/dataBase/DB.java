@@ -43,9 +43,9 @@ public class DB {
     }
 
     public void close() throws SQLException {
-        resultSet.close();
-        statement.close();
-        connection.close();
+        if (resultSet != null) resultSet.close();
+        if (statement != null) statement.close();
+        if (connection != null) connection.close();
     }
 
 }
