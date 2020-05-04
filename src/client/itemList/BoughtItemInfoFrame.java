@@ -36,9 +36,11 @@ public class BoughtItemInfoFrame extends JFrame implements ActionListener {
         panel.setLayout(new GridBagLayout());
 
         btChat = new JButton("联系卖家");
+        btChat.addActionListener(this);
         btBuy = new JButton("购买");
-        panel.add(btBuy, new GBC(0, 0, 1, 1).setAnchor(GridBagConstraints.EAST));
-        panel.add(btBuy, new GBC(0, 1, 1, 1).setAnchor(GridBagConstraints.EAST));
+        btBuy.addActionListener(this);
+        panel.add(btChat, new GBC(0, 0, 1, 1).setAnchor(GridBagConstraints.CENTER));
+        panel.add(btBuy, new GBC(0, 1, 1, 1).setAnchor(GridBagConstraints.CENTER));
         panel.add(new JPanel(), new GBC(0, 2, 1, 1));
         c.add(panel, BorderLayout.SOUTH);
 
@@ -46,19 +48,22 @@ public class BoughtItemInfoFrame extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("购买")) {
-            buyItemData = new BuyItemData(user.getID(), itemInfo.getName());
-            NET_BuyItem net_buyItem = null;
-            try {
-                net_buyItem = new NET_BuyItem(buyItemData);
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(this, "数据丢失！", "Oops", JOptionPane.ERROR_MESSAGE);
-                ex.printStackTrace();
+            int i = JOptionPane.showConfirmDialog(null, "是否购买", "提示", JOptionPane.YES_NO_OPTION);
+            if (i == 0) {
+                buyItemData = new BuyItemData(user.getID(), itemInfo.getName());
+                NET_BuyItem net_buyItem = null;
+                try {
+                    net_buyItem = new NET_BuyItem(buyItemData);
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(this, "数据丢失！", "Oops", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
+                }
+                String resultCode = net_buyItem.getResultCode();
+                if (resultCode.equals("1")) JOptionPane.showMessageDialog(this, "购买成功！");
+                else if (resultCode.equals("0")) JOptionPane.showMessageDialog(this, "交易已在进行中，无法购买！");
+                else if (resultCode.equals("-1")) JOptionPane.showMessageDialog(this, "购买失败！");
+
             }
-            String resultCode = net_buyItem.getResultCode();
-            if (resultCode.equals("1")) {
-                JOptionPane.showMessageDialog(this, "购买成功！");
-            } else if (resultCode.equals("0")) JOptionPane.showMessageDialog(this, "交易已在进行中，无法购买！");
-            else if (resultCode.equals("-1")) JOptionPane.showMessageDialog(this, "购买失败！");
 
         } else if (e.getActionCommand().equals("联系卖家")) {
             //new聊天窗口

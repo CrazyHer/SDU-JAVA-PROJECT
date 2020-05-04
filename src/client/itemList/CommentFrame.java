@@ -33,16 +33,15 @@ public class CommentFrame extends JFrame implements ActionListener {
         panel.add(itemInfo);
         c.add(panel);
 
-        panel = new JPanel();
-        panel.setLayout(new BorderLayout());
+        panel = new JPanel(new BorderLayout());
         taComment = new JTextArea(10, 30);
-        panel.add(taComment);
+        panel.add(taComment, BorderLayout.CENTER);
 
         btComment = new JButton("提交评论");
         btComment.addActionListener(this);
         JPanel p0 = new JPanel();
         p0.add(btComment);
-        panel.add(p0);
+        panel.add(p0, BorderLayout.SOUTH);
         c.add(panel);
 
     }
