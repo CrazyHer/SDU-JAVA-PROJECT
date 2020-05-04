@@ -51,7 +51,7 @@ public class CommentFrame extends JFrame implements ActionListener {
             if (taComment.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "未进行评论！");
             } else {
-                comment = new Comment(itemInfo.getName(), taComment.getText(), user.getID());
+                comment = new Comment(itemInfo.getItemName(), taComment.getText(), user.getID());
                 NET_Remark net_remark = null;
                 try {
                     net_remark = new NET_Remark(comment);
@@ -60,8 +60,10 @@ public class CommentFrame extends JFrame implements ActionListener {
                     ex.printStackTrace();
                 }
                 String resultCode = net_remark.getResultCode();
-                if (resultCode.equals("1")) JOptionPane.showMessageDialog(this, "评论成功！");
-                else if (resultCode.equals("-1")) JOptionPane.showMessageDialog(this, "评论失败！");
+                if (resultCode.equals("1")) {
+                    JOptionPane.showMessageDialog(this, "评论成功！");
+                    this.dispose();
+                } else if (resultCode.equals("-1")) JOptionPane.showMessageDialog(this, "评论失败！");
             }
 
         }
