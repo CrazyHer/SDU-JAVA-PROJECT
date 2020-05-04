@@ -41,7 +41,7 @@ public class ReleaseItem {
             dos.writeUTF("1");
             dos.flush();
             getFile(ServerMain.PATH + itemData.getName());
-            database.update("INSERT INTO `trade`.`item` (`ItemName`, `ItemPrice`, `Introduction`, `auction`, `ownerID`, `releaseTime`, `remains`, `sale`, `photoPath`, `ItemID`) VALUES ('" + itemData.getName() + "', '" + itemData.getPrice() + "', '" + itemData.getIntroduction() + "', '" + (itemData.isAuction() ? "0" : "1") + "', '" + itemData.getOwnerID() + "', NOW(), '5', '0', '" + Path + "', null)");
+            database.update("INSERT INTO `trade`.`item` (`ItemName`, `ItemPrice`, `Introduction`, `auction`, `ownerID`, `releaseTime`, `remains`, `sale`, `photoPath`, `ItemID`) VALUES ('" + itemData.getName() + "', '" + itemData.getPrice() + "', '" + itemData.getIntroduction() + "', '" + (itemData.isAuction() ? "0" : "1") + "', '" + itemData.getOwnerID() + "', NOW(), '" + itemData.getQuantity() + "', '0', '" + Path + "', null)");
         } else {
             dos.writeUTF("-1");
             dos.flush();

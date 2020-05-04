@@ -12,7 +12,7 @@ public class TalkingFrame extends JFrame {
 
     public TalkingFrame() {
         setTitle("聊天");
-        setSize(400, 300);
+        setSize(400, 500);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         Container con = this.getContentPane();
