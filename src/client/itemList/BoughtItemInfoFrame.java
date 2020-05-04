@@ -51,7 +51,7 @@ public class BoughtItemInfoFrame extends JFrame implements ActionListener {
             int i = JOptionPane.showConfirmDialog(null, "是否购买", "提示", JOptionPane.YES_NO_OPTION);
             if (i == 0) {
                 buyItemData = new BuyItemData(user.getID(), itemInfo.getItemName());
-                System.out.println(itemInfo.getName());
+                System.out.println(user.getID() + " " + itemInfo.getItemName());
                 NET_BuyItem net_buyItem = null;
                 try {
                     net_buyItem = new NET_BuyItem(buyItemData);

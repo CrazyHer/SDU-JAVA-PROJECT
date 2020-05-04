@@ -5,40 +5,54 @@ import java.awt.*;
 
 public class TalkingFrame extends JFrame {
 
-    JTextField tfSend;//声明文本框，用来写内容
-    JScrollPane spShow;//声明大型文本区，用来显示聊天记录
-    JPanel pp;
+    JTextArea taSend;//声明文本框，用来写内容
+    JScrollPane sp;//用来安置聊天记录面板
+    JPanel pp;//安置消息输入框与发送按钮
+    JPanel talkPanel;//聊天记录面板
     JButton btSend;//发送按钮
+    JLabel lbMe;//标签，显示自己的用户名
+    JLabel lbYou;//标签，显示对方的用户名
 
     public TalkingFrame() {
         setTitle("聊天");
-        setSize(400, 500);
+        setSize(550, 500);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        Container con = this.getContentPane();
-        con.setLayout(new BorderLayout());//设置窗体布局为BorderLayout
+        Container c = this.getContentPane();
+        c.setLayout(new BorderLayout());//设置窗体布局为BorderLayout
 
-        pp = new JPanel();//安置消息输入框与发送按钮
-        JPanel p1 = new JPanel();
-        JPanel p2 = new JPanel();
+        pp = new JPanel();
+        talkPanel = new JPanel(new GridLayout(1024, 1));
+        JPanel p1 = new JPanel();//安置输入框
+        JPanel p2 = new JPanel(new FlowLayout(FlowLayout.RIGHT));//安置发送按钮
+        lbMe = new JLabel("李梓昕");
+        lbMe.setForeground(Color.BLUE);
+        lbYou = new JLabel("何大佬");
+        lbYou.setForeground(Color.RED);
 
-        spShow = new JScrollPane();
+        sp = new JScrollPane(talkPanel);
+        //滚动条默认置底
+        JScrollBar jscrollBar = sp.getVerticalScrollBar();
+        if (jscrollBar != null)
+            jscrollBar.setValue(jscrollBar.getMaximum());
 
-        pp.setLayout(new GridLayout(2, 1));//把pp设成（2，1）网格布局
+        talkPanel.add(lbMe);
+        talkPanel.add(new JLabel("何大佬nb"));
+        talkPanel.add(lbYou);
+        talkPanel.add(new JLabel("被发现了"));
+
+        pp.setLayout(new FlowLayout(FlowLayout.LEFT));
         pp.add(p1);
         pp.add(p2);
 
-        con.add(pp, BorderLayout.SOUTH);//Container把pp放在窗体南边
-        con.add(spShow, BorderLayout.CENTER);//Container把文本区放在中间
+        c.add(pp, BorderLayout.SOUTH);//Container把pp放在窗体南边
+        c.add(sp, BorderLayout.CENTER);//Container把文本区放在中间
 
-        JLabel label = new JLabel("内容");
-
-        tfSend = new JTextField(30);//实例化文本框
+        taSend = new JTextArea(5, 40);//实例化文本框
 
         btSend = new JButton("发送");
 
-        p1.add(label);
-        p1.add(tfSend);
+        p1.add(taSend);
         p2.add(btSend);
 
     }
