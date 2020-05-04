@@ -27,8 +27,10 @@ public class TalkingFrame extends JFrame {
         JPanel p2 = new JPanel(new FlowLayout(FlowLayout.RIGHT));//安置发送按钮
         lbMe = new JLabel("李梓昕");
         lbMe.setForeground(Color.BLUE);
+        lbMe.setFont(new Font("隶书", Font.BOLD, 24));
         lbYou = new JLabel("何大佬");
         lbYou.setForeground(Color.RED);
+        lbYou.setFont(new Font("隶书", Font.BOLD, 24));
 
         sp = new JScrollPane(talkPanel);
         //滚动条默认置底
