@@ -9,6 +9,7 @@ import java.sql.SQLException;
 
 public class ThreadTest extends Thread {
     Socket socket;
+
     ThreadTest(Socket s) {
         socket = s;
         System.out.println("客户端连接：" + s.getInetAddress() + ":" + s.getPort());

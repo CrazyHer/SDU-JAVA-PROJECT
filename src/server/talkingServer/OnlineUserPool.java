@@ -10,6 +10,7 @@ public class OnlineUserPool {
 
     static public void add(UserData userData, Socket socket) {
         onlineUsers.add(new OnlineUser(userData, socket));
+        System.out.println("添加成功");
     }
 
     static public void delete(UserData userData) {
@@ -44,10 +45,11 @@ public class OnlineUserPool {
     static public Socket getSocket(String userID) {
         Socket socket = null;
         for (int i = 0; i < onlineUsers.size(); i++) {
+            System.out.println(userID);
             if (onlineUsers.elementAt(i).userData.getID().equals(userID)) {
                 socket = onlineUsers.elementAt(i).socket;
                 break;
-            }
+            } else System.out.println("没找到");
         }
         return socket;
     }

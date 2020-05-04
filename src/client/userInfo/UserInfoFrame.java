@@ -1,6 +1,7 @@
 package client.userInfo;
 
 import client.login.LoginFrame;
+import client.refreshListener.RefreshListener;
 import com.alibaba.fastjson.JSON;
 import server.dataObjs.UserData;
 
@@ -18,11 +19,16 @@ public class UserInfoFrame extends JFrame implements ActionListener {
     public JMenuBar menuBar;
     public JMenuItem menuItem;
     public LoginFrame ParentFrame;
-    public ImageIcon Profile;
     public UserData userData;
 
-    public UserInfoFrame(LoginFrame parentFrame) throws IOException {
+    UserInfo userInfoPanel;
+    MyItems myItemsPanel;
+    MyStatistics myStatisticsPanel;
+    MyNotification myNotificationPanel;
+
+    public UserInfoFrame(LoginFrame parentFrame, RefreshListener refreshListener) throws IOException {
         ParentFrame = parentFrame;
+        refreshListener.setUserInfoFrame(this);
         new NET_GetUserData(parentFrame.userData.getID());
         parentFrame.setVisible(false);
         setTitle("用户信息");
@@ -34,10 +40,15 @@ public class UserInfoFrame extends JFrame implements ActionListener {
         c = new JPanel();
 
         c.setLayout(new GridBagLayout());//分别为用户信息、我的物品、统计信息、消息通知
-        c.add(new UserInfo(userData, parentFrame.img), new GBC(0, 0, 1, 1).setWeight(1, 0.2).setAnchor(GridBagConstraints.WEST));
-        c.add(new MyItems(userData.getID()), new GBC(0, 1, 1, 1).setWeight(1, 0.4).setAnchor(GridBagConstraints.WEST).setFill(GridBagConstraints.BOTH));
-        c.add(new MyStatistics(), new GBC(0, 2, 1, 1).setWeight(1, 0.2));
-        c.add(new MyNotification(userData.getID()), new GBC(0, 3, 1, 1).setWeight(1, 0.2).setAnchor(GridBagConstraints.WEST).setFill(GridBagConstraints.NONE));
+
+        userInfoPanel = new UserInfo(userData, parentFrame.img);
+        myItemsPanel = new MyItems(userData.getID());
+        myStatisticsPanel = new MyStatistics();
+        myNotificationPanel = new MyNotification(userData.getID());
+        c.add(userInfoPanel, new GBC(0, 0, 1, 1).setWeight(1, 0.2).setAnchor(GridBagConstraints.WEST));
+        c.add(myItemsPanel, new GBC(0, 1, 1, 1).setWeight(1, 0.4).setAnchor(GridBagConstraints.WEST).setFill(GridBagConstraints.BOTH));
+        c.add(myStatisticsPanel, new GBC(0, 2, 1, 1).setWeight(1, 0.2));
+        c.add(myNotificationPanel, new GBC(0, 3, 1, 1).setWeight(1, 0.2).setAnchor(GridBagConstraints.WEST).setFill(GridBagConstraints.NONE));
 
         scrollPane = new JScrollPane(c);
         getContentPane().add(scrollPane);
@@ -45,21 +56,52 @@ public class UserInfoFrame extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+    public void refreshItems() throws IOException {//定向刷新MyItems面板的方法
+        myItemsPanel = new MyItems(userData.getID());
+        c.removeAll();
+        c.add(userInfoPanel, new GBC(0, 0, 1, 1).setWeight(1, 0.2).setAnchor(GridBagConstraints.WEST));
+        c.add(myItemsPanel, new GBC(0, 1, 1, 1).setWeight(1, 0.4).setAnchor(GridBagConstraints.WEST).setFill(GridBagConstraints.BOTH));
+        c.add(myStatisticsPanel, new GBC(0, 2, 1, 1).setWeight(1, 0.2));
+        c.add(myNotificationPanel, new GBC(0, 3, 1, 1).setWeight(1, 0.2).setAnchor(GridBagConstraints.WEST).setFill(GridBagConstraints.NONE));
+        c.repaint();
+        c.revalidate();
+    }
+
+    public void refreshNotification() throws IOException {//定向刷新Notification面板的方法
+        myNotificationPanel = new MyNotification(userData.getID());
+        c.removeAll();
+        c.add(userInfoPanel, new GBC(0, 0, 1, 1).setWeight(1, 0.2).setAnchor(GridBagConstraints.WEST));
+        c.add(myItemsPanel, new GBC(0, 1, 1, 1).setWeight(1, 0.4).setAnchor(GridBagConstraints.WEST).setFill(GridBagConstraints.BOTH));
+        c.add(myStatisticsPanel, new GBC(0, 2, 1, 1).setWeight(1, 0.2));
+        c.add(myNotificationPanel, new GBC(0, 3, 1, 1).setWeight(1, 0.2).setAnchor(GridBagConstraints.WEST).setFill(GridBagConstraints.NONE));
+        c.repaint();
+        c.revalidate();
+    }
+
     public void addMenu() {
         menuBar = new JMenuBar();
         menu = new JMenu("菜单");
         menuBar.add(menu);
+
         menuItem = new JMenuItem("退出登录");
         menu.add(menuItem);
-        setJMenuBar(menuBar);
         menuItem.addActionListener(this);
+
+        setJMenuBar(menuBar);
     }
 
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(menuItem)) {
+        if (e.getActionCommand().equals("退出登录")) {
             //setVisible(false);
             this.dispose();
             new LoginFrame().setVisible(true);
+        } else if (e.getActionCommand().equals("刷新")) {
+            try {
+                refreshNotification();
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "错误", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            }
         }
     }
 
@@ -92,4 +134,5 @@ public class UserInfoFrame extends JFrame implements ActionListener {
             this.socket.close();
         }
     }
+
 }

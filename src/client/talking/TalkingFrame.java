@@ -1,5 +1,6 @@
 package client.talking;
 
+import client.refreshListener.RefreshListener;
 import com.alibaba.fastjson.JSON;
 import server.dataObjs.MsgData;
 import server.dataObjs.UserData;
@@ -18,8 +19,7 @@ public class TalkingFrame extends JFrame implements ActionListener {
     JPanel pp;//安置消息输入框与发送按钮
     JPanel talkPanel;//聊天记录面板
     JButton btSend;//发送按钮
-    JLabel lbMe;//标签，显示自己的用户名
-    JLabel lbYou;//标签，显示对方的用户名
+    JLabel label;
 
     private String myID, friendID;
 
@@ -37,14 +37,28 @@ public class TalkingFrame extends JFrame implements ActionListener {
         talkPanel = new JPanel(new GridLayout(1024, 1));
         JPanel p1 = new JPanel();//安置输入框
         JPanel p2 = new JPanel(new FlowLayout(FlowLayout.RIGHT));//安置发送按钮
-
-        refresh();//刷新消息面板
+        //下面初始化离线消息
+        MsgData[][] msgData = new NET_GetMSG(myID, friendID).getMsgData();
+        String myName = new NET_GetUserData(myID).getUserData().getUsername();
+        String friendName = new NET_GetUserData(friendID).getUserData().getUsername();
+        for (int i = 0; i < msgData[0].length; i++) {
+            if (msgData[0][i].getSenderID().equals(myName)) {
+                label = new JLabel(myName + " " + msgData[0][i].getTime());
+                label.setForeground(new Color(51, 204, 82));
+            } else {
+                label = new JLabel(friendName + " " + msgData[0][i].getTime());
+                label.setForeground(Color.BLUE);
+            }
+            label.setFont(new Font("隶书", Font.BOLD, 15));
+            talkPanel.add(label);
+            talkPanel.add(new JLabel(msgData[0][i].getText()));
+        }
 
         sp = new JScrollPane(talkPanel);
         //滚动条默认置底
         JScrollBar jscrollBar = sp.getVerticalScrollBar();
         if (jscrollBar != null)
-            jscrollBar.setValue(jscrollBar.getMaximum() - 100);
+            jscrollBar.setValue(jscrollBar.getMaximum());
 
         pp.setLayout(new FlowLayout(FlowLayout.LEFT));
         pp.add(p1);
@@ -60,18 +74,21 @@ public class TalkingFrame extends JFrame implements ActionListener {
 
         p1.add(taSend);
         p2.add(btSend);
-
+        if (RefreshListener.talkingFrame != null) {
+            RefreshListener.talkingFrame.dispose();
+        }
+        RefreshListener.setTalkingFrame(this);
     }
 
     private void send(String text) throws IOException {
         new NET_SendMSG(new MsgData(myID, friendID, text));
     }
 
-    private void refresh() throws IOException {
-        JLabel label;
+    public void refresh() throws IOException {//更新目前消息
         MsgData[][] msgData = new NET_GetMSG(myID, friendID).getMsgData();
         String myName = new NET_GetUserData(myID).getUserData().getUsername();
         String friendName = new NET_GetUserData(friendID).getUserData().getUsername();
+        talkPanel.removeAll();
         for (int i = 0; i < msgData[0].length; i++) {
             if (msgData[0][i].getSenderID().equals(myName)) {
                 label = new JLabel(myName + " " + msgData[0][i].getTime());
@@ -87,6 +104,8 @@ public class TalkingFrame extends JFrame implements ActionListener {
                 talkPanel.add(new JLabel(msgData[0][i].getText()));
             }
         }
+        talkPanel.repaint();
+        talkPanel.revalidate();
     }
 
     @Override

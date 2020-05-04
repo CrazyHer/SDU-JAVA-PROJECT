@@ -1,5 +1,6 @@
 package client.login;
 
+import client.refreshListener.RefreshListener;
 import client.userInfo.UserInfoFrame;
 import com.alibaba.fastjson.JSON;
 import server.dataObjs.UserData;
@@ -30,6 +31,7 @@ public class LoginFrame extends JFrame implements ActionListener {
     public ImageIcon img;
     public UserData userData;
     public String Path;
+    public RefreshListener refreshListener;
 
     public LoginFrame() {
         Container c = getContentPane();
@@ -107,7 +109,9 @@ public class LoginFrame extends JFrame implements ActionListener {
                 if (resultCode.equals("1")) {
                     JOptionPane.showMessageDialog(this, "登陆成功！");
                     try {
-                        new UserInfoFrame(this).setVisible(true);
+                        refreshListener = new RefreshListener(net_login.getLongSocket());
+                        refreshListener.start();
+                        new UserInfoFrame(this, refreshListener).setVisible(true);
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
@@ -137,6 +141,7 @@ public class LoginFrame extends JFrame implements ActionListener {
         private PrintWriter out;
 
         private String json, resultCode;
+        private Socket longSocket;
 
         public NET_Login(UserData userData) throws IOException {
             this.socket = new Socket(this.Address, this.PORT);
@@ -159,6 +164,9 @@ public class LoginFrame extends JFrame implements ActionListener {
                 img = new ImageIcon(ImageIO.read(new File(Path)));
             }
             this.socket.close();
+            longSocket = new Socket(Address, PORT + 1);
+            out = new PrintWriter(new BufferedOutputStream(longSocket.getOutputStream()), true);
+            out.println(JSON.toJSONString(userData));
         }
 
         public void getFile(String path) throws IOException {//接收文件的方法，直接用即可,参数为存放文件夹路径，注意是文件夹
@@ -187,6 +195,10 @@ public class LoginFrame extends JFrame implements ActionListener {
 
         public String getResultCode() {
             return resultCode;
+        }
+
+        public Socket getLongSocket() {
+            return longSocket;
         }
     }
 
