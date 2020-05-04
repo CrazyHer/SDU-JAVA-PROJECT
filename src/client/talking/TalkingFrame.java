@@ -2,6 +2,8 @@ package client.talking;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.*;
+import java.net.Socket;
 
 public class TalkingFrame extends JFrame {
 
@@ -25,6 +27,8 @@ public class TalkingFrame extends JFrame {
         talkPanel = new JPanel(new GridLayout(1024, 1));
         JPanel p1 = new JPanel();//安置输入框
         JPanel p2 = new JPanel(new FlowLayout(FlowLayout.RIGHT));//安置发送按钮
+
+
         lbMe = new JLabel("李梓昕");
         lbMe.setForeground(Color.BLUE);
         lbYou = new JLabel("何大佬");
@@ -60,6 +64,48 @@ public class TalkingFrame extends JFrame {
     public static void main(String[] args) {
         TalkingFrame testFrame = new TalkingFrame();
         testFrame.setVisible(true);
+    }
+
+    private void send() {
+
+    }
+
+    private void refresh() {
+
+    }
+
+
+    private class NET_SendMSG {
+        private final String Command = "GET MSGS";//请求类型
+        private final String Address = "localhost";
+        private final int PORT = 2333;//服务器端口
+        private Socket socket;
+        private DataInputStream dis;//输入
+        private DataOutputStream dos;//输出
+        private BufferedReader in;
+        private PrintWriter out;
+        private String Path;
+        private String json;
+
+        public NET_SendMSG(String myID, String youID) throws IOException {
+            this.socket = new Socket(this.Address, this.PORT);
+            dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
+            dos.writeUTF(Command);
+            dos.flush();
+
+            dos.writeUTF(myID.compareTo(youID) > 0 ? youID + ";" + myID : myID + ";" + youID);
+
+
+            this.socket.close();
+        }
+
+    }
+
+    private class NET_GetMSG {
+
     }
 
 }
