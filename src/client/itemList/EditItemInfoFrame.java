@@ -25,6 +25,7 @@ public class EditItemInfoFrame extends JFrame implements ActionListener {
     public JTextArea taItemIntroduction;
     public JButton btUpload;
     public JButton btEdit;
+    public JButton btCancel;
     public String Path = "";
     public String ItemName;
 
@@ -75,8 +76,11 @@ public class EditItemInfoFrame extends JFrame implements ActionListener {
 
         btEdit = new JButton("提交修改信息");
         btEdit.addActionListener(this);
-        panel = new JPanel();
+        btCancel = new JButton("取消");
+        btCancel.addActionListener(this);
+        panel = new JPanel(new FlowLayout());
         panel.add(btEdit);
+        panel.add(btCancel);
         c.add(panel, BorderLayout.SOUTH);
     }
 
@@ -107,6 +111,8 @@ public class EditItemInfoFrame extends JFrame implements ActionListener {
 
         } else if (e.getActionCommand().equals("上传图片")) {
             new UpLoad_EditItemInfo(this);
+        } else if (e.getActionCommand().equals("取消")) {
+            this.dispose();
         }
     }
 

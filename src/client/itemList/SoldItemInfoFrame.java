@@ -48,13 +48,17 @@ public class SoldItemInfoFrame extends JFrame implements ActionListener {
         if (e.getActionCommand().equals("拍卖销售")) {
             //从数据库中删除
         } else if (e.getActionCommand().equals("修改信息")) {
-            new EditItemInfoFrame(itemInfo.getName());
+            new EditItemInfoFrame(itemInfo.getName()).setVisible(true);
         } else if (e.getSource().equals("删除商品")) {
-            try {
-                new NET_DeleteItem(itemInfo.getName());
-            } catch (IOException ex) {
-                ex.printStackTrace();
+            int i = JOptionPane.showConfirmDialog(null, "是否删除该商品", "提示", JOptionPane.YES_NO_OPTION);
+            if (i == 0) {
+                try {
+                    new NET_DeleteItem(itemInfo.getName());
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
+
         }
     }
 
