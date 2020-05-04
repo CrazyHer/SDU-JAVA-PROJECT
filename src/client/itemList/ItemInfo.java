@@ -17,6 +17,7 @@ public class ItemInfo extends JPanel {
     ItemData itemData;
     ImageIcon itemImage;
     Comment[] comments;
+    String ownerID;
 
     public ItemInfo(String itemName) throws IOException {
         this.itemName = itemName;
@@ -34,6 +35,7 @@ public class ItemInfo extends JPanel {
         }
         setLayout(new GridBagLayout());
         item = new Info(itemData.getName(), itemData.getPrice(), itemImage, itemData.getQuantity(), itemData.getIntroduction(), comments);
+        ownerID = itemData.getOwnerID();
         photoPanel = new JPanel();
         photoPanel.add(new JLabel(item.getImageIcon()));
         add(photoPanel, new GBC(0, 0, 4, 4).setWeight(0.5, 1).setAnchor(GridBagConstraints.WEST).setFill(GridBagConstraints.NONE));

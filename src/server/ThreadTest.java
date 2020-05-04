@@ -32,6 +32,7 @@ public class ThreadTest extends Thread {
                     new GetUserData(socket);
                     break;
                 case "GET USER PROFILE":
+                    new GetUserProfile(socket);
                     break;
                 case "GET MSGS":
                     new GetMsgs(socket);

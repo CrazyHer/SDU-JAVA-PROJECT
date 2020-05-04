@@ -1,9 +1,13 @@
 package client.itemList;
 
+import client.talking.TalkingFrame;
+import client.userInfo.UserInfo;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class ReceiveItemFrame extends JFrame implements ActionListener {
 
@@ -44,7 +48,12 @@ public class ReceiveItemFrame extends JFrame implements ActionListener {
         if (e.getActionCommand().equals("确认收货")) {
             new CommentFrame(itemInfo).setVisible(true);
         } else if (e.getActionCommand().equals("联系卖家")) {
-            //new聊天窗口
+            try {
+                new TalkingFrame(UserInfo.user.getID(), itemInfo.ownerID).setVisible(true);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "打开失败", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            }
         }
 
     }
