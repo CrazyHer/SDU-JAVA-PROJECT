@@ -63,10 +63,16 @@ public class EditItem {
                 dos.flush();
                 getFile(ServerMain.PATH + itemData.getName());
                 database.update("UPDATE `trade`.`item` SET `ItemName` = '" + itemData.getName() + "', `ItemPrice` = '" + itemData.getPrice() + "', `Introduction` = '" + itemData.getIntroduction() + "', `auction` = '" + (itemData.isAuction() ? "1" : "0") + "', `remains` = '" + itemData.getQuantity() + "', `photoPath` = '" + Path + "' WHERE (`ItemID` = '" + itemData.getItemID() + "')");
-
+                //通知卖家
+                Socket Lsocket = OnlineUserPool.getSocket(itemData.getOwnerID());
+                if (Lsocket != null) {
+                    out = new PrintWriter(new BufferedOutputStream(Lsocket.getOutputStream()), true);
+                    out.println("NEW ITEM");
+                }
+                //通知有关买家
                 database.query("SELECT DISTINCT `buyerID` FROM `trade`.`orderlog` WHERE `itemID`='" + itemID + "'");
                 while (resultSet.next()) {
-                    Socket Lsocket = OnlineUserPool.getSocket(resultSet.getString("buyerID"));
+                    Lsocket = OnlineUserPool.getSocket(resultSet.getString("buyerID"));
                     if (Lsocket != null) {
                         out = new PrintWriter(new BufferedOutputStream(Lsocket.getOutputStream()), true);
                         out.println("NEW ITEM");
