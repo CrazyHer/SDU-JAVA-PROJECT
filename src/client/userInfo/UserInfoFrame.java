@@ -32,7 +32,7 @@ public class UserInfoFrame extends JFrame implements ActionListener {
         ParentFrame = parentFrame;
         refreshListener.setUserInfoFrame(this);
         new NET_GetUserData(parentFrame.userData.getID());
-        parentFrame.setVisible(false);
+        parentFrame.dispose();
         setTitle("用户信息");
         setSize(500, 400);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
