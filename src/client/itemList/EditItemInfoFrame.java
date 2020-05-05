@@ -146,7 +146,7 @@ public class EditItemInfoFrame extends JFrame implements ActionListener {
 
             itemData = JSON.parseObject(in.readLine(), ItemData.class);
 
-            System.out.println("已接收原商品数据 " + itemData.getName());
+            System.out.println("已接收原商品数据 " + itemData.getItemID());
 
             if (itemData != null) {
                 if (!(txItemName.getText().equals(""))) itemData.setName(txItemName.getText());
