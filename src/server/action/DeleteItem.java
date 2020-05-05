@@ -26,10 +26,11 @@ public class DeleteItem {
         dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
         itemName = dis.readUTF();
         database = new DB();
-        database.update("DELETE FROM `trade`.`item` WHERE (`ItemName` = '" + itemName + "')");
         resultSet = database.query("SELECT * FROM `trade`.`item` WHERE `ItemName`='" + itemName + "'");
         resultSet.next();
-        PrintWriter out = new PrintWriter(new BufferedOutputStream(OnlineUserPool.getSocket(resultSet.getString("ownerID")).getOutputStream()), true);
+        String ownerID = resultSet.getString("ownerID");
+        database.update("DELETE FROM `trade`.`item` WHERE (`ItemName` = '" + itemName + "')");
+        PrintWriter out = new PrintWriter(new BufferedOutputStream(OnlineUserPool.getSocket(ownerID).getOutputStream()), true);
         out.println("NEW ITEM");
         database.close();
     }
