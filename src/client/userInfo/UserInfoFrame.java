@@ -9,6 +9,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.*;
 import java.net.Socket;
 
@@ -33,7 +35,8 @@ public class UserInfoFrame extends JFrame implements ActionListener {
         parentFrame.setVisible(false);
         setTitle("用户信息");
         setSize(500, 400);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowClose());
         setLocationRelativeTo(null);
         addMenu();
 
@@ -132,6 +135,15 @@ public class UserInfoFrame extends JFrame implements ActionListener {
             out.println(ID);
             userData = JSON.parseObject(in.readLine(), UserData.class);
             this.socket.close();
+        }
+    }
+
+    class WindowClose extends WindowAdapter {
+        public void windowClosing(WindowEvent e) {
+            int i = JOptionPane.showConfirmDialog(null, "是否关闭", "提示", JOptionPane.YES_NO_OPTION);
+            if (i == 0) {
+                System.exit(0);
+            }
         }
     }
 
