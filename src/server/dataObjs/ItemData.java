@@ -17,6 +17,16 @@ public class ItemData implements Serializable {
         this.ownerID = ownerID;
     }
 
+    public ItemData(String name, Double price, boolean auction, int quantity, String introduction, String ownerID, String itemID) {//参数依次为商品名、价格、是否为拍卖形式（布林值）、数量、商品介绍、出售人的ID（学号）、物品ID
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.introduction = introduction;
+        this.auction = auction;
+        this.ownerID = ownerID;
+        this.itemID = itemID;
+    }
+
     public String getName() {
         return name;
     }

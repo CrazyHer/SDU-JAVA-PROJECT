@@ -128,7 +128,7 @@ public class EditItemInfoFrame extends JFrame implements ActionListener {
         private DataOutputStream dos;//输出
         private BufferedReader in;
         private PrintWriter out;
-        private ItemData itemData = null;
+        private ItemData itemData;
         private String json, resultCode;
 
         public NET_EditItem(String itemName, String path) throws Exception {
