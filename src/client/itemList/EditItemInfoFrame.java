@@ -41,6 +41,8 @@ public class EditItemInfoFrame extends JFrame implements ActionListener {
         JPanel fillInPanel = new JPanel();//填写发布信息面板
         fillInPanel.setLayout(new GridBagLayout());
         lbExplain = new JLabel("说明：填写要修改的信息,并长传商品图片(如果不换图片,请上传原来图片)");
+        lbExplain.setForeground(Color.RED);
+        lbExplain.setFont(new Font("楷体", Font.ITALIC, 16));
         lbItemName = new JLabel("商品名称");
         lbItemQuantity = new JLabel("商品数量");
         lbItemPrice = new JLabel("商品单价");
@@ -94,6 +96,7 @@ public class EditItemInfoFrame extends JFrame implements ActionListener {
             if (Path.equals("")) {
                 JOptionPane.showMessageDialog(this, "未上传图片！", "Oops", JOptionPane.WARNING_MESSAGE);
             } else {
+                System.out.println("图片路径" + Path);
                 try {
                     net_editItem = new NET_EditItem(ItemName, Path);
                     System.out.println("3");
@@ -138,8 +141,12 @@ public class EditItemInfoFrame extends JFrame implements ActionListener {
             dos.flush();
 
             dos.writeUTF(itemName);
+            dos.flush();
+            System.out.println(itemName);
 
             itemData = JSON.parseObject(in.readLine(), ItemData.class);
+
+            System.out.println("已接收原商品数据 " + itemData.getName());
 
             if (itemData != null) {
                 if (!(txItemName.getText().equals(""))) itemData.setName(txItemName.getText());
@@ -149,8 +156,12 @@ public class EditItemInfoFrame extends JFrame implements ActionListener {
                 if (!(taItemIntroduction.getText().isEmpty())) itemData.setIntroduction(taItemIntroduction.getText());
             }
 
+            System.out.println("准备发送修改后的商品数据");
+
             json = JSON.toJSONString(itemData);//使用JSON序列化对象传输过去
             out.println(json);
+
+            System.out.println("商品数据发送成功");
 
             this.resultCode = dis.readUTF();
             System.out.println("1");

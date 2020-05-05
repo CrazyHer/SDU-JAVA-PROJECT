@@ -1,7 +1,5 @@
 package client.itemList;
 
-import com.alibaba.fastjson.JSON;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -34,8 +32,11 @@ public class SoldItemInfoFrame extends JFrame implements ActionListener {
         panel = new JPanel();
         panel.setLayout(new GridBagLayout());
         btAuction = new JButton("拍卖销售");
+        btAuction.addActionListener(this);
         btEdit = new JButton("修改信息");
+        btEdit.addActionListener(this);
         btDelete = new JButton("删除商品");
+        btDelete.addActionListener(this);
         panel.add(btAuction, new GBC(0, 0, 1, 1).setWeight(0.8, 0.6).setAnchor(GridBagConstraints.NORTHEAST));
         panel.add(btEdit, new GBC(0, 1, 1, 1).setWeight(0.8, 0.6).setAnchor(GridBagConstraints.NORTHEAST));
         panel.add(btDelete, new GBC(0, 2, 1, 1).setWeight(0.8, 0.6).setAnchor(GridBagConstraints.NORTHEAST));
@@ -48,15 +49,17 @@ public class SoldItemInfoFrame extends JFrame implements ActionListener {
         if (e.getActionCommand().equals("拍卖销售")) {
             //从数据库中删除
         } else if (e.getActionCommand().equals("修改信息")) {
-            new EditItemInfoFrame(itemInfo.getName()).setVisible(true);
-        } else if (e.getSource().equals("删除商品")) {
+            new EditItemInfoFrame(itemInfo.getItemName()).setVisible(true);
+        } else if (e.getActionCommand().equals("删除商品")) {
             int i = JOptionPane.showConfirmDialog(null, "是否删除该商品", "提示", JOptionPane.YES_NO_OPTION);
             if (i == 0) {
                 try {
-                    new NET_DeleteItem(itemInfo.getName());
+                    new NET_DeleteItem(itemInfo.getItemName());
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
+                JOptionPane.showMessageDialog(this, "删除成功！", "Oops", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
             }
 
         }
@@ -71,8 +74,6 @@ public class SoldItemInfoFrame extends JFrame implements ActionListener {
         private DataOutputStream dos;//输出
         private PrintWriter out;
 
-        private String json;
-
         public NET_DeleteItem(String itemName) throws IOException {
             this.socket = new Socket(this.Address, this.PORT);
             dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
@@ -81,8 +82,8 @@ public class SoldItemInfoFrame extends JFrame implements ActionListener {
             dos.writeUTF(Command);
             dos.flush();
 
-            json = JSON.toJSONString(itemName);//使用JSON序列化对象传输过去
-            out.println(json);
+            dos.writeUTF(itemName);
+            dos.flush();
 
             this.socket.close();
         }

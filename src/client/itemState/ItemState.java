@@ -31,7 +31,7 @@ public class ItemState extends Component {
             new ReceiveItemFrame(new ItemInfo(itemName)).setVisible(true);
         } else if (itemStateCode.equals("1")) {
             System.out.println("可购买");
-            new BoughtItemInfoFrame(new ItemInfo(itemName)).setVisible(true);
+            new BoughtItemInfoFrame(new ItemInfo(itemName), userID).setVisible(true);
         } else if (itemStateCode.equals("2")) {
             System.out.println("自己的商品");
             new SoldItemInfoFrame(new ItemInfo(itemName)).setVisible(true);

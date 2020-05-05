@@ -8,7 +8,7 @@ import java.awt.*;
 public class UserInfo extends JPanel {
     JPanel photoPanel;
     JLabel nameLable, IDLable;
-    public static Info user;
+    public Info user;
 
     UserInfo(UserData userData, ImageIcon img) {
         setLayout(new GridBagLayout());

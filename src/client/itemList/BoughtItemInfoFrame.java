@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.Socket;
 
-import static client.userInfo.UserInfo.user;
+//import static client.userInfo.UserInfo.user;
 
 public class BoughtItemInfoFrame extends JFrame implements ActionListener {
     public JPanel panel;
@@ -18,9 +18,11 @@ public class BoughtItemInfoFrame extends JFrame implements ActionListener {
     public JButton btBuy;
     private BuyItemData buyItemData;
     ItemInfo itemInfo;
+    String userID;
 
-    public BoughtItemInfoFrame(ItemInfo itemInfo) {
+    public BoughtItemInfoFrame(ItemInfo itemInfo, String userID) {
         this.itemInfo = itemInfo;
+        this.userID = userID;
         Container c = getContentPane();
         c.setLayout(new BorderLayout());
         setTitle("商品购买信息");
@@ -50,8 +52,8 @@ public class BoughtItemInfoFrame extends JFrame implements ActionListener {
         if (e.getActionCommand().equals("购买")) {
             int i = JOptionPane.showConfirmDialog(null, "是否购买", "提示", JOptionPane.YES_NO_OPTION);
             if (i == 0) {
-                buyItemData = new BuyItemData(user.getID(), itemInfo.getItemName());
-                System.out.println(user.getID() + " " + itemInfo.getItemName());
+                buyItemData = new BuyItemData(userID, itemInfo.getItemName());
+                System.out.println(userID + " " + itemInfo.getItemName());
                 NET_BuyItem net_buyItem = null;
                 try {
                     net_buyItem = new NET_BuyItem(buyItemData);

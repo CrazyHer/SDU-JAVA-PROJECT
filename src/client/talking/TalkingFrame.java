@@ -6,7 +6,8 @@ import java.awt.*;
 public class TalkingFrame extends JFrame {
 
     JTextArea taSend;//声明文本框，用来写内容
-    JScrollPane sp;//用来安置聊天记录面板
+    JScrollPane spShow;//用来安置聊天记录面板
+    //JScrollPane spInput;//用来安置输入
     JPanel pp;//安置消息输入框与发送按钮
     JPanel talkPanel;//聊天记录面板
     JButton btSend;//发送按钮
@@ -32,9 +33,9 @@ public class TalkingFrame extends JFrame {
         lbYou.setForeground(Color.RED);
         lbYou.setFont(new Font("隶书", Font.BOLD, 24));
 
-        sp = new JScrollPane(talkPanel);
+        spShow = new JScrollPane(talkPanel);
         //滚动条默认置底
-        JScrollBar jscrollBar = sp.getVerticalScrollBar();
+        JScrollBar jscrollBar = spShow.getVerticalScrollBar();
         if (jscrollBar != null)
             jscrollBar.setValue(jscrollBar.getMaximum());
 
@@ -48,7 +49,7 @@ public class TalkingFrame extends JFrame {
         pp.add(p2);
 
         c.add(pp, BorderLayout.SOUTH);//Container把pp放在窗体南边
-        c.add(sp, BorderLayout.CENTER);//Container把文本区放在中间
+        c.add(spShow, BorderLayout.CENTER);//Container把文本区放在中间
 
         taSend = new JTextArea(5, 40);//实例化文本框
 
