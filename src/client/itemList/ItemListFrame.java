@@ -111,8 +111,18 @@ public class ItemListFrame extends JFrame implements ActionListener {
         String search = tfSearch.getText();
         if (tfSearch.getText().equals("")) search = "*";
         if (e.getSource().equals(menuItemLogout)) {
-            this.dispose();
-            new LoginFrame();
+            int i = JOptionPane.showConfirmDialog(null, "是否退出当前账号?", "提示", JOptionPane.YES_NO_OPTION);
+            if (i == 0) {
+                try {
+                    new NET_Logout(userID);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                JOptionPane.showMessageDialog(this, "退出成功！", "Oops", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+                new LoginFrame().setVisible(true);
+            }
+
         } else if (e.getSource().equals(menuDefaultSort) || e.getSource().equals(btSearch)) {
             System.out.println(search);
 
@@ -306,5 +316,34 @@ public class ItemListFrame extends JFrame implements ActionListener {
         public ItemData getItemData() {
             return itemData;
         }
+    }
+
+    private class NET_Logout {
+        private final String Command = "LOG OUT";//请求类型
+        private final String Address = "localhost";
+        private final int PORT = 2333;//服务器端口
+        private Socket socket;
+        private DataInputStream dis;//输入
+        private DataOutputStream dos;//输出
+        private BufferedReader in;
+        private PrintWriter out;
+        private String userID;
+
+        public NET_Logout(String userID) throws IOException {
+            this.userID = userID;
+            this.socket = new Socket(this.Address, this.PORT);
+            dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
+            dos.writeUTF(Command);
+            dos.flush();
+
+            dos.writeUTF(this.userID);
+            dos.flush();
+
+            this.socket.close();
+        }
+
     }
 }
