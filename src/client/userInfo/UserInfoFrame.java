@@ -32,7 +32,7 @@ public class UserInfoFrame extends JFrame implements ActionListener {
         ParentFrame = parentFrame;
         refreshListener.setUserInfoFrame(this);
         new NET_GetUserData(parentFrame.userData.getID());
-        parentFrame.setVisible(false);
+        parentFrame.dispose();
         setTitle("用户信息");
         setSize(500, 400);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -95,9 +95,17 @@ public class UserInfoFrame extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("退出登录")) {
-            //setVisible(false);
-            this.dispose();
-            new LoginFrame().setVisible(true);
+            int i = JOptionPane.showConfirmDialog(null, "是否退出当前账号?", "提示", JOptionPane.YES_NO_OPTION);
+            if (i == 0) {
+                try {
+                    new NET_Logout(userData.getID());
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                JOptionPane.showMessageDialog(this, "退出成功！", "Oops", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+                new LoginFrame().setVisible(true);
+            }
         } else if (e.getActionCommand().equals("刷新")) {
             try {
                 refreshNotification();
@@ -136,6 +144,35 @@ public class UserInfoFrame extends JFrame implements ActionListener {
             userData = JSON.parseObject(in.readLine(), UserData.class);
             this.socket.close();
         }
+    }
+
+    private class NET_Logout {
+        private final String Command = "LOG OUT";//请求类型
+        private final String Address = "localhost";
+        private final int PORT = 2333;//服务器端口
+        private Socket socket;
+        private DataInputStream dis;//输入
+        private DataOutputStream dos;//输出
+        private BufferedReader in;
+        private PrintWriter out;
+        private String userID;
+
+        public NET_Logout(String userID) throws IOException {
+            this.userID = userID;
+            this.socket = new Socket(this.Address, this.PORT);
+            dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
+            dos.writeUTF(Command);
+            dos.flush();
+
+            dos.writeUTF(this.userID);
+            dos.flush();
+
+            this.socket.close();
+        }
+
     }
 
     class WindowClose extends WindowAdapter {
