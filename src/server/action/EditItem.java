@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import server.ServerMain;
 import server.dataBase.DB;
 import server.dataObjs.ItemData;
+import server.talkingServer.OnlineUserPool;
 
 import java.io.*;
 import java.net.Socket;
@@ -50,11 +51,10 @@ public class EditItem {
             quantity = resultSet.getInt("remains");
             price = resultSet.getDouble("ItemPrice");
             auction = resultSet.getBoolean("auction");
-            itemData = new ItemData(name, price, auction, quantity, introduction, ownerID);
-            itemData.setItemID(itemID);
+            itemData = new ItemData(name, price, auction, quantity, introduction, ownerID, itemID);
             out.println(JSON.toJSONString(itemData));
             itemData = JSON.parseObject(in.readLine(), ItemData.class);
-            resultSet = database.query("SELECT * FROM `trade`.`item` WHERE (`ItemName` = '" + itemData.getName() + "' AND `ItemID` != `" + itemData.getItemID() + "`)");
+            resultSet = database.query("SELECT * FROM `trade`.`item` WHERE (`ItemName` = '" + itemData.getName() + "' AND `ItemID` != '" + itemData.getItemID() + "')");
             if (resultSet.next()) {
                 dos.writeUTF("-1");
                 dos.flush();
@@ -63,6 +63,8 @@ public class EditItem {
                 dos.flush();
                 getFile(ServerMain.PATH + itemData.getName());
                 database.update("UPDATE `trade`.`item` SET `ItemName` = '" + itemData.getName() + "', `ItemPrice` = '" + itemData.getPrice() + "', `Introduction` = '" + itemData.getIntroduction() + "', `auction` = '" + (itemData.isAuction() ? "1" : "0") + "', `remains` = '" + itemData.getQuantity() + "', `photoPath` = '" + Path + "' WHERE (`ItemID` = '" + itemData.getItemID() + "')");
+                PrintWriter out = new PrintWriter(new BufferedOutputStream(OnlineUserPool.getSocket(itemData.getOwnerID()).getOutputStream()), true);
+                out.println("NEW ITEM");
             }
         }
         database.close();
