@@ -72,7 +72,7 @@ public class MyItems extends JPanel implements ActionListener {
                 new ItemListFrame(userID).setVisible(true);
                 break;
             case "发布商品":
-                new ReleaseFrame().setVisible(true);
+                new ReleaseFrame(userID).setVisible(true);
                 break;
             default:
                 break;

@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.Socket;
 
-import static client.userInfo.UserInfo.user;
+//import static client.userInfo.UserInfo.user;
 
 
 public class ReleaseFrame extends JFrame implements ActionListener {
@@ -29,9 +29,10 @@ public class ReleaseFrame extends JFrame implements ActionListener {
     public JButton btRelease;
     public String Path = "";
     public ItemData itemData;
+    public String userID;
 
-    public ReleaseFrame() {
-
+    public ReleaseFrame(String userID) {
+        this.userID = userID;
         Container c = getContentPane();
         c.setLayout(new BorderLayout());
         setSize(400, 400);
@@ -88,7 +89,7 @@ public class ReleaseFrame extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "未上传图片！", "Oops", JOptionPane.ERROR_MESSAGE);
             }
             else {
-                itemData = new ItemData(txItemName.getText(), Double.valueOf(txItemPrice.getText()), false, Integer.valueOf(txItemQuantity.getText()), taItemIntroduction.getText(), user.getID());
+                itemData = new ItemData(txItemName.getText(), Double.valueOf(txItemPrice.getText()), false, Integer.valueOf(txItemQuantity.getText()), taItemIntroduction.getText(), userID);
                 NET_ReleaseItem net_releaseItem = null;
                 try {
                     net_releaseItem = new NET_ReleaseItem(itemData, Path);
@@ -162,7 +163,7 @@ public class ReleaseFrame extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        ReleaseFrame testFrame = new ReleaseFrame();
+        ReleaseFrame testFrame = new ReleaseFrame("201922301279");
         testFrame.setVisible(true);
 
     }

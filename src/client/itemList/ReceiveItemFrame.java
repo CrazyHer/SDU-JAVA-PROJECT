@@ -15,9 +15,11 @@ public class ReceiveItemFrame extends JFrame implements ActionListener {
     JButton btReceive;
     JButton btChat;
     public static ItemInfo itemInfo;
+    String userID;
 
-    public ReceiveItemFrame(ItemInfo itemInfo) {
+    public ReceiveItemFrame(ItemInfo itemInfo, String userID) {
         this.itemInfo = itemInfo;
+        this.userID = userID;
         Container c = getContentPane();
         c.setLayout(new BorderLayout());
         setTitle("商品购买信息");
@@ -46,10 +48,10 @@ public class ReceiveItemFrame extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("确认收货")) {
-            new CommentFrame(itemInfo).setVisible(true);
+            new CommentFrame(itemInfo,userID).setVisible(true);
         } else if (e.getActionCommand().equals("联系卖家")) {
             try {
-                new TalkingFrame(UserInfo.user.getID(), itemInfo.ownerID).setVisible(true);
+                new TalkingFrame(userID, itemInfo.ownerID).setVisible(true);
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "打开失败", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
