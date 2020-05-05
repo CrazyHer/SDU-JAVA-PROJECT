@@ -3,6 +3,7 @@ package server.action;
 import com.alibaba.fastjson.JSON;
 import server.dataBase.DB;
 import server.dataObjs.BuyItemData;
+import server.talkingServer.OnlineUserPool;
 
 import java.io.*;
 import java.net.Socket;
@@ -39,6 +40,8 @@ public class BuyItem {
                 database.update("UPDATE `trade`.`item` SET `remains` = `remains`-1, `sale` = `sale`+1 WHERE (`ItemID` = " + itemID + ")");
                 dos.writeUTF("1");
                 dos.flush();
+                PrintWriter out = new PrintWriter(new BufferedOutputStream(OnlineUserPool.getSocket(buyItemData.getBuyerID()).getOutputStream()), true);
+                out.println("NEW ITEM");
             } else {
                 dos.writeUTF("0");
                 dos.flush();

@@ -1,5 +1,6 @@
 package client.userInfo;
 
+import client.talking.TalkingFrame;
 import com.alibaba.fastjson.JSON;
 import server.dataObjs.MsgData;
 import server.dataObjs.UserData;
@@ -15,12 +16,13 @@ import java.net.Socket;
 public class MyNotification extends JPanel implements ActionListener {
 
     MySession[] mySession;
-
+    String myID;
     JPanel p;
     JLabel label;
     JButton button;
 
     public MyNotification(String myID) throws IOException {
+        this.myID = myID;
         mySession = new NET_GetMessages(myID).getMySessions();
         setLayout(new GridLayout(0, 1, 20, 20));
         add(new JLabel("聊天消息"));
@@ -36,6 +38,7 @@ public class MyNotification extends JPanel implements ActionListener {
             p.add(label, new GBC(1, 1, 1, 2).setWeight(0.6, 0.5).setAnchor(GridBagConstraints.WEST));
 
             button = new JButton("打开聊天");
+            button.setActionCommand(mySession[i].getID());
             button.addActionListener(this);
             p.add(button, new GBC(3, 1, 1, 1).setWeight(0.1, 0.5).setAnchor(GridBagConstraints.EAST).setFill(GridBagConstraints.NONE));
             add(p);
@@ -45,11 +48,17 @@ public class MyNotification extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals("打开聊天")) {
-            //直接打开聊天模块面板
+        if (e.getSource() == button) {
+            try {
+                new TalkingFrame(myID, e.getActionCommand()).setVisible(true);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "打开失败", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            }
         }
     }
-    private class NET_GetMessages{
+
+    private class NET_GetMessages {
         private final String Command = "GET MSGS";//请求类型
         private final String Address = "localhost";
         private final int PORT = 2333;//服务器端口
@@ -87,8 +96,8 @@ public class MyNotification extends JPanel implements ActionListener {
                 String userID = (myID.equals(msgData[i][0].getSenderID()) ? msgData[i][0].getReceiverID() : msgData[i][0].getSenderID());
                 String name = new NET_GetUserInfo(userID).getUserName();
                 ImageIcon img = new NET_GetUserProfile(userID).getUserProfile();
-                String time = msgData[i][msgData.length - 1].getTime();
-                String body = msgData[i][msgData.length - 1].getText();
+                String time = msgData[i][msgData[i].length - 1].getTime();
+                String body = msgData[i][msgData[i].length - 1].getText();
                 mySessions[i] = new MySession(name, userID, img, time, body);
             }
             return mySessions;
@@ -102,6 +111,7 @@ public class MyNotification extends JPanel implements ActionListener {
         private Socket socket;
         private DataInputStream dis;//输入
         private DataOutputStream dos;//输出
+        private PrintWriter out;
 
         private BufferedReader in;
         private UserData userData;
@@ -112,6 +122,7 @@ public class MyNotification extends JPanel implements ActionListener {
             dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new PrintWriter(new BufferedOutputStream(socket.getOutputStream()), true);
             dos.writeUTF(Command);
             dos.flush();
             //上面的可以照搬，只需要改一下请求类型Command即可
@@ -119,8 +130,7 @@ public class MyNotification extends JPanel implements ActionListener {
             注意：上面能不改就不改，因为Command只能用writeUTF发送；下面的对象传输只能用out.println()来传输JSON序列化的对象
              */
             //下面是对接操作，对象用下面的方式传就行了，不要再用ObjectOutputStream了
-            dos.writeUTF(userID);
-            dos.flush();
+            out.println(userID);
             userData = JSON.parseObject(in.readLine(), UserData.class);
             socket.close();
         }
@@ -138,7 +148,6 @@ public class MyNotification extends JPanel implements ActionListener {
         private DataInputStream dis;//输入
         private DataOutputStream dos;//输出
 
-        private BufferedReader in;
         private String Path;
         private ImageIcon img;
 
@@ -146,7 +155,6 @@ public class MyNotification extends JPanel implements ActionListener {
             this.socket = new Socket(this.Address, this.PORT);
             dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             dos.writeUTF(Command);
             dos.flush();
             //上面的可以照搬，只需要改一下请求类型Command即可

@@ -1,5 +1,7 @@
 package client.itemList;
 
+import client.talking.TalkingFrame;
+import client.userInfo.UserInfo;
 import com.alibaba.fastjson.JSON;
 import server.dataObjs.BuyItemData;
 
@@ -68,7 +70,12 @@ public class BoughtItemInfoFrame extends JFrame implements ActionListener {
             }
 
         } else if (e.getActionCommand().equals("联系卖家")) {
-            //new聊天窗口
+            try {
+                new TalkingFrame(UserInfo.user.getID(), itemInfo.ownerID).setVisible(true);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "打开失败", JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            }
         }
     }
 

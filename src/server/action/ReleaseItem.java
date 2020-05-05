@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import server.ServerMain;
 import server.dataBase.DB;
 import server.dataObjs.ItemData;
+import server.talkingServer.OnlineUserPool;
 
 import java.io.*;
 import java.net.Socket;
@@ -47,6 +48,8 @@ public class ReleaseItem {
             dos.flush();
         }
         database.close();
+        PrintWriter out = new PrintWriter(new BufferedOutputStream(OnlineUserPool.getSocket(itemData.getOwnerID()).getOutputStream()), true);
+        out.println("NEW ITEM");
     }
 
     private void getFile(String path) throws IOException {//接收文件的方法，直接用即可,参数为存放文件夹路径，注意是文件夹

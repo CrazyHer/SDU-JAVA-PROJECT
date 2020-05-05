@@ -61,7 +61,10 @@ public class GetMsgs {
         } else {
             resultSet1 = database.query("SELECT * FROM trade.message WHERE (`senderID`=" + users[0] + " AND `receiverID`=" + users[1] + ") OR(`senderID`=" + users[1] + " AND `receiverID`=" + users[0] + ")");
             msgData = new MsgData[1][];
-            msgData[0] = new MsgData[resultSet1.getRow()];
+            resultSet1.last();
+            int n = resultSet1.getRow();
+            resultSet1.beforeFirst();
+            msgData[0] = new MsgData[n];
             for (int i = 0; resultSet1.next(); i++) {
                 msgData[0][i] = new MsgData(resultSet1.getString("senderID"), resultSet1.getString("receiverID"), resultSet1.getString("text"), resultSet1.getString("time"));
             }

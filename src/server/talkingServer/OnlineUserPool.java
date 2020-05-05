@@ -10,10 +10,11 @@ public class OnlineUserPool {
 
     static public void add(UserData userData, Socket socket) {
         onlineUsers.add(new OnlineUser(userData, socket));
+        System.out.println("添加成功");
     }
 
     static public void delete(UserData userData) {
-        for (int i = 0; i < onlineUsers.capacity(); i++) {
+        for (int i = 0; i < onlineUsers.size(); i++) {
             if (onlineUsers.elementAt(i).userData.getID().equals(userData.getID())) {
                 onlineUsers.removeElementAt(i);
                 break;
@@ -22,7 +23,7 @@ public class OnlineUserPool {
     }
 
     static public void delete(String userID) {
-        for (int i = 0; i < onlineUsers.capacity(); i++) {
+        for (int i = 0; i < onlineUsers.size(); i++) {
             if (onlineUsers.elementAt(i).userData.getID().equals(userID)) {
                 onlineUsers.removeElementAt(i);
                 break;
@@ -32,7 +33,7 @@ public class OnlineUserPool {
 
     static public Socket getSocket(UserData userData) {
         Socket socket = null;
-        for (int i = 0; i < onlineUsers.capacity(); i++) {
+        for (int i = 0; i < onlineUsers.size(); i++) {
             if (onlineUsers.elementAt(i).userData.getID().equals(userData.getID())) {
                 socket = onlineUsers.elementAt(i).socket;
                 break;
@@ -43,11 +44,12 @@ public class OnlineUserPool {
 
     static public Socket getSocket(String userID) {
         Socket socket = null;
-        for (int i = 0; i < onlineUsers.capacity(); i++) {
+        for (int i = 0; i < onlineUsers.size(); i++) {
+            System.out.println(userID);
             if (onlineUsers.elementAt(i).userData.getID().equals(userID)) {
                 socket = onlineUsers.elementAt(i).socket;
                 break;
-            }
+            } else System.out.println("没找到");
         }
         return socket;
     }

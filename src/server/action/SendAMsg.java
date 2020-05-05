@@ -44,6 +44,13 @@ public class SendAMsg {
         if (receiverSocket != null) {
             PrintWriter out = new PrintWriter(new OutputStreamWriter(receiverSocket.getOutputStream()), true);
             out.println("NEW MSG");
+            System.out.println("new msg!!");
+        }
+        receiverSocket = OnlineUserPool.getSocket(user1);
+        if (receiverSocket != null) {
+            PrintWriter out = new PrintWriter(new OutputStreamWriter(receiverSocket.getOutputStream()), true);
+            out.println("NEW MSG");
+            System.out.println("new msg!!");
         }
     }
 }

@@ -27,8 +27,9 @@ public class GetUserProfile {
         dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
         dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         userID = dis.readUTF();
+        System.out.println("a a a a " + userID);
         database = new DB();
-        resultSet = database.query("SELECT DISTINCT * FROM trade.user WHERE `ID`='" + userID + "'");
+        resultSet = database.query("SELECT * FROM `trade`.`user` WHERE `ID`='" + userID + "'");
         if (resultSet.next()) {
             profileURL = resultSet.getString("profilePath");
             sendFile(profileURL);
