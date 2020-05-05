@@ -9,6 +9,7 @@ public class OnlineUserPool {
     static Vector<OnlineUser> onlineUsers = new Vector<>();
 
     static public void add(UserData userData, Socket socket) {
+        delete(userData);
         onlineUsers.add(new OnlineUser(userData, socket));
         System.out.println("添加成功");
     }
