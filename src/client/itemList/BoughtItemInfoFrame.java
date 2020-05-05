@@ -71,7 +71,7 @@ public class BoughtItemInfoFrame extends JFrame implements ActionListener {
 
         } else if (e.getActionCommand().equals("联系卖家")) {
             try {
-                new TalkingFrame(UserInfo.user.getID(), itemInfo.ownerID).setVisible(true);
+                new TalkingFrame(userID, itemInfo.ownerID).setVisible(true);
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "打开失败", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();

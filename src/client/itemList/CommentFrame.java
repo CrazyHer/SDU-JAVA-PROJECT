@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.Socket;
 
-import static client.userInfo.UserInfo.user;
+//import static client.userInfo.UserInfo.user;
 
 public class CommentFrame extends JFrame implements ActionListener {
 
@@ -19,9 +19,11 @@ public class CommentFrame extends JFrame implements ActionListener {
     public JPanel panel;
     private Comment comment;
     ItemInfo itemInfo;
+    String userID;
 
-    public CommentFrame(ItemInfo itemInfo) {
+    public CommentFrame(ItemInfo itemInfo, String userID) {
         this.itemInfo = itemInfo;
+        this.userID = userID;
         Container c = getContentPane();
         c.setLayout(new FlowLayout(FlowLayout.LEFT));
         setSize(400, 450);
@@ -51,7 +53,7 @@ public class CommentFrame extends JFrame implements ActionListener {
             if (taComment.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "未进行评论！");
             } else {
-                comment = new Comment(itemInfo.getItemName(), taComment.getText(), user.getID());
+                comment = new Comment(itemInfo.getItemName(), taComment.getText(), userID);
                 NET_Remark net_remark = null;
                 try {
                     net_remark = new NET_Remark(comment);
