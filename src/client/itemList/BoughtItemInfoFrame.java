@@ -1,7 +1,6 @@
 package client.itemList;
 
 import client.talking.TalkingFrame;
-import client.userInfo.UserInfo;
 import com.alibaba.fastjson.JSON;
 import server.dataObjs.BuyItemData;
 
@@ -11,8 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.Socket;
-
-//import static client.userInfo.UserInfo.user;
 
 public class BoughtItemInfoFrame extends JFrame implements ActionListener {
     public JPanel panel;

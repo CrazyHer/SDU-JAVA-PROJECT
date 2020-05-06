@@ -10,9 +10,6 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.Socket;
 
-//import static client.userInfo.UserInfo.user;
-
-
 public class ReleaseFrame extends JFrame implements ActionListener {
 
     public JPanel panel;

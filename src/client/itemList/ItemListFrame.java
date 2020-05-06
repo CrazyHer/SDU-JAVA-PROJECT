@@ -56,7 +56,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
         scPanel = new JScrollPane(panel);
         panel.setPreferredSize(new Dimension(400, 400));
         c.add(scPanel, BorderLayout.CENTER);
-        System.out.println("开始创建初始列表60");
+        System.out.println("开始创建初始商品列表");
 
         try {
             net_getItemList = new NET_GetItemList(new ItemListFilter("*", 0));
@@ -65,7 +65,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
             ex.printStackTrace();
         }
         ShowEveryItem();
-        System.out.println("初始列表创建完成69");
+        System.out.println("初始商品列表创建完成");
 
     }
 
@@ -167,13 +167,12 @@ public class ItemListFrame extends JFrame implements ActionListener {
     public void ShowEveryItem() {
         String itemList[];
         itemList = net_getItemList.getItemList();
-        //System.out.println(itemList[0]);
-        System.out.println("开始逐个展示商品164");
+        System.out.println("开始逐个添加商品小面板");
         NET_GetItemDetails net_getItemDetails = null;
         for (int i = 0; i < itemList.length; i++) {
             try {
                 net_getItemDetails = new NET_GetItemDetails(itemList[i]);
-                System.out.println(itemList[i] + "169");
+                System.out.println(itemList[i]);
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this, "错误！", "Oops", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
@@ -181,7 +180,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
             AddAItem(net_getItemDetails.getItemData(), net_getItemDetails.getPath());
         }
         deleteAll("C:/Users/Public/client/temp/");
-        System.out.println("删除干净了177");
+        System.out.println("暂存图像删除完成");
     }
 
     public void AddAItem(ItemData itemData, String Path) {
@@ -196,20 +195,18 @@ public class ItemListFrame extends JFrame implements ActionListener {
         btDetail.addActionListener(e -> {
             try {
                 new ItemState(itemData.getName(), userID);
-                System.out.println("创建对应窗口");
-                //new ItemState(itemData.getName(), "201922301279");
-                //new BoughtItemInfoFrame(new ItemInfo(itemData.getName()));
+                System.out.println("创建对应商品详情窗口");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-            System.out.println("对应详情窗口创建完成196");
         });//内部类监听器
-        System.out.println("完成内部监听198");
+        System.out.println("完成对应监听");
+        System.out.println("对应详情窗口创建完成");
         tempPanel.add(btDetail, BorderLayout.SOUTH);
         panel.repaint();
         panel.add(tempPanel);
         panel.revalidate();
-        System.out.println("完成绘制203");
+        System.out.println("完成商品列表添加");
     }
 
     private class NET_GetItemList {
@@ -241,8 +238,8 @@ public class ItemListFrame extends JFrame implements ActionListener {
             out.println(json);
 
             itemList = JSON.parseObject(in.readLine(), String[].class);
-            if (itemList != null) System.out.println("有东西");
-            System.out.println(itemList.length);
+            if (itemList.length != 0) System.out.println("商品库里有" + itemList.length + "件商品");
+            else if (itemList.length == 0) System.out.println("商品库里没有商品");
 
             this.socket.close();
         }
@@ -274,11 +271,11 @@ public class ItemListFrame extends JFrame implements ActionListener {
             out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
             dos.writeUTF(Command);
             dos.flush();
-            System.out.println("接收到搜索数据:" + item + "267");
+            System.out.println("要搜索的商品:" + item);
             dos.writeUTF(item);
             dos.flush();
             itemData = JSON.parseObject(in.readLine(), ItemData.class);
-            System.out.println("接收到商品数据271");
+            System.out.println("接收到要搜索的商品数据了");
 
             getFile("C:/Users/Public/client/temp/");
 
@@ -290,14 +287,14 @@ public class ItemListFrame extends JFrame implements ActionListener {
             // 文件名
             String fileName = dis.readUTF();
 
-            System.out.println("接收到文件:" + fileName + "283");
+            System.out.println("接收到文件:" + fileName);
             File directory = new File(path);
             if (!directory.exists()) {
                 directory.mkdir();
             }
             File file = new File(directory.getAbsolutePath() + File.separatorChar + fileName);
             Path = file.getAbsolutePath().replace('\\', '/');
-            System.out.println(Path);
+            System.out.println("文件路径:" + Path);
             fos = new FileOutputStream(file);
             // 开始接收文件
             byte[] bytes = new byte[1024];
@@ -306,7 +303,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
                 fos.write(bytes, 0, length);
                 fos.flush();
             }
-            System.out.println("======== 文件接收成功========299");
+            System.out.println("======== 文件接收成功========");
         }
 
         public String getPath() {
