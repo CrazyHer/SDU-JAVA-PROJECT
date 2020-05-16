@@ -10,6 +10,9 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.Socket;
 
+import static client.ClientMain.Address;
+import static client.ClientMain.PORT;
+
 public class EditItemInfoFrame extends JFrame implements ActionListener {
 
     public JPanel panel;
@@ -86,10 +89,6 @@ public class EditItemInfoFrame extends JFrame implements ActionListener {
         c.add(panel, BorderLayout.SOUTH);
     }
 
-    public static void main(String[] args) {
-        new EditItemInfoFrame("商品").setVisible(true);
-    }
-
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("提交修改信息")) {
             NET_EditItem net_editItem = null;
@@ -121,8 +120,8 @@ public class EditItemInfoFrame extends JFrame implements ActionListener {
 
     private class NET_EditItem {
         private final String Command = "EDIT ITEM";//请求类型
-        private final String Address = "localhost";
-        private final int PORT = 2333;//服务器端口
+        //private final String Address = "localhost";
+        //private final int PORT = 2333;//服务器端口
         private Socket socket;
         private DataInputStream dis;//输入
         private DataOutputStream dos;//输出
@@ -132,7 +131,7 @@ public class EditItemInfoFrame extends JFrame implements ActionListener {
         private String json, resultCode;
 
         public NET_EditItem(String itemName, String path) throws Exception {
-            this.socket = new Socket(this.Address, this.PORT);
+            this.socket = new Socket(Address, PORT);
             dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));

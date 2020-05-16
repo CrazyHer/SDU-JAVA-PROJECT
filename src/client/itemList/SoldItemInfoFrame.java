@@ -7,6 +7,9 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.Socket;
 
+import static client.ClientMain.Address;
+import static client.ClientMain.PORT;
+
 public class SoldItemInfoFrame extends JFrame implements ActionListener {
 
     JPanel panel;
@@ -67,15 +70,15 @@ public class SoldItemInfoFrame extends JFrame implements ActionListener {
 
     private class NET_DeleteItem {
         private final String Command = "DELETE ITEM";//请求类型
-        private final String Address = "localhost";
-        private final int PORT = 2333;//服务器端口
+        //private final String Address = "localhost";
+        //private final int PORT = 2333;//服务器端口
         private Socket socket;
         private DataInputStream dis;//输入
         private DataOutputStream dos;//输出
         private PrintWriter out;
 
         public NET_DeleteItem(String itemName) throws IOException {
-            this.socket = new Socket(this.Address, this.PORT);
+            this.socket = new Socket(Address, PORT);
             dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
             out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);

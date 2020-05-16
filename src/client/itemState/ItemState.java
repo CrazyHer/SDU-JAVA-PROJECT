@@ -10,6 +10,9 @@ import java.awt.*;
 import java.io.*;
 import java.net.Socket;
 
+import static client.ClientMain.Address;
+import static client.ClientMain.PORT;
+
 public class ItemState extends Component {
 
     String itemName, userID;
@@ -46,8 +49,8 @@ public class ItemState extends Component {
     private class NET_GetItemState {
 
         private final String Command = "GET ITEM STATE";//请求类型
-        private final String Address = "localhost";
-        private final int PORT = 2333;//服务器端口
+        //private final String Address = "localhost";
+        //private final int PORT = 2333;//服务器端口
         private Socket socket;
         private DataInputStream dis;//输入
         private DataOutputStream dos;//输出
@@ -57,7 +60,7 @@ public class ItemState extends Component {
         private String json;
 
         public NET_GetItemState() throws IOException {
-            this.socket = new Socket(this.Address, this.PORT);
+            this.socket = new Socket(Address, PORT);
             dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));

@@ -16,6 +16,9 @@ import java.awt.event.MouseEvent;
 import java.io.*;
 import java.net.Socket;
 
+import static client.ClientMain.Address;
+import static client.ClientMain.PORT;
+
 public class MyItems extends JPanel implements ActionListener {
     JPanel panel, bp, sp;
     JButton button;
@@ -116,8 +119,8 @@ public class MyItems extends JPanel implements ActionListener {
 
     private class NET_GetMyBoughtItem {
         private final String Command = "GET MY BOUGHT ITEM";//请求类型
-        private final String Address = "localhost";
-        private final int PORT = 2333;//服务器端口
+        //private final String Address = "localhost";
+        //private final int PORT = 2333;//服务器端口
         private Socket socket;
         private DataInputStream dis;//输入
         private DataOutputStream dos;//输出
@@ -127,7 +130,7 @@ public class MyItems extends JPanel implements ActionListener {
         private Items[] bought;
 
         public NET_GetMyBoughtItem(String userID) throws IOException {
-            this.socket = new Socket(this.Address, this.PORT);
+            this.socket = new Socket(Address, PORT);
             dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -157,8 +160,8 @@ public class MyItems extends JPanel implements ActionListener {
 
     private class NET_GetMySoldItem {
         private final String Command = "GET MY SOLD ITEM";//请求类型
-        private final String Address = "localhost";
-        private final int PORT = 2333;//服务器端口
+        //private final String Address = "localhost";
+        //private final int PORT = 2333;//服务器端口
         private Socket socket;
         private DataInputStream dis;//输入
         private DataOutputStream dos;//输出
@@ -169,7 +172,7 @@ public class MyItems extends JPanel implements ActionListener {
         private Items[] sold;
 
         public NET_GetMySoldItem(String userID) throws IOException {
-            this.socket = new Socket(this.Address, this.PORT);
+            this.socket = new Socket(Address, PORT);
             dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
             out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
@@ -200,8 +203,8 @@ public class MyItems extends JPanel implements ActionListener {
 
     private class NET_GetItemDetails {
         private final String Command = "GET ITEM DETAILS";//请求类型
-        private final String Address = "localhost";
-        private final int PORT = 2333;//服务器端口
+        //private final String Address = "localhost";
+        //private final int PORT = 2333;//服务器端口
         private Socket socket;
         private DataInputStream dis;//输入
         private DataOutputStream dos;//输出
@@ -211,7 +214,7 @@ public class MyItems extends JPanel implements ActionListener {
         private ImageIcon imageIcon;
 
         public NET_GetItemDetails(String itemName) throws IOException {
-            this.socket = new Socket(this.Address, this.PORT);
+            this.socket = new Socket(Address, PORT);
             dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
             dos.writeUTF(Command);

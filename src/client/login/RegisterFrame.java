@@ -10,6 +10,9 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.Socket;
 
+import static client.ClientMain.Address;
+import static client.ClientMain.PORT;
+
 public class RegisterFrame extends JFrame implements ActionListener {
 
     //private static AbstractButton showPic;
@@ -118,8 +121,8 @@ public class RegisterFrame extends JFrame implements ActionListener {
 
     private class NET_Register {
         private final String Command = "REGISTER";//请求类型
-        private final String Address = "localhost";
-        private final int PORT = 2333;//服务器端口
+        //private final String Address = "localhost";
+        //private final int PORT = 2333;//服务器端口
         private Socket socket;
         private DataOutputStream dos;
         private DataInputStream dis;
@@ -128,7 +131,7 @@ public class RegisterFrame extends JFrame implements ActionListener {
         private String json, resultCode;
 
         public NET_Register(UserData userData, String path) throws Exception {
-            this.socket = new Socket(this.Address, this.PORT);
+            this.socket = new Socket(Address, PORT);
             dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
             dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             this.out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(this.socket.getOutputStream())), true);

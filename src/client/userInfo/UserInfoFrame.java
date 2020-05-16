@@ -14,6 +14,9 @@ import java.awt.event.WindowEvent;
 import java.io.*;
 import java.net.Socket;
 
+import static client.ClientMain.Address;
+import static client.ClientMain.PORT;
+
 public class UserInfoFrame extends JFrame implements ActionListener {
     JScrollPane scrollPane;
     JPanel c;
@@ -119,8 +122,8 @@ public class UserInfoFrame extends JFrame implements ActionListener {
     private class NET_GetUserData {
 
         private final String Command = "GET USER DATA";//请求类型
-        private final String Address = "localhost";
-        private final int PORT = 2333;//服务器端口
+        //private final String Address = "localhost";
+        //private final int PORT = 2333;//服务器端口
         private Socket socket;
         private PrintWriter out;
         private BufferedReader in;
@@ -129,7 +132,7 @@ public class UserInfoFrame extends JFrame implements ActionListener {
         private String json, resultCode;
 
         public NET_GetUserData(String ID) throws IOException {
-            this.socket = new Socket(this.Address, this.PORT);
+            this.socket = new Socket(Address, PORT);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
             dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
@@ -148,8 +151,8 @@ public class UserInfoFrame extends JFrame implements ActionListener {
 
     private class NET_Logout {
         private final String Command = "LOG OUT";//请求类型
-        private final String Address = "localhost";
-        private final int PORT = 2333;//服务器端口
+        //private final String Address = "localhost";
+        //private final int PORT = 2333;//服务器端口
         private Socket socket;
         private DataInputStream dis;//输入
         private DataOutputStream dos;//输出
@@ -159,7 +162,7 @@ public class UserInfoFrame extends JFrame implements ActionListener {
 
         public NET_Logout(String userID) throws IOException {
             this.userID = userID;
-            this.socket = new Socket(this.Address, this.PORT);
+            this.socket = new Socket(Address, PORT);
             dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));

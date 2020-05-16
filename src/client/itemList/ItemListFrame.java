@@ -13,6 +13,8 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.Socket;
 
+import static client.ClientMain.Address;
+import static client.ClientMain.PORT;
 
 public class ItemListFrame extends JFrame implements ActionListener {
 
@@ -86,10 +88,6 @@ public class ItemListFrame extends JFrame implements ActionListener {
         menuDefaultSort.addActionListener(this);
         menuTimeSort.addActionListener(this);
         menuSaleSort.addActionListener(this);
-    }
-
-    public static void main(String[] args) {
-        new ItemListFrame("201922301279").setVisible(true);
     }
 
     public void deleteAll(String path) {
@@ -211,8 +209,8 @@ public class ItemListFrame extends JFrame implements ActionListener {
 
     private class NET_GetItemList {
         private final String Command = "GET ITEM LIST";//请求类型
-        private final String Address = "localhost";
-        private final int PORT = 2333;//服务器端口
+        //private final String Address = "localhost";
+        //private final int PORT = 2333;//服务器端口
         private Socket socket;
         private DataInputStream dis;//输入
         private DataOutputStream dos;//输出
@@ -223,7 +221,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
         public String[] itemList = null;
 
         public NET_GetItemList(ItemListFilter itemListFilter) throws IOException {
-            this.socket = new Socket(this.Address, this.PORT);
+            this.socket = new Socket(Address, PORT);
             dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -252,8 +250,8 @@ public class ItemListFrame extends JFrame implements ActionListener {
 
     private class NET_GetItemDetails {
         private final String Command = "GET ITEM DETAILS";//请求类型
-        private final String Address = "localhost";
-        private final int PORT = 2333;//服务器端口
+        //private final String Address = "localhost";
+        //private final int PORT = 2333;//服务器端口
         private Socket socket;
         private DataInputStream dis;//输入
         private DataOutputStream dos;//输出
@@ -264,7 +262,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
         private ItemData itemData;
 
         public NET_GetItemDetails(String item) throws IOException {
-            this.socket = new Socket(this.Address, this.PORT);
+            this.socket = new Socket(Address, PORT);
             dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -317,8 +315,8 @@ public class ItemListFrame extends JFrame implements ActionListener {
 
     private class NET_Logout {
         private final String Command = "LOG OUT";//请求类型
-        private final String Address = "localhost";
-        private final int PORT = 2333;//服务器端口
+        //private final String Address = "localhost";
+        //private final int PORT = 2333;//服务器端口
         private Socket socket;
         private DataInputStream dis;//输入
         private DataOutputStream dos;//输出
@@ -328,7 +326,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
 
         public NET_Logout(String userID) throws IOException {
             this.userID = userID;
-            this.socket = new Socket(this.Address, this.PORT);
+            this.socket = new Socket(Address, PORT);
             dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));

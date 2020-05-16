@@ -10,6 +10,9 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.Socket;
 
+import static client.ClientMain.Address;
+import static client.ClientMain.PORT;
+
 public class ReleaseFrame extends JFrame implements ActionListener {
 
     public JPanel panel;
@@ -107,8 +110,8 @@ public class ReleaseFrame extends JFrame implements ActionListener {
 
     private class NET_ReleaseItem {
         private final String Command = "RELEASE ITEM";//请求类型
-        private final String Address = "localhost";
-        private final int PORT = 2333;//服务器端口
+        //private final String Address = "localhost";
+        //private final int PORT = 2333;//服务器端口
         private Socket socket;
         private DataInputStream dis;//输入
         private DataOutputStream dos;//输出
@@ -117,7 +120,7 @@ public class ReleaseFrame extends JFrame implements ActionListener {
         private String json, resultCode;
 
         public NET_ReleaseItem(ItemData itemData, String path) throws Exception {
-            this.socket = new Socket(this.Address, this.PORT);
+            this.socket = new Socket(Address, PORT);
             dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
             out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
@@ -157,11 +160,5 @@ public class ReleaseFrame extends JFrame implements ActionListener {
                 System.out.println("======== 文件传输成功 ========");
             }
         }
-    }
-
-    public static void main(String[] args) {
-        ReleaseFrame testFrame = new ReleaseFrame("201922301279");
-        testFrame.setVisible(true);
-
     }
 }

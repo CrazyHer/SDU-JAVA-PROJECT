@@ -12,6 +12,9 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.Socket;
 
+import static client.ClientMain.Address;
+import static client.ClientMain.PORT;
+
 public class TalkingFrame extends JFrame implements ActionListener {
 
     JTextArea taSend;//声明文本框，用来写内容
@@ -125,8 +128,8 @@ public class TalkingFrame extends JFrame implements ActionListener {
 
     private class NET_SendMSG {
         private final String Command = "SEND A MSG";//请求类型
-        private final String Address = "localhost";
-        private final int PORT = 2333;//服务器端口
+        //private final String Address = "localhost";
+        //private final int PORT = 2333;//服务器端口
         private Socket socket;
         private DataInputStream dis;//输入
         private DataOutputStream dos;//输出
@@ -135,7 +138,7 @@ public class TalkingFrame extends JFrame implements ActionListener {
         MsgData[][] msgData;
 
         public NET_SendMSG(MsgData msg) throws IOException {
-            this.socket = new Socket(this.Address, this.PORT);
+            this.socket = new Socket(Address, PORT);
             dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -150,8 +153,8 @@ public class TalkingFrame extends JFrame implements ActionListener {
     private class NET_GetUserData {
 
         private final String Command = "GET USER DATA";//请求类型
-        private final String Address = "localhost";
-        private final int PORT = 2333;//服务器端口
+        //private final String Address = "localhost";
+        //private final int PORT = 2333;//服务器端口
         private Socket socket;
         private PrintWriter out;
         private BufferedReader in;
@@ -160,7 +163,7 @@ public class TalkingFrame extends JFrame implements ActionListener {
         private UserData userData;
 
         public NET_GetUserData(String ID) throws IOException {
-            this.socket = new Socket(this.Address, this.PORT);
+            this.socket = new Socket(Address, PORT);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
             dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
@@ -183,8 +186,8 @@ public class TalkingFrame extends JFrame implements ActionListener {
 
     private class NET_GetMSG {
         private final String Command = "GET MSGS";//请求类型
-        private final String Address = "localhost";
-        private final int PORT = 2333;//服务器端口
+        //private final String Address = "localhost";
+        //private final int PORT = 2333;//服务器端口
         MsgData[][] msgData;
         private Socket socket;
         private DataInputStream dis;//输入
@@ -192,7 +195,7 @@ public class TalkingFrame extends JFrame implements ActionListener {
         private BufferedReader in;
 
         public NET_GetMSG(String myID, String youID) throws IOException {
-            this.socket = new Socket(this.Address, this.PORT);
+            this.socket = new Socket(Address, PORT);
             dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));

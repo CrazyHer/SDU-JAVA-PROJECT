@@ -13,6 +13,9 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.Socket;
 
+import static client.ClientMain.Address;
+import static client.ClientMain.PORT;
+
 public class MyNotification extends JPanel implements ActionListener {
 
     MySession[] mySession;
@@ -60,8 +63,8 @@ public class MyNotification extends JPanel implements ActionListener {
 
     private class NET_GetMessages {
         private final String Command = "GET MSGS";//请求类型
-        private final String Address = "localhost";
-        private final int PORT = 2333;//服务器端口
+        //private final String Address = "localhost";
+        //private final int PORT = 2333;//服务器端口
         private Socket socket;
         private DataInputStream dis;//输入
         private DataOutputStream dos;//输出
@@ -72,7 +75,7 @@ public class MyNotification extends JPanel implements ActionListener {
 
         public NET_GetMessages(String myID) throws IOException {//获取对话消息通知
             this.myID = myID;
-            this.socket = new Socket(this.Address, this.PORT);
+            this.socket = new Socket(Address, PORT);
             dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -106,8 +109,8 @@ public class MyNotification extends JPanel implements ActionListener {
 
     private class NET_GetUserInfo {//获取对话用户的用户名
         private final String Command = "GET USER DATA";//请求类型
-        private final String Address = "localhost";
-        private final int PORT = 2333;//服务器端口
+        //private final String Address = "localhost";
+        //private final int PORT = 2333;//服务器端口
         private Socket socket;
         private DataInputStream dis;//输入
         private DataOutputStream dos;//输出
@@ -118,7 +121,7 @@ public class MyNotification extends JPanel implements ActionListener {
 
 
         public NET_GetUserInfo(String userID) throws IOException {
-            this.socket = new Socket(this.Address, this.PORT);
+            this.socket = new Socket(Address, PORT);
             dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -142,8 +145,8 @@ public class MyNotification extends JPanel implements ActionListener {
 
     private class NET_GetUserProfile {//获取对话用户的头像
         private final String Command = "GET USER PROFILE";//请求类型
-        private final String Address = "localhost";
-        private final int PORT = 2333;//服务器端口
+        //private final String Address = "localhost";
+        //private final int PORT = 2333;//服务器端口
         private Socket socket;
         private DataInputStream dis;//输入
         private DataOutputStream dos;//输出
@@ -152,7 +155,7 @@ public class MyNotification extends JPanel implements ActionListener {
         private ImageIcon img;
 
         public NET_GetUserProfile(String userID) throws IOException {
-            this.socket = new Socket(this.Address, this.PORT);
+            this.socket = new Socket(Address, PORT);
             dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
             dos.writeUTF(Command);
