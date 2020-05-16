@@ -187,7 +187,10 @@ public class ItemListFrame extends JFrame implements ActionListener {
         JPanel tempPanel = new JPanel();
         tempPanel.setSize(150, 200);
         tempPanel.setLayout(new BorderLayout());
-        tempPanel.add(new JLabel(itemData.getName()), BorderLayout.NORTH);
+        JPanel p = new JPanel(new GridLayout(2, 1));
+        p.add(new JLabel(itemData.getName()));
+        p.add(new JLabel("￥ " + itemData.getPrice()));
+        tempPanel.add(p, BorderLayout.NORTH);
         tempPanel.add(new JLabel(itemImage), BorderLayout.CENTER);
         btDetail = new JButton("详情");
         btDetail.addActionListener(e -> {
