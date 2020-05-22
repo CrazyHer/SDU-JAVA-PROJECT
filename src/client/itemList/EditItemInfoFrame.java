@@ -98,7 +98,7 @@ public class EditItemInfoFrame extends JFrame implements ActionListener {
 
     public void setBg() {
         ((JPanel) this.getContentPane()).setOpaque(false);
-        ImageIcon img = new ImageIcon("C:\\Users\\Public\\背景\\背景10.jpg");
+        ImageIcon img = new ImageIcon("./src/client/bgImg/背景10.jpg");
         img.setImage(img.getImage().getScaledInstance(600, 500, Image.SCALE_DEFAULT));
         JLabel background = new JLabel(img);
         this.getLayeredPane().add(background, new Integer(Integer.MIN_VALUE));
