@@ -1,4 +1,4 @@
-package server.dataObjs;
+package dataObjs;
 
 import java.io.Serializable;
 

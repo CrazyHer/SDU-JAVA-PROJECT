@@ -3,8 +3,8 @@ package client.itemList;
 import client.itemState.ItemState;
 import client.login.LoginFrame;
 import com.alibaba.fastjson.JSON;
-import server.dataObjs.ItemData;
-import server.dataObjs.ItemListFilter;
+import dataObjs.ItemData;
+import dataObjs.ItemListFilter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,6 +34,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
 
     public ItemListFrame(String userID) {
         this.userID = userID;
+        setBg();
         Container c = getContentPane();
         c.setLayout(new BorderLayout());
         setSize(700, 800);
@@ -44,6 +45,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
 
         //添加搜索模块
         panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        panel.setOpaque(false);
         panel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         tfSearch = new JTextField(20);
         btSearch = new JButton("搜索");
@@ -54,8 +56,10 @@ public class ItemListFrame extends JFrame implements ActionListener {
 
         //添加商品列表
         panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        panel.setOpaque(false);
         //panel.setLayout(new FlowLayout(FlowLayout.LEFT));
         scPanel = new JScrollPane(panel);
+        scPanel.setOpaque(false);
         panel.setPreferredSize(new Dimension(400, 400));
         c.add(scPanel, BorderLayout.CENTER);
         System.out.println("开始创建初始商品列表");
@@ -69,6 +73,15 @@ public class ItemListFrame extends JFrame implements ActionListener {
         ShowEveryItem();
         System.out.println("初始商品列表创建完成");
 
+    }
+
+    public void setBg() {
+        ((JPanel) this.getContentPane()).setOpaque(false);
+        ImageIcon img = new ImageIcon("C:\\Users\\Public\\背景\\背景4.jpg");
+        img.setImage(img.getImage().getScaledInstance(700, 800, Image.SCALE_DEFAULT));
+        JLabel background = new JLabel(img);
+        this.getLayeredPane().add(background, new Integer(Integer.MIN_VALUE));
+        background.setBounds(0, 0, img.getIconWidth(), img.getIconHeight());
     }
 
     public void addMenu() {
@@ -185,6 +198,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
         ImageIcon itemImage = new ImageIcon(Path);
         itemImage.setImage(itemImage.getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT));
         JPanel tempPanel = new JPanel();
+        tempPanel.setOpaque(false);
         tempPanel.setSize(150, 200);
         tempPanel.setLayout(new BorderLayout());
         JPanel p = new JPanel(new GridLayout(2, 1));

@@ -1,6 +1,6 @@
 package server.talkingServer;
 
-import server.dataObjs.UserData;
+import dataObjs.UserData;
 
 import java.net.Socket;
 import java.util.Vector;

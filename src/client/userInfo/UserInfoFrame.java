@@ -3,7 +3,7 @@ package client.userInfo;
 import client.login.LoginFrame;
 import client.refreshListener.RefreshListener;
 import com.alibaba.fastjson.JSON;
-import server.dataObjs.UserData;
+import dataObjs.UserData;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,7 +28,7 @@ public class UserInfoFrame extends JFrame implements ActionListener {
 
     UserInfo userInfoPanel;
     MyItems myItemsPanel;
-    MyStatistics myStatisticsPanel;
+    //MyStatistics myStatisticsPanel;
     MyNotification myNotificationPanel;
 
     public UserInfoFrame(LoginFrame parentFrame, RefreshListener refreshListener) throws IOException {
@@ -37,23 +37,22 @@ public class UserInfoFrame extends JFrame implements ActionListener {
         new NET_GetUserData(parentFrame.userData.getID());
         parentFrame.dispose();
         setTitle("用户信息");
-        setSize(500, 400);
+        setSize(550, 600);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowClose());
         setLocationRelativeTo(null);
         addMenu();
 
         c = new JPanel();
-
         c.setLayout(new GridBagLayout());//分别为用户信息、我的物品、统计信息、消息通知
 
         userInfoPanel = new UserInfo(userData, parentFrame.img);
         myItemsPanel = new MyItems(userData.getID());
-        myStatisticsPanel = new MyStatistics();
+        //myStatisticsPanel = new MyStatistics();
         myNotificationPanel = new MyNotification(userData.getID());
         c.add(userInfoPanel, new GBC(0, 0, 1, 1).setWeight(1, 0.2).setAnchor(GridBagConstraints.WEST));
         c.add(myItemsPanel, new GBC(0, 1, 1, 1).setWeight(1, 0.4).setAnchor(GridBagConstraints.WEST).setFill(GridBagConstraints.BOTH));
-        c.add(myStatisticsPanel, new GBC(0, 2, 1, 1).setWeight(1, 0.2));
+        //c.add(myStatisticsPanel, new GBC(0, 2, 1, 1).setWeight(1, 0.2));
         c.add(myNotificationPanel, new GBC(0, 3, 1, 1).setWeight(1, 0.2).setAnchor(GridBagConstraints.WEST).setFill(GridBagConstraints.NONE));
 
         scrollPane = new JScrollPane(c);
@@ -67,7 +66,7 @@ public class UserInfoFrame extends JFrame implements ActionListener {
         c.removeAll();
         c.add(userInfoPanel, new GBC(0, 0, 1, 1).setWeight(1, 0.2).setAnchor(GridBagConstraints.WEST));
         c.add(myItemsPanel, new GBC(0, 1, 1, 1).setWeight(1, 0.4).setAnchor(GridBagConstraints.WEST).setFill(GridBagConstraints.BOTH));
-        c.add(myStatisticsPanel, new GBC(0, 2, 1, 1).setWeight(1, 0.2));
+        //c.add(myStatisticsPanel, new GBC(0, 2, 1, 1).setWeight(1, 0.2));
         c.add(myNotificationPanel, new GBC(0, 3, 1, 1).setWeight(1, 0.2).setAnchor(GridBagConstraints.WEST).setFill(GridBagConstraints.NONE));
         c.repaint();
         c.revalidate();
@@ -78,7 +77,7 @@ public class UserInfoFrame extends JFrame implements ActionListener {
         c.removeAll();
         c.add(userInfoPanel, new GBC(0, 0, 1, 1).setWeight(1, 0.2).setAnchor(GridBagConstraints.WEST));
         c.add(myItemsPanel, new GBC(0, 1, 1, 1).setWeight(1, 0.4).setAnchor(GridBagConstraints.WEST).setFill(GridBagConstraints.BOTH));
-        c.add(myStatisticsPanel, new GBC(0, 2, 1, 1).setWeight(1, 0.2));
+        //c.add(myStatisticsPanel, new GBC(0, 2, 1, 1).setWeight(1, 0.2));
         c.add(myNotificationPanel, new GBC(0, 3, 1, 1).setWeight(1, 0.2).setAnchor(GridBagConstraints.WEST).setFill(GridBagConstraints.NONE));
         c.repaint();
         c.revalidate();

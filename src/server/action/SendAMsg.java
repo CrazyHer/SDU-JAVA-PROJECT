@@ -1,8 +1,8 @@
 package server.action;
 
 import com.alibaba.fastjson.JSON;
+import dataObjs.MsgData;
 import server.dataBase.DB;
-import server.dataObjs.MsgData;
 import server.talkingServer.OnlineUserPool;
 
 import java.io.*;

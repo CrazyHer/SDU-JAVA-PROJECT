@@ -2,8 +2,8 @@ package client.userInfo;
 
 import client.talking.TalkingFrame;
 import com.alibaba.fastjson.JSON;
-import server.dataObjs.MsgData;
-import server.dataObjs.UserData;
+import dataObjs.MsgData;
+import dataObjs.UserData;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

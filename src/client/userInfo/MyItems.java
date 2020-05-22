@@ -4,7 +4,7 @@ import client.itemList.ItemListFrame;
 import client.itemList.ReleaseFrame;
 import client.itemState.ItemState;
 import com.alibaba.fastjson.JSON;
-import server.dataObjs.ItemData;
+import dataObjs.ItemData;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

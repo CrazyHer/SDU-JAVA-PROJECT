@@ -1,6 +1,6 @@
 package client.userInfo;
 
-import server.dataObjs.UserData;
+import dataObjs.UserData;
 
 import javax.swing.*;
 import java.awt.*;

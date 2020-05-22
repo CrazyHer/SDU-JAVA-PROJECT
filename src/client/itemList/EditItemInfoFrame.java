@@ -1,7 +1,7 @@
 package client.itemList;
 
 import com.alibaba.fastjson.JSON;
-import server.dataObjs.ItemData;
+import dataObjs.ItemData;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +16,7 @@ import static client.ClientMain.PORT;
 public class EditItemInfoFrame extends JFrame implements ActionListener {
 
     public JPanel panel;
+    public JPanel fillInPanel;
     public JPanel changedPanel;//开始存放“上传图片”按钮，后来存放商品图片
     public JLabel lbExplain;
     public JLabel lbItemName;
@@ -34,6 +35,7 @@ public class EditItemInfoFrame extends JFrame implements ActionListener {
 
     public EditItemInfoFrame(String ItemName) {
         this.ItemName = ItemName;
+        setBg();
         Container c = getContentPane();
         c.setLayout(new BorderLayout());
         setSize(600, 500);
@@ -41,7 +43,8 @@ public class EditItemInfoFrame extends JFrame implements ActionListener {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("修改商品信息");
 
-        JPanel fillInPanel = new JPanel();//填写发布信息面板
+        fillInPanel = new JPanel();//填写发布信息面板
+        fillInPanel.setOpaque(false);
         fillInPanel.setLayout(new GridBagLayout());
         lbExplain = new JLabel("说明：填写要修改的信息,并长传商品图片(如果不换图片,请上传原来图片)");
         lbExplain.setForeground(Color.RED);
@@ -68,12 +71,15 @@ public class EditItemInfoFrame extends JFrame implements ActionListener {
         fillInPanel.add(lbItemIntroduction, new GBC(0, 8, 1, 1).setWeight(0.8, 1));
         fillInPanel.add(taItemIntroduction, new GBC(1, 8, 4, 20).setWeight(0.8, 1));
         panel = new JPanel();
+        panel.setOpaque(false);
         panel.setLayout(new BorderLayout());
         panel.add(fillInPanel, BorderLayout.CENTER);
 
         JPanel p = new JPanel();
+        p.setOpaque(false);
         p.setLayout(new FlowLayout(FlowLayout.CENTER));
         changedPanel = new JPanel();
+        changedPanel.setOpaque(false);
         changedPanel.add(btUpload);
         p.add(changedPanel);
         panel.add(p, BorderLayout.SOUTH);
@@ -84,9 +90,19 @@ public class EditItemInfoFrame extends JFrame implements ActionListener {
         btCancel = new JButton("取消");
         btCancel.addActionListener(this);
         panel = new JPanel(new FlowLayout());
+        panel.setOpaque(false);
         panel.add(btEdit);
         panel.add(btCancel);
         c.add(panel, BorderLayout.SOUTH);
+    }
+
+    public void setBg() {
+        ((JPanel) this.getContentPane()).setOpaque(false);
+        ImageIcon img = new ImageIcon("C:\\Users\\Public\\背景\\背景10.jpg");
+        img.setImage(img.getImage().getScaledInstance(600, 500, Image.SCALE_DEFAULT));
+        JLabel background = new JLabel(img);
+        this.getLayeredPane().add(background, new Integer(Integer.MIN_VALUE));
+        background.setBounds(0, 0, img.getIconWidth(), img.getIconHeight());
     }
 
     public void actionPerformed(ActionEvent e) {

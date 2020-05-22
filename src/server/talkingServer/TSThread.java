@@ -1,7 +1,7 @@
 package server.talkingServer;
 
 import com.alibaba.fastjson.JSON;
-import server.dataObjs.UserData;
+import dataObjs.UserData;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -2,8 +2,8 @@ package client.talking;
 
 import client.refreshListener.RefreshListener;
 import com.alibaba.fastjson.JSON;
-import server.dataObjs.MsgData;
-import server.dataObjs.UserData;
+import dataObjs.MsgData;
+import dataObjs.UserData;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,7 +31,7 @@ public class TalkingFrame extends JFrame implements ActionListener {
         this.myID = myID;
         this.friendID = friendID;
         setTitle("聊天");
-        setSize(550, 500);
+        setSize(600, 500);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         Container c = this.getContentPane();
@@ -46,7 +46,7 @@ public class TalkingFrame extends JFrame implements ActionListener {
         String myName = new NET_GetUserData(myID).getUserData().getUsername();
         String friendName = new NET_GetUserData(friendID).getUserData().getUsername();
         for (int i = 0; i < msgData[0].length; i++) {
-            if (msgData[0][i].getSenderID().equals(myName)) {
+            if (msgData[0][i].getSenderID().equals(myID)) {
                 label = new JLabel(myName + " " + msgData[0][i].getTime());
                 label.setForeground(new Color(51, 204, 82));
             } else {

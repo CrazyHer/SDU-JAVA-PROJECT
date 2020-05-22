@@ -1,8 +1,8 @@
 package client.itemList;
 
 import com.alibaba.fastjson.JSON;
-import server.dataObjs.Comment;
-import server.dataObjs.ItemData;
+import dataObjs.Comment;
+import dataObjs.ItemData;
 
 import javax.swing.*;
 import java.awt.*;

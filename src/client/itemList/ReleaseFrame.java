@@ -1,7 +1,7 @@
 package client.itemList;
 
 import com.alibaba.fastjson.JSON;
-import server.dataObjs.ItemData;
+import dataObjs.ItemData;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +17,7 @@ public class ReleaseFrame extends JFrame implements ActionListener {
 
     public JPanel panel;
     public JPanel changedPanel;//开始存放“上传图片”按钮，后来存放商品图片
+    public JPanel fillInPanel;
     public JLabel lbItemName;
     public JLabel lbItemQuantity;
     public JLabel lbItemPrice;
@@ -33,6 +34,7 @@ public class ReleaseFrame extends JFrame implements ActionListener {
 
     public ReleaseFrame(String userID) {
         this.userID = userID;
+        setBg();
         Container c = getContentPane();
         c.setLayout(new BorderLayout());
         setSize(400, 400);
@@ -40,7 +42,8 @@ public class ReleaseFrame extends JFrame implements ActionListener {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("发布商品");
 
-        JPanel fillInPanel = new JPanel();//填写发布信息面板
+        fillInPanel = new JPanel();//填写发布信息面板
+        fillInPanel.setOpaque(false);
         fillInPanel.setLayout(new GridBagLayout());
         lbItemName = new JLabel("商品名称");
         lbItemQuantity = new JLabel("商品数量");
@@ -62,12 +65,15 @@ public class ReleaseFrame extends JFrame implements ActionListener {
         fillInPanel.add(lbItemIntroduction, new GBC(0, 6, 1, 1).setWeight(0.8, 1));
         fillInPanel.add(taItemIntroduction, new GBC(1, 6, 4, 20).setWeight(0.8, 1));
         panel = new JPanel();
+        panel.setOpaque(false);
         panel.setLayout(new BorderLayout());
         panel.add(fillInPanel, BorderLayout.CENTER);
 
         JPanel p = new JPanel();
+        p.setOpaque(false);
         p.setLayout(new FlowLayout(FlowLayout.CENTER));
         changedPanel = new JPanel();
+        changedPanel.setOpaque(false);
         changedPanel.add(btUpload);
         p.add(changedPanel);
         panel.add(p, BorderLayout.SOUTH);
@@ -76,19 +82,27 @@ public class ReleaseFrame extends JFrame implements ActionListener {
         btRelease = new JButton("发布");
         btRelease.addActionListener(this);
         panel = new JPanel();
+        panel.setOpaque(false);
         panel.add(btRelease);
         c.add(panel, BorderLayout.SOUTH);
+    }
+
+    public void setBg() {
+        ((JPanel) this.getContentPane()).setOpaque(false);
+        ImageIcon img = new ImageIcon("C:\\Users\\Public\\背景\\背景10.jpg");
+        img.setImage(img.getImage().getScaledInstance(400, 400, Image.SCALE_DEFAULT));
+        JLabel background = new JLabel(img);
+        this.getLayeredPane().add(background, new Integer(Integer.MIN_VALUE));
+        background.setBounds(0, 0, img.getIconWidth(), img.getIconHeight());
     }
 
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("发布")) {
             if (txItemName.getText().isEmpty() || txItemQuantity.getText().isEmpty() || txItemPrice.getText().isEmpty() || taItemIntroduction.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "信息不完整！", "Oops", JOptionPane.ERROR_MESSAGE);
-            }
-            else if (Path.equals("")){
+            } else if (Path.equals("")) {
                 JOptionPane.showMessageDialog(this, "未上传图片！", "Oops", JOptionPane.ERROR_MESSAGE);
-            }
-            else {
+            } else {
                 itemData = new ItemData(txItemName.getText(), Double.valueOf(txItemPrice.getText()), false, Integer.valueOf(txItemQuantity.getText()), taItemIntroduction.getText(), userID);
                 NET_ReleaseItem net_releaseItem = null;
                 try {

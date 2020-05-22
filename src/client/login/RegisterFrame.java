@@ -1,7 +1,7 @@
 package client.login;
 
 import com.alibaba.fastjson.JSON;
-import server.dataObjs.UserData;
+import dataObjs.UserData;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,9 +37,10 @@ public class RegisterFrame extends JFrame implements ActionListener {
 
     public RegisterFrame(JFrame parentFrame) {
         this.ParentFrame = parentFrame;
+        setBg();
         Container c = getContentPane();
         c.setLayout(new FlowLayout());
-        setSize(600, 450);
+        setSize(500, 450);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setTitle("注册");
@@ -51,6 +52,7 @@ public class RegisterFrame extends JFrame implements ActionListener {
         }
         image.setImage(image.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));*/
         fillInPanel = new JPanel();//填写注册信息面板
+        fillInPanel.setOpaque(false);
         fillInPanel.setLayout(new GridLayout(6, 2));
         lbPhoto = new JLabel("头像");
         lbName = new JLabel("姓名");
@@ -68,7 +70,8 @@ public class RegisterFrame extends JFrame implements ActionListener {
         btRegister.addActionListener(this);
 
         fillInPanel.add(lbPhoto);
-        changedPanel=new JPanel();
+        changedPanel = new JPanel();
+        changedPanel.setOpaque(false);
         changedPanel.add(btAddPhoto);
         fillInPanel.add(changedPanel);
         fillInPanel.add(lbName);
@@ -81,15 +84,26 @@ public class RegisterFrame extends JFrame implements ActionListener {
         fillInPanel.add(txConfirmPassword);
 
         JPanel p = new JPanel();
+        p.setOpaque(false);
         p.setLayout(new FlowLayout(FlowLayout.CENTER));
         p.add(btRegister);
         panel = new JPanel();
+        panel.setOpaque(false);
         panel.setLayout(new BorderLayout());
         panel.add(fillInPanel, BorderLayout.CENTER);
         panel.add(p, BorderLayout.SOUTH);
 
         c.add(panel);
 
+    }
+
+    public void setBg() {
+        ((JPanel) this.getContentPane()).setOpaque(false);
+        ImageIcon img = new ImageIcon("C:\\Users\\Public\\背景\\背景7.jpg");
+        img.setImage(img.getImage().getScaledInstance(500, 450, Image.SCALE_DEFAULT));
+        JLabel background = new JLabel(img);
+        this.getLayeredPane().add(background, new Integer(Integer.MIN_VALUE));
+        background.setBounds(0, 0, img.getIconWidth(), img.getIconHeight());
     }
 
     public void actionPerformed(ActionEvent e) {

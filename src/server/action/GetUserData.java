@@ -1,8 +1,8 @@
 package server.action;
 
 import com.alibaba.fastjson.JSON;
+import dataObjs.UserData;
 import server.dataBase.DB;
-import server.dataObjs.UserData;
 
 import java.io.*;
 import java.net.Socket;

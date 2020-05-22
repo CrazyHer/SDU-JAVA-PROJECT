@@ -1,7 +1,7 @@
 package client.itemList;
 
 import com.alibaba.fastjson.JSON;
-import server.dataObjs.Comment;
+import dataObjs.Comment;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,28 +25,42 @@ public class CommentFrame extends JFrame implements ActionListener {
     public CommentFrame(ItemInfo itemInfo, String userID) {
         this.itemInfo = itemInfo;
         this.userID = userID;
+        setBg();
         Container c = getContentPane();
         c.setLayout(new FlowLayout(FlowLayout.LEFT));
-        setSize(400, 450);
+        setSize(340, 400);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("评论");
 
         panel = new JPanel();
+        panel.setOpaque(false);
+        itemInfo.setOpaque(false);
         panel.add(itemInfo);
         c.add(panel);
 
         panel = new JPanel(new BorderLayout());
+        panel.setOpaque(false);
         taComment = new JTextArea(10, 30);
         panel.add(taComment, BorderLayout.CENTER);
 
         btComment = new JButton("提交评论");
         btComment.addActionListener(this);
         JPanel p0 = new JPanel();
+        p0.setOpaque(false);
         p0.add(btComment);
         panel.add(p0, BorderLayout.SOUTH);
         c.add(panel);
 
+    }
+
+    public void setBg() {
+        ((JPanel) this.getContentPane()).setOpaque(false);
+        ImageIcon img = new ImageIcon("C:\\Users\\Public\\背景\\背景8.jpg");
+        img.setImage(img.getImage().getScaledInstance(340, 400, Image.SCALE_DEFAULT));
+        JLabel background = new JLabel(img);
+        this.getLayeredPane().add(background, new Integer(Integer.MIN_VALUE));
+        background.setBounds(0, 0, img.getIconWidth(), img.getIconHeight());
     }
 
     public void actionPerformed(ActionEvent e) {
