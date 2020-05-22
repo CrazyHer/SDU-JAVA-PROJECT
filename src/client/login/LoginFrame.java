@@ -42,6 +42,7 @@ public class LoginFrame extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowClose());
+        setResizable(false);
         setTitle("登录");
         addMenu();
 

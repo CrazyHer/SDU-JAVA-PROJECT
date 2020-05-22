@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.*;
 import java.net.Socket;
 
@@ -43,6 +45,7 @@ public class RegisterFrame extends JFrame implements ActionListener {
         setSize(500, 450);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        addWindowListener(new Window(this));
         setTitle("注册");
 
         /*try {
@@ -130,7 +133,20 @@ public class RegisterFrame extends JFrame implements ActionListener {
         } else if (e.getSource().equals(btAddPhoto)) {
             new UpLoad(this);
         }
+    }
 
+    private class Window extends WindowAdapter {
+        private RegisterFrame frame;
+
+        Window(RegisterFrame registerFrame) {
+            frame = registerFrame;
+        }
+
+        @Override
+        public void windowClosing(WindowEvent e) {
+            frame.dispose();
+            frame.ParentFrame.setVisible(true);
+        }
     }
 
     private class NET_Register {
