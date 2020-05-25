@@ -32,7 +32,6 @@ public class ItemState extends Component {
         if (itemStateCode.equals("0")) {
             System.out.println("正在交易中");
             new ReceiveItemFrame(new ItemInfo(itemName),userID).setVisible(true);
-            new ReceiveItemFrame(new ItemInfo(itemName), userID).setVisible(true);
         } else if (itemStateCode.equals("1")) {
             System.out.println("可购买");
             new BoughtItemInfoFrame(new ItemInfo(itemName), userID).setVisible(true);
