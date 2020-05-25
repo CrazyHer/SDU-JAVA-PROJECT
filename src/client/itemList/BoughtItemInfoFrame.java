@@ -65,7 +65,7 @@ public class BoughtItemInfoFrame extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals("购买")) {
+        if (e.getActionCommand().equals("确定购买")) {
             int i = JOptionPane.showConfirmDialog(null, "是否购买", "提示", JOptionPane.YES_NO_OPTION);
             if (i == 0) {
                 buyItemData = new BuyItemData(userID, itemInfo.getItemName());

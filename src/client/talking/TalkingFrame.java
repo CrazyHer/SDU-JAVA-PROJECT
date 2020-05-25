@@ -94,7 +94,7 @@ public class TalkingFrame extends JFrame implements ActionListener {
         String friendName = new NET_GetUserData(friendID).getUserData().getUsername();
         talkPanel.removeAll();
         for (int i = 0; i < msgData[0].length; i++) {
-            if (msgData[0][i].getSenderID().equals(myName)) {
+            if (msgData[0][i].getSenderID().equals(myID)) {
                 label = new JLabel(myName + " " + msgData[0][i].getTime());
                 label.setForeground(new Color(51, 204, 82));
                 label.setFont(new Font("隶书", Font.BOLD, 15));
