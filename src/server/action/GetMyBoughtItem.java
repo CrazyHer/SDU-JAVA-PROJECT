@@ -28,7 +28,7 @@ public class GetMyBoughtItem {
         out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
         dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
         userID = dis.readUTF();
-        resultSet = database.query("SELECT DISTINCT * FROM trade.orderlog WHERE `buyerID`='" + userID + "'");
+        resultSet = database.query("SELECT DISTINCT `itemID` FROM trade.orderlog WHERE `buyerID`='" + userID + "'");
         resultSet.last();
         n = resultSet.getRow();
         resultSet.beforeFirst();

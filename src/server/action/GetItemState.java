@@ -28,7 +28,7 @@ public class GetItemState {
         userID = dis.readUTF();
         itemName = dis.readUTF();
         database = new DB();
-        resultSet = database.query("SELECT * FROM `trade`.`orderlog` WHERE `buyerID`= '" + userID + "' AND `itemID`= (SELECT `ItemID` FROM `trade`.`item` WHERE `ItemName` = '" + itemName + "')");
+        resultSet = database.query("SELECT DISTINCT * FROM `trade`.`orderlog` WHERE `buyerID`= '" + userID + "' AND `itemID`= (SELECT `ItemID` FROM `trade`.`item` WHERE `ItemName` = '" + itemName + "') ORDER BY -`orderID`");
         if (resultSet.next()) {
             int state = resultSet.getInt("done");
             dos.writeUTF("" + state);
