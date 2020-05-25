@@ -14,7 +14,7 @@ public class ReceiveItemFrame extends JFrame implements ActionListener {
     JPanel panel;
     JButton btReceive;
     JButton btChat;
-    public static ItemInfo itemInfo;
+    public ItemInfo itemInfo;
     String userID;
 
     public ReceiveItemFrame(ItemInfo itemInfo, String userID) {
@@ -61,7 +61,7 @@ public class ReceiveItemFrame extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("确认收货")) {
-            new CommentFrame(itemInfo, userID).setVisible(true);
+            new CommentFrame(this,itemInfo, userID).setVisible(true);
         } else if (e.getActionCommand().equals("联系卖家")) {
             try {
                 new TalkingFrame(userID, itemInfo.ownerID).setVisible(true);

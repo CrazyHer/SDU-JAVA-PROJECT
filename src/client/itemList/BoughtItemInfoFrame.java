@@ -48,8 +48,8 @@ public class BoughtItemInfoFrame extends JFrame implements ActionListener {
         btChat.addActionListener(this);
         btBuy = new JButton("确定购买");
         btBuy.addActionListener(this);
-        panel.add(btChat, new GBC(0, 0, 1, 1).setWeight(0.8, 0.6).setAnchor(GridBagConstraints.NORTHEAST));
-        panel.add(btBuy, new GBC(0, 1, 1, 1).setWeight(0.8, 0.6).setAnchor(GridBagConstraints.NORTHEAST));
+        panel.add(btBuy, new GBC(0, 0, 1, 1).setWeight(0.8, 0.6).setAnchor(GridBagConstraints.NORTHEAST));
+        panel.add(btChat, new GBC(0, 1, 1, 1).setWeight(0.8, 0.6).setAnchor(GridBagConstraints.NORTHEAST));
         panel.add(new JPanel(), new GBC(0, 2, 1, 1));
         c.add(panel, BorderLayout.SOUTH);
 
@@ -81,6 +81,7 @@ public class BoughtItemInfoFrame extends JFrame implements ActionListener {
                 if (resultCode.equals("1")) JOptionPane.showMessageDialog(this, "购买成功！");
                 else if (resultCode.equals("0")) JOptionPane.showMessageDialog(this, "交易已在进行中，无法购买！");
                 else if (resultCode.equals("-1")) JOptionPane.showMessageDialog(this, "购买失败！");
+                this.dispose();
             }
 
         } else if (e.getActionCommand().equals("联系卖家")) {

@@ -18,7 +18,7 @@ public class ItemInfo extends JPanel {
     Info item;
     String comment = "", itemName;
     ItemData itemData;
-    ImageIcon itemImage;
+    public ImageIcon itemImage;
     Comment[] comments;
     String ownerID;
 
@@ -58,9 +58,10 @@ public class ItemInfo extends JPanel {
         if (comments.length == 0) {
             comment = "暂无";
         } else {
-            for (int i = 0; i < comments.length; i++) comment = comment + (i + 1) + "." + comments[i].getText() + "\n";
+            for (int i = 0; i < comments.length; i++) comment = comment + (i + 1) + "." + comments[i].getText() +"<br>";
         }
-        commentLabel = new JLabel("商品评价:\n" + comment);
+        System.out.println(comment);
+        commentLabel = new JLabel("<html><body>商品评价:<br>" + comment + "</body></html>");
         commentLabel.setFont(new Font("黑体", Font.ITALIC, 12));
         add(commentLabel, new GBC(5, 4, 1, 1).setWeight(0.8, 0.5).setAnchor(GridBagConstraints.NORTHWEST));
     }

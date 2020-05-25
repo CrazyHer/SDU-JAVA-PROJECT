@@ -33,8 +33,10 @@ public class EditItemInfoFrame extends JFrame implements ActionListener {
     public JButton btCancel;
     public String Path = "";
     public String ItemName;
+    SoldItemInfoFrame ParentFrame;
 
-    public EditItemInfoFrame(String ItemName) {
+    public EditItemInfoFrame(SoldItemInfoFrame ParentFrame,String ItemName) {
+        this.ParentFrame = ParentFrame;
         this.ItemName = ItemName;
         setBg();
         Container c = getContentPane();
@@ -125,7 +127,8 @@ public class EditItemInfoFrame extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(this, "修改成功！");
 
                 } else if (resultCode.equals("-1")) JOptionPane.showMessageDialog(this, "修改失败！");
-
+                this.dispose();
+                ParentFrame.dispose();
             }
 
         } else if (e.getActionCommand().equals("上传图片")) {

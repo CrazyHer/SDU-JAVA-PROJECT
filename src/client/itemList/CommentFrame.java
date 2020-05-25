@@ -22,8 +22,10 @@ public class CommentFrame extends JFrame implements ActionListener {
     private Comment comment;
     ItemInfo itemInfo;
     String userID;
+    ReceiveItemFrame ParentFrame;
 
-    public CommentFrame(ItemInfo itemInfo, String userID) {
+    public CommentFrame(ReceiveItemFrame ParentFrame,ItemInfo itemInfo, String userID) {
+        this.ParentFrame = ParentFrame;
         this.itemInfo = itemInfo;
         this.userID = userID;
         setBg();
@@ -37,7 +39,7 @@ public class CommentFrame extends JFrame implements ActionListener {
         panel = new JPanel();
         panel.setOpaque(false);
         itemInfo.setOpaque(false);
-        panel.add(itemInfo);
+        panel.add(new JLabel(itemInfo.itemImage));
         c.add(panel);
 
         panel = new JPanel(new BorderLayout());
@@ -82,6 +84,8 @@ public class CommentFrame extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(this, "评论成功！");
                     this.dispose();
                 } else if (resultCode.equals("-1")) JOptionPane.showMessageDialog(this, "评论失败！");
+                this.dispose();
+                ParentFrame.dispose();
             }
 
         }

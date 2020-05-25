@@ -79,7 +79,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
 
     public void setBg() {
         ((JPanel) this.getContentPane()).setOpaque(false);
-        ImageIcon img = new ImageIcon(ClientMain.class.getResource("bgImg/背景4.jpg"));
+        ImageIcon img = new ImageIcon(ClientMain.class.getResource("bgImg/背景6.jpg"));
         img.setImage(img.getImage().getScaledInstance(700, 800, Image.SCALE_DEFAULT));
         JLabel background = new JLabel(img);
         this.getLayeredPane().add(background, new Integer(Integer.MIN_VALUE));

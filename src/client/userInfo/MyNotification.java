@@ -31,6 +31,7 @@ public class MyNotification extends JPanel implements ActionListener {
         add(new JLabel("聊天消息"));
         for (int i = 0; i < mySession.length; i++) {
             p = new JPanel();
+            p.setOpaque(false);
             p.setLayout(new GridBagLayout());
             label = new JLabel(mySession[i].getImageIcon());
             p.add(label, new GBC(0, 0, 2, 1).setWeight(0.1, 1).setAnchor(GridBagConstraints.WEST));

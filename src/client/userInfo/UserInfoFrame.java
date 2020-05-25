@@ -1,5 +1,6 @@
 package client.userInfo;
 
+import client.ClientMain;
 import client.login.LoginFrame;
 import client.refreshListener.RefreshListener;
 import com.alibaba.fastjson.JSON;
@@ -33,6 +34,7 @@ public class UserInfoFrame extends JFrame implements ActionListener {
 
     public UserInfoFrame(LoginFrame parentFrame, RefreshListener refreshListener) throws IOException {
         ParentFrame = parentFrame;
+        setBg();
         refreshListener.setUserInfoFrame(this);
         new NET_GetUserData(parentFrame.userData.getID());
         parentFrame.dispose();
@@ -44,21 +46,36 @@ public class UserInfoFrame extends JFrame implements ActionListener {
         addMenu();
 
         c = new JPanel();
+        c.setOpaque(false);
         c.setLayout(new GridBagLayout());//分别为用户信息、我的物品、统计信息、消息通知
 
         userInfoPanel = new UserInfo(userData, parentFrame.img);
+        userInfoPanel.setOpaque(false);
         myItemsPanel = new MyItems(userData.getID());
+        myItemsPanel.setOpaque(false);
         //myStatisticsPanel = new MyStatistics();
         myNotificationPanel = new MyNotification(userData.getID());
+        myNotificationPanel.setOpaque(false);
         c.add(userInfoPanel, new GBC(0, 0, 1, 1).setWeight(1, 0.2).setAnchor(GridBagConstraints.WEST));
         c.add(myItemsPanel, new GBC(0, 1, 1, 1).setWeight(1, 0.4).setAnchor(GridBagConstraints.WEST).setFill(GridBagConstraints.BOTH));
         //c.add(myStatisticsPanel, new GBC(0, 2, 1, 1).setWeight(1, 0.2));
         c.add(myNotificationPanel, new GBC(0, 3, 1, 1).setWeight(1, 0.2).setAnchor(GridBagConstraints.WEST).setFill(GridBagConstraints.NONE));
 
         scrollPane = new JScrollPane(c);
+        scrollPane.setOpaque(false);
+        scrollPane.getViewport().setOpaque(false);
         getContentPane().add(scrollPane);
 
         setVisible(true);
+    }
+
+    public void setBg() {
+        ((JPanel) this.getContentPane()).setOpaque(false);
+        ImageIcon img = new ImageIcon(ClientMain.class.getResource("bgImg/背景4.jpg"));
+        img.setImage(img.getImage().getScaledInstance(550, 600, Image.SCALE_DEFAULT));
+        JLabel background = new JLabel(img);
+        this.getLayeredPane().add(background, new Integer(Integer.MIN_VALUE));
+        background.setBounds(0, 0, img.getIconWidth(), img.getIconHeight());
     }
 
     public void refreshItems() throws IOException {//定向刷新MyItems面板的方法

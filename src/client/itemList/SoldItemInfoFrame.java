@@ -67,7 +67,7 @@ public class SoldItemInfoFrame extends JFrame implements ActionListener {
         if (e.getActionCommand().equals("拍卖销售")) {
             //等待实现
         } else if (e.getActionCommand().equals("修改信息")) {
-            new EditItemInfoFrame(itemInfo.getItemName()).setVisible(true);
+            new EditItemInfoFrame(this,itemInfo.getItemName()).setVisible(true);
         } else if (e.getActionCommand().equals("删除商品")) {
             int i = JOptionPane.showConfirmDialog(null, "是否删除该商品?", "提示", JOptionPane.YES_NO_OPTION);
             if (i == 0) {
