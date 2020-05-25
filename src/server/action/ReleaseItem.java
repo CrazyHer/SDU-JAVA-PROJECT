@@ -19,7 +19,7 @@ import java.sql.SQLException;
  */
 public class ReleaseItem {
     Socket socket;
-    DB database;
+    DB database = DB.instance;
 
     DataOutputStream dos;
     DataInputStream dis;
@@ -36,7 +36,6 @@ public class ReleaseItem {
         dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
         itemData = JSON.parseObject(in.readLine(), ItemData.class);
-        database = new DB();
         resultSet = database.query("SELECT * FROM trade.item WHERE `ItemName` = '" + itemData.getName() + "'");
         if (!resultSet.next()) {
             dos.writeUTF("1");
@@ -47,7 +46,6 @@ public class ReleaseItem {
             dos.writeUTF("-1");
             dos.flush();
         }
-        database.close();
         PrintWriter out = new PrintWriter(new BufferedOutputStream(OnlineUserPool.getSocket(itemData.getOwnerID()).getOutputStream()), true);
         out.println("NEW ITEM");
     }

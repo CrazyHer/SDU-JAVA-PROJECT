@@ -17,7 +17,7 @@ public class GetUserProfile {
     DataOutputStream dos;
     DataInputStream dis;
     String userID;
-    DB database;
+    DB database = DB.instance;
     ResultSet resultSet;
     String profileURL;
 
@@ -28,13 +28,11 @@ public class GetUserProfile {
         dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         userID = dis.readUTF();
         System.out.println("a a a a " + userID);
-        database = new DB();
         resultSet = database.query("SELECT * FROM `trade`.`user` WHERE `ID`='" + userID + "'");
         if (resultSet.next()) {
             profileURL = resultSet.getString("profilePath");
             sendFile(profileURL);
         }
-        database.close();
     }
 
     private void sendFile(String path) throws Exception {//传图方法，直接用就行

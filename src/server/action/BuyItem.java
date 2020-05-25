@@ -19,7 +19,7 @@ public class BuyItem {
     Socket socket;
     BufferedReader in;
     DataOutputStream dos;
-    DB database;
+    DB database = DB.instance;
     BuyItemData buyItemData;
     ResultSet resultSet;
 
@@ -50,8 +50,6 @@ public class BuyItem {
             dos.writeUTF("-1");
             dos.flush();
             e.printStackTrace();
-        } finally {
-            database.close();
         }
     }
 }

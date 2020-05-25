@@ -18,7 +18,7 @@ public class GetMySoldItem {
     PrintWriter out;
     DataInputStream dis;
     String userID;
-    DB database = new DB();
+    DB database = DB.instance;
     ResultSet resultSet;
     int n;
     String[] mySoldItemList;
@@ -37,6 +37,5 @@ public class GetMySoldItem {
             mySoldItemList[i] = resultSet.getString("ItemName");
         }
         out.println(JSON.toJSONString(mySoldItemList));
-        database.close();
     }
 }

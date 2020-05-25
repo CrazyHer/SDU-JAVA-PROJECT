@@ -18,7 +18,7 @@ public class GetItemList {
     Socket socket;
 
     ItemListFilter filter;
-    DB database = new DB();
+    DB database = DB.instance;
     PrintWriter out;
     BufferedReader in;
 
@@ -42,6 +42,5 @@ public class GetItemList {
         }
         out.println(JSON.toJSONString(itemList));
         System.out.println(JSON.toJSONString(itemList));
-        database.close();
     }
 }

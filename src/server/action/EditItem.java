@@ -25,7 +25,7 @@ public class EditItem {
     DataOutputStream dos;
     PrintWriter out;
     BufferedReader in;
-    DB database;
+    DB database = DB.instance;
     ItemData itemData;
     ResultSet resultSet;
     String itemName, Path;
@@ -37,7 +37,6 @@ public class EditItem {
         dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         itemName = dis.readUTF();
-        database = new DB();
         resultSet = database.query("SELECT * FROM `trade`.`item` WHERE (`ItemName` = '" + itemName + "')");
         if (resultSet.next()) {
             String name, introduction, ownerID, itemID;
@@ -81,7 +80,6 @@ public class EditItem {
 
             }
         }
-        database.close();
     }
 
 

@@ -19,7 +19,7 @@ public class SendAMsg {
     Socket socket;
     BufferedReader in;
     MsgData msgData;
-    DB database = new DB();
+    DB database = DB.instance;
     ResultSet resultSet;
     String user1, user2, text;
 
@@ -39,7 +39,6 @@ public class SendAMsg {
             }
         }
         database.update("INSERT INTO `trade`.`message` (`text`, `senderID`, `receiverID`, `time`) VALUES ('" + text + "', '" + user1 + "', '" + user2 + "', NOW())");
-        database.close();
         Socket receiverSocket = OnlineUserPool.getSocket(user2);
         if (receiverSocket != null) {
             PrintWriter out = new PrintWriter(new OutputStreamWriter(receiverSocket.getOutputStream()), true);

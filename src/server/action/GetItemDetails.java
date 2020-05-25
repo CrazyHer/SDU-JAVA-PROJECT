@@ -23,7 +23,7 @@ public class GetItemDetails {
     int quantity;
     double price;
     boolean auction;
-    DB database;
+    DB database = DB.instance;
     ResultSet resultSet;
     ItemData itemData;
 
@@ -34,7 +34,6 @@ public class GetItemDetails {
         dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
         itemName = dis.readUTF();
-        database = new DB();
         resultSet = database.query("SELECT * FROM `trade`.`item` WHERE `ItemName`='" + itemName + "'");
         resultSet.next();
         introduction = resultSet.getString("Introduction");
@@ -46,7 +45,6 @@ public class GetItemDetails {
         itemData = new ItemData(itemName, price, auction, quantity, introduction, ownerID);
         out.println(JSON.toJSONString(itemData));
         sendFile(photoPath);
-        database.close();
     }
 
     private void sendFile(String path) throws Exception {//传图方法，直接用就行，参数是文件的绝对路径

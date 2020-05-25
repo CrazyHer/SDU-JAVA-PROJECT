@@ -16,7 +16,7 @@ import java.sql.SQLException;
 public class Remark {
     Socket socket;
     Comment comment;
-    DB database;
+    DB database = DB.instance;
     BufferedReader in;
     DataOutputStream dos;
 
@@ -24,7 +24,6 @@ public class Remark {
         socket = s;
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-        database = new DB();
         try {
             comment = JSON.parseObject(in.readLine(), Comment.class);
             database.update("INSERT INTO `trade`.`remark` (`ItemID`, `text`, `authorID`, `releaseTime`, `remarkID`) VALUES ((SELECT `ItemID` FROM `trade`.`item` WHERE `ItemName`='" + comment.getItemName() + "' ), '" + comment.getText() + "', '" + comment.getAuthorID() + "', NOW(), null);");
@@ -36,8 +35,6 @@ public class Remark {
             dos.writeUTF("-1");
             dos.flush();
             e.printStackTrace();
-        } finally {
-            database.close();
         }
     }
 }

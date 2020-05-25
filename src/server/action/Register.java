@@ -22,7 +22,7 @@ public class Register {
 
     UserData userData;
     String userName, passWord, ID, profilePath, Path;
-    DB database;
+    DB database = DB.instance;
     ResultSet resultSet;
     DataOutputStream dos;
     DataInputStream dis;
@@ -37,7 +37,6 @@ public class Register {
         userName = userData.getUsername();
         passWord = userData.getPassword();
         ID = userData.getID();
-        database = new DB();
         resultSet = database.query("SELECT * FROM trade.user WHERE `ID` =" + ID);
         profilePath = ServerMain.PATH + ID;
         if (!resultSet.next()) {
@@ -49,7 +48,6 @@ public class Register {
             dos.writeUTF("-1");
             dos.flush();
         }
-        database.close();
     }
 
     public void getFile(String path) throws IOException {//接收文件的方法，直接用即可,参数为存放路径

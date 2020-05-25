@@ -17,7 +17,7 @@ import java.sql.ResultSet;
 public class Login {
     Socket socket;
     String passWord, ID, profilePath;
-    DB dataBase;
+    DB dataBase = DB.instance;
     ResultSet resultSet;
 
 
@@ -34,7 +34,6 @@ public class Login {
         ID = user.getID();
         passWord = user.getPassword();
         System.out.println("ID:" + ID + "\npassword:" + passWord);
-        dataBase = new DB();
         resultSet = dataBase.query("SELECT DISTINCT * FROM trade.user WHERE `ID`='" + ID + "'");
         if (resultSet.next()) {
             if (resultSet.getString("password").equals(passWord)) {
@@ -52,7 +51,6 @@ public class Login {
             dos.writeUTF("-1");
             dos.flush();
         }
-        dataBase.close();
     }
 
     private void sendFile(String path) throws Exception {//传图方法，直接用就行

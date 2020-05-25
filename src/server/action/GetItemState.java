@@ -16,7 +16,7 @@ import java.sql.SQLException;
 public class GetItemState {
     DataInputStream dis;
     DataOutputStream dos;
-    DB database;
+    DB database = DB.instance;
     Socket socket;
     String userID, itemName;
     ResultSet resultSet;
@@ -39,6 +39,5 @@ public class GetItemState {
             } else dos.writeUTF("1");
         }
         dos.flush();
-        database.close();
     }
 }

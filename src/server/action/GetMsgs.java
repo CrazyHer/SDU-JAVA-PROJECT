@@ -25,7 +25,7 @@ import java.sql.SQLException;
  */
 public class GetMsgs {
     Socket socket;
-    DB database = new DB();
+    DB database = DB.instance;
     ResultSet resultSet, resultSet1;
     MsgData[][] msgData;
     String filter, user1, user2;
@@ -71,6 +71,5 @@ public class GetMsgs {
         }
         out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
         out.println(JSON.toJSONString(msgData));
-        database.close();
     }
 }

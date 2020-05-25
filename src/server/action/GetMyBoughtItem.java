@@ -16,7 +16,7 @@ import java.sql.SQLException;
 public class GetMyBoughtItem {
     Socket socket;
     String userID;
-    DB database = new DB();
+    DB database = DB.instance;
     ResultSet resultSet;
     int n, m;
     String[] myBoughtItemList;
@@ -43,6 +43,5 @@ public class GetMyBoughtItem {
             if (resultSet.next()) myBoughtItemList[m++] = resultSet.getString("ItemName");
         }
         out.println(JSON.toJSONString(myBoughtItemList));
-        database.close();
     }
 }

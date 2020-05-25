@@ -16,7 +16,7 @@ public class DeleteItem {
     DataOutputStream dos;
     DataInputStream dis;
     Socket socket;
-    DB database;
+    DB database = DB.instance;
     String itemName, itemID, ownerID;
     ResultSet resultSet;
 
@@ -42,6 +42,5 @@ public class DeleteItem {
             }
         }
         database.update("DELETE FROM `trade`.`orderlog` WHERE (`itemID` = '" + itemID + "')");
-        database.close();
     }
 }

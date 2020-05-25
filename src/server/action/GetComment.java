@@ -19,7 +19,7 @@ public class GetComment {
     Comment[] comment;
     PrintWriter out;
     String itemName;
-    DB database = new DB();
+    DB database = DB.instance;
     ResultSet resultSet;
     DataInputStream dis;
     public GetComment(Socket s) throws IOException, SQLException {
@@ -37,6 +37,5 @@ public class GetComment {
         }
         out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
         out.println(JSON.toJSONString(comment));
-        database.close();
     }
 }

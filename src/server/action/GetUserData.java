@@ -19,7 +19,7 @@ public class GetUserData {
     BufferedReader in;
     PrintWriter out;
     String userID;
-    DB database;
+    DB database = DB.instance;
     ResultSet resultSet;
     UserData userData;
 
@@ -28,12 +28,10 @@ public class GetUserData {
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         out = new PrintWriter(new BufferedOutputStream(socket.getOutputStream()), true);
         userID = in.readLine();
-        database = new DB();
         resultSet = database.query("SELECT * FROM `trade`.`user` WHERE `ID`=" + userID + "");
         if (resultSet.next()) {
             userData = new UserData(resultSet.getString("username"), resultSet.getString("ID"), null);
             out.println(JSON.toJSONString(userData));
         }
-        database.close();
     }
 }
