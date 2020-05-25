@@ -1,5 +1,7 @@
 package client.itemList;
 
+import client.ClientMain;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -54,7 +56,7 @@ public class SoldItemInfoFrame extends JFrame implements ActionListener {
 
     public void setBg() {
         ((JPanel) this.getContentPane()).setOpaque(false);
-        ImageIcon img = new ImageIcon("./src/client/bgImg/背景9.jpg");
+        ImageIcon img = new ImageIcon(ClientMain.class.getResource("bgImg/背景9.jpg"));
         img.setImage(img.getImage().getScaledInstance(400, 300, Image.SCALE_DEFAULT));
         JLabel background = new JLabel(img);
         this.getLayeredPane().add(background, new Integer(Integer.MIN_VALUE));

@@ -1,9 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="Client" />
+      <artifact name="Server" />
+    </artifacts-to-build>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="ca7e7d5b-1ba8-43b8-b2d5-4ec52c55b194" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/META-INF/MANIFEST.MF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/itemList/BoughtItemInfoFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/itemList/BoughtItemInfoFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/itemList/CommentFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/itemList/CommentFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/itemList/EditItemInfoFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/itemList/EditItemInfoFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/itemList/ItemListFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/itemList/ItemListFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/itemList/ReceiveItemFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/itemList/ReceiveItemFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/itemList/ReleaseFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/itemList/ReleaseFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/itemList/SoldItemInfoFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/itemList/SoldItemInfoFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/login/LoginFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/login/LoginFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client/login/RegisterFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/login/RegisterFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/dataBase/DB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/dataBase/DB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/数据表结构.sql" beforeDir="false" afterPath="$PROJECT_DIR$/数据表结构.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +52,10 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../jchatting-master" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RunManager" selected="Application.ClientMain">
     <configuration name="ClientMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -106,9 +126,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.ClientMain" />
+        <item itemvalue="Application.ServerMain" />
         <item itemvalue="Application.TestClient" />
         <item itemvalue="Application.Login" />
-        <item itemvalue="Application.ServerMain" />
         <item itemvalue="Application.TalkingFrame" />
       </list>
     </recent_temporary>
@@ -132,6 +152,8 @@
       <workItem from="1587828667950" duration="162000" />
       <workItem from="1588316038152" duration="7928000" />
       <workItem from="1588393447245" duration="4244000" />
+      <workItem from="1590333183280" duration="927000" />
+      <workItem from="1590388332304" duration="5565000" />
     </task>
     <task id="LOCAL-00001" summary="修bug">
       <created>1587405317499</created>
@@ -295,39 +317,47 @@
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="49" y="181" key="#Project_Structure" timestamp="1590138820517">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="49" y="181" key="#Project_Structure/0.0.1920.1040@0.0.1920.1040" timestamp="1590138820517" />
     <state x="765" y="229" key="#com.intellij.ide.util.MemberChooser" timestamp="1590133443985">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="765" y="229" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1590133443985" />
+    <state x="187" y="306" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1590138536658">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="187" y="306" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590138536658" />
     <state x="1125" y="160" key="CommitChangelistDialog2" timestamp="1588668815868">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="448" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1587557337596" />
     <state x="1125" y="160" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1588668815868" />
-    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1588584991293">
+    <state x="467" y="333" key="FileChooserDialogImpl" timestamp="1590333425279">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1588584991293" />
-    <state width="1877" height="149" key="GridCell.Tab.0.bottom" timestamp="1590133773698">
+    <state x="467" y="333" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1590333425279" />
+    <state width="1921" height="180" key="GridCell.Tab.0.bottom" timestamp="1590394882091">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1537" height="206" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1587520865395" />
-    <state width="1877" height="149" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1590133773698" />
-    <state width="1877" height="149" key="GridCell.Tab.0.center" timestamp="1590133773698">
+    <state width="1921" height="180" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1590394882091" />
+    <state width="1921" height="180" key="GridCell.Tab.0.center" timestamp="1590394882091">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1537" height="206" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1587520865394" />
-    <state width="1877" height="149" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1590133773698" />
-    <state width="1877" height="149" key="GridCell.Tab.0.left" timestamp="1590133773698">
+    <state width="1921" height="180" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1590394882091" />
+    <state width="1921" height="180" key="GridCell.Tab.0.left" timestamp="1590394882091">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1537" height="206" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1587520865394" />
-    <state width="1877" height="149" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1590133773698" />
-    <state width="1877" height="149" key="GridCell.Tab.0.right" timestamp="1590133773698">
+    <state width="1921" height="180" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1590394882091" />
+    <state width="1921" height="180" key="GridCell.Tab.0.right" timestamp="1590394882091">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1537" height="206" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1587520865394" />
-    <state width="1877" height="149" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1590133773698" />
+    <state width="1921" height="180" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1590394882091" />
     <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1588559813274">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -348,6 +378,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="735" y="230" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1588577783517" />
+    <state x="0" y="97" key="SettingsEditor" timestamp="1590138006895">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="0" y="97" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1590138006895" />
     <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1588669017217">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -371,5 +405,16 @@
     </state>
     <state x="498" y="178" width="840" height="538" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1587469899592" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1588578310987" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/client/login/LoginFrame.java</url>
+          <line>67</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -1,5 +1,6 @@
 package client.itemList;
 
+import client.ClientMain;
 import com.alibaba.fastjson.JSON;
 import dataObjs.Comment;
 
@@ -56,7 +57,7 @@ public class CommentFrame extends JFrame implements ActionListener {
 
     public void setBg() {
         ((JPanel) this.getContentPane()).setOpaque(false);
-        ImageIcon img = new ImageIcon("./src/client/bgImg/背景8.jpg");
+        ImageIcon img = new ImageIcon(ClientMain.class.getResource("bgImg/背景8.jpg"));
         img.setImage(img.getImage().getScaledInstance(340, 400, Image.SCALE_DEFAULT));
         JLabel background = new JLabel(img);
         this.getLayeredPane().add(background, new Integer(Integer.MIN_VALUE));
