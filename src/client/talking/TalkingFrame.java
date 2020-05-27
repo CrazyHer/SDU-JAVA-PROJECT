@@ -71,7 +71,9 @@ public class TalkingFrame extends JFrame implements ActionListener {
         c.add(pp, BorderLayout.SOUTH);//Container把pp放在窗体南边
         c.add(spShow, BorderLayout.CENTER);//Container把文本区放在中间
 
-        taSend = new JTextArea(5, 40);//实例化文本框
+        taSend = new JTextArea(5, 45);//实例化文本框
+        taSend.setLineWrap(true);//激活自动换行功能
+        taSend.setWrapStyleWord(true);// 激活断行不断字功能
 
         btSend = new JButton("发送");
         btSend.addActionListener(this);

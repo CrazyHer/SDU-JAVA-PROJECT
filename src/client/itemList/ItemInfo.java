@@ -46,10 +46,10 @@ public class ItemInfo extends JPanel {
         nameLabel.setFont(new Font("隶书", Font.BOLD, 20));
         nameLabel.setForeground(Color.BLACK);
         add(nameLabel, new GBC(5, 0, 1, 1).setWeight(0.8, 0.5).setAnchor(GridBagConstraints.SOUTHWEST));
-        priceLabel = new JLabel("单价:" + String.valueOf(item.getPrice()));
+        priceLabel = new JLabel("单价:" + item.getPrice());
         priceLabel.setForeground(Color.RED);
         add(priceLabel, new GBC(5, 1, 1, 1).setWeight(0.8, 0.5).setAnchor(GridBagConstraints.NORTHWEST));
-        quantityLabel = new JLabel("剩余数量:" + String.valueOf(item.getQuantity()));
+        quantityLabel = new JLabel("剩余数量:" + item.getQuantity());
         add(quantityLabel, new GBC(5, 2, 1, 1).setWeight(0.8, 0.5).setAnchor(GridBagConstraints.NORTHWEST));
         introductionLabel = new JLabel("商品介绍:" + item.getIntroduction());
         introductionLabel.setFont(new Font("楷体", Font.BOLD, 16));
@@ -60,7 +60,6 @@ public class ItemInfo extends JPanel {
         } else {
             for (int i = 0; i < comments.length; i++) comment = comment + (i + 1) + "." + comments[i].getText() +"<br>";
         }
-        System.out.println(comment);
         commentLabel = new JLabel("<html><body>商品评价:<br>" + comment + "</body></html>");
         commentLabel.setFont(new Font("黑体", Font.ITALIC, 12));
         add(commentLabel, new GBC(5, 4, 1, 1).setWeight(0.8, 0.5).setAnchor(GridBagConstraints.NORTHWEST));
@@ -73,7 +72,7 @@ public class ItemInfo extends JPanel {
     public void deleteAll(String path) {
         File filePar = new File(path);
         if (filePar.exists()) {
-            File files[] = filePar.listFiles();
+            File[] files = filePar.listFiles();
             for (int i = 0; i < files.length; i++) {
                 if (files[i].isFile()) {
                     files[i].delete();

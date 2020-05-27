@@ -49,7 +49,7 @@ public class SoldItemInfoFrame extends JFrame implements ActionListener {
         //panel.add(btAuction, new GBC(0, 0, 1, 1).setWeight(0.8, 0.6).setAnchor(GridBagConstraints.NORTHEAST));
         panel.add(btEdit, new GBC(0, 1, 1, 1).setWeight(0.8, 0.6).setAnchor(GridBagConstraints.NORTHEAST));
         panel.add(btDelete, new GBC(0, 2, 1, 1).setWeight(0.8, 0.6).setAnchor(GridBagConstraints.NORTHEAST));
-        panel.add(new JPanel(), new GBC(0, 2, 1, 1));
+        panel.add(new JPanel(), new GBC(0, 3, 1, 1));
         c.add(panel, BorderLayout.SOUTH);
 
     }
