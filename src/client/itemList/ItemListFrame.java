@@ -25,6 +25,9 @@ public class ItemListFrame extends JFrame implements ActionListener {
     public JMenuItem menuDefaultSort;
     public JMenuItem menuPriceSort;
     public JMenuItem menuSaleSort;
+    public JButton btDefaultSort;
+    public JButton btPriceSort;
+    public JButton btSaleSort;
     public JTextField tfSearch;
     public JButton btSearch;
     public JScrollPane scPanel;//滚动面板
@@ -44,13 +47,26 @@ public class ItemListFrame extends JFrame implements ActionListener {
         setTitle("商品列表");
         addMenu();
 
-        //添加搜索模块
+        //添加搜索排序模块
+        btDefaultSort = new JButton("默认(时间)排序");
+        btDefaultSort.addActionListener(this);
+        btPriceSort = new JButton("价格排序");
+        btPriceSort.addActionListener(this);
+        btSaleSort = new JButton("销量排序");
+        btSaleSort.addActionListener(this);
+        JPanel p = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        p.setOpaque(false);
+        p.add(btDefaultSort);
+        p.add(btPriceSort);
+        p.add(btSaleSort);
+
         panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         panel.setOpaque(false);
         panel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         tfSearch = new JTextField(20);
         btSearch = new JButton("搜索");
         btSearch.addActionListener(this);
+        panel.add(p);
         panel.add(tfSearch);
         panel.add(btSearch);
         c.add(panel, BorderLayout.NORTH);
@@ -94,9 +110,9 @@ public class ItemListFrame extends JFrame implements ActionListener {
         menu.add(menuItemLogout);
         menuDefaultSort = new JMenuItem("默认(时间)排序");
         menu.add(menuDefaultSort);
-        menuPriceSort = new JMenuItem("按价格排序");
+        menuPriceSort = new JMenuItem("价格排序");
         menu.add(menuPriceSort);
-        menuSaleSort = new JMenuItem("按销量排序");
+        menuSaleSort = new JMenuItem("销量排序");
         menu.add(menuSaleSort);
         setJMenuBar(menuBar);
         menuItemLogout.addActionListener(this);
@@ -108,7 +124,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
     public void deleteAll(String path) {
         File filePar = new File(path);
         if (filePar.exists()) {
-            File files[] = filePar.listFiles();
+            File[] files = filePar.listFiles();
             for (int i = 0; i < files.length; i++) {
                 if (files[i].isFile()) {
                     files[i].delete();
@@ -136,7 +152,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
                 new LoginFrame().setVisible(true);
             }
 
-        } else if (e.getSource().equals(menuDefaultSort) || e.getSource().equals(btSearch)) {
+        } else if (e.getActionCommand().equals("默认(时间)排序") || e.getSource().equals(btSearch)) {
             System.out.println(search);
 
             panel.removeAll();
@@ -150,7 +166,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
             }
             ShowEveryItem();
             panel.revalidate();
-        } else if (e.getSource().equals(menuPriceSort)) {
+        } else if (e.getActionCommand().equals("价格排序")) {
             panel.removeAll();
             panel.repaint();
             net_getItemList = null;
@@ -162,7 +178,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
             }
             ShowEveryItem();
             panel.revalidate();
-        } else if (e.getSource().equals(menuSaleSort)) {
+        } else if (e.getActionCommand().equals("销量排序")) {
             panel.removeAll();
             panel.repaint();
             net_getItemList = null;
@@ -178,7 +194,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
     }
 
     public void ShowEveryItem() {
-        String itemList[];
+        String[] itemList;
         itemList = net_getItemList.getItemList();
         System.out.println("开始逐个添加商品小面板");
         NET_GetItemDetails net_getItemDetails = null;
@@ -237,7 +253,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
         private PrintWriter out;
         private String Path;
         private String json;
-        public String[] itemList = null;
+        private String[] itemList = null;
 
         public NET_GetItemList(ItemListFilter itemListFilter) throws IOException {
             this.socket = new Socket(Address, PORT);
@@ -255,7 +271,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
             out.println(json);
 
             itemList = JSON.parseObject(in.readLine(), String[].class);
-            if (itemList.length != 0) System.out.println("商品库里有" + itemList.length + "件商品");
+            if (itemList.length > 0) System.out.println("商品库里有" + itemList.length + "件商品");
             else if (itemList.length == 0) System.out.println("商品库里没有商品");
 
             this.socket.close();
