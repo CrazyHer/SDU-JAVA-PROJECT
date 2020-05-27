@@ -43,7 +43,7 @@ public class GetItemList {
                 break;
         }
         if (!filter.getKeyWord().equals("*")) {
-            resultSet = database.query("SELECT ItemName FROM trade.item WHERE MATCH (`ItemName`) AGAINST ('" + filter.getKeyWord() + "' WITH QUERY EXPANSION) ORDER BY `" + OderTYPE + "`;");
+            resultSet = database.query("SELECT * FROM trade.item WHERE locate('" + filter.getKeyWord() + "',`ItemName`)>0 ORDER BY `" + OderTYPE + "`");
         } else resultSet = database.query("SELECT * FROM trade.item ORDER BY `" + OderTYPE + "`");
         resultSet.last();
         int n = resultSet.getRow();
