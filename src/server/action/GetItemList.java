@@ -31,8 +31,8 @@ public class GetItemList {
         out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
         filter = JSON.parseObject(in.readLine(), ItemListFilter.class);
         if (!filter.getKeyWord().equals("*")) {
-            resultSet = database.query("SELECT ItemName FROM trade.item WHERE MATCH (`ItemName`,`Introduction`) AGAINST ('" + filter.getKeyWord() + "' WITH QUERY EXPANSION);");
-        } else resultSet = database.query("SELECT * FROM trade.item");
+            resultSet = database.query("SELECT ItemName FROM trade.item WHERE MATCH (`ItemName`) AGAINST ('" + filter.getKeyWord() + "' WITH QUERY EXPANSION) ORDER BY `"+filter.getODER_TYPE()+"`;");
+        } else resultSet = database.query("SELECT * FROM trade.item ORDER BY `"+filter.getODER_TYPE()+"`");
         resultSet.last();
         int n = resultSet.getRow();
         resultSet.beforeFirst();

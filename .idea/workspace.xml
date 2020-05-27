@@ -6,27 +6,10 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a25993e9-2a77-4009-992b-2e606ba491de" name="Default Changelist" comment="">
+    <list default="true" id="ca7e7d5b-1ba8-43b8-b2d5-4ec52c55b194" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/ServerMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/ServerMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/action/BuyItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/BuyItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/action/DeleteItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/DeleteItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/action/EditItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/EditItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/action/GetComment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/GetComment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/action/GetItemDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/GetItemDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dataObjs/ItemListFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dataObjs/ItemListFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/action/GetItemList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/GetItemList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/action/GetItemState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/GetItemState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/action/GetMsgs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/GetMsgs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/action/GetMyBoughtItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/GetMyBoughtItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/action/GetMySoldItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/GetMySoldItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/action/GetUserData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/GetUserData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/action/GetUserProfile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/GetUserProfile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/action/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/Login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/action/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/Register.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/action/ReleaseItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/ReleaseItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/action/Remark.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/Remark.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/action/SendAMsg.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/SendAMsg.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/dataBase/DB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/dataBase/DB.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +31,8 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/server" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
@@ -92,11 +77,12 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="a25993e9-2a77-4009-992b-2e606ba491de" name="Default Changelist" comment="" />
+      <changelist id="ca7e7d5b-1ba8-43b8-b2d5-4ec52c55b194" name="Default Changelist" comment="" />
       <created>1590395568952</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1590395568952</updated>
+      <workItem from="1590552397566" duration="607000" />
     </task>
     <task id="LOCAL-00001" summary="更新">
       <created>1590398743611</created>
@@ -121,6 +107,9 @@
     </task>
     <option name="localTasksCounter" value="4" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="更新" />

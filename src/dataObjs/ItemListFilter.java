@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class ItemListFilter implements Serializable {
     public static final int ORDER_BY_DEFAULT = 0;
     public static final int ORDER_BY_SALE = 1;
-    public static final int ORDER_BY_LATEST_DATE = 2;
+    public static final int ORDER_BY_PRICE = 2;
     String keyWord;
     int ODER_TYPE;
 
@@ -18,7 +18,14 @@ public class ItemListFilter implements Serializable {
         return keyWord;
     }
 
-    public int getODER_TYPE() {
-        return ODER_TYPE;
+    public String getODER_TYPE() {
+        switch (ODER_TYPE){
+            case 1:
+                return "sale";
+            case 2:
+                return "ItemPrice";
+            default:
+                return "ItemID";
+        }
     }
 }
