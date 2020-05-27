@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class ItemListFilter implements Serializable {
     public static final int ORDER_BY_DEFAULT = 0;
     public static final int ORDER_BY_SALE = 1;
-    public static final int ORDER_BY_LATEST_DATE = 2;
+    public static final int ORDER_BY_PRICE = 2;
     String keyWord;
     int ODER_TYPE;
 

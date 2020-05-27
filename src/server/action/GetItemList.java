@@ -24,15 +24,27 @@ public class GetItemList {
 
     ResultSet resultSet;
     String[] itemList;
+    String OderTYPE;
 
     public GetItemList(Socket s) throws IOException, SQLException {
         socket = s;
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
         filter = JSON.parseObject(in.readLine(), ItemListFilter.class);
+        switch (filter.getODER_TYPE()) {
+            case 1:
+                OderTYPE = "sale";
+                break;
+            case 2:
+                OderTYPE = "ItemPrice";
+                break;
+            default:
+                OderTYPE = "ItemID";
+                break;
+        }
         if (!filter.getKeyWord().equals("*")) {
-            resultSet = database.query("SELECT ItemName FROM trade.item WHERE MATCH (`ItemName`,`Introduction`) AGAINST ('" + filter.getKeyWord() + "' WITH QUERY EXPANSION);");
-        } else resultSet = database.query("SELECT * FROM trade.item");
+            resultSet = database.query("SELECT ItemName FROM trade.item WHERE MATCH (`ItemName`) AGAINST ('" + filter.getKeyWord() + "' WITH QUERY EXPANSION) ORDER BY `" + OderTYPE + "`;");
+        } else resultSet = database.query("SELECT * FROM trade.item ORDER BY `" + OderTYPE + "`");
         resultSet.last();
         int n = resultSet.getRow();
         resultSet.beforeFirst();
