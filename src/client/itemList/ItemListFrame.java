@@ -23,7 +23,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
     public JMenuBar menuBar;
     public JMenuItem menuItemLogout;
     public JMenuItem menuDefaultSort;
-    public JMenuItem menuTimeSort;
+    public JMenuItem menuPriceSort;
     public JMenuItem menuSaleSort;
     public JTextField tfSearch;
     public JButton btSearch;
@@ -92,16 +92,16 @@ public class ItemListFrame extends JFrame implements ActionListener {
         menuBar.add(menu);
         menuItemLogout = new JMenuItem("退出登录");
         menu.add(menuItemLogout);
-        menuDefaultSort = new JMenuItem("默认排序");
+        menuDefaultSort = new JMenuItem("默认(时间)排序");
         menu.add(menuDefaultSort);
-        menuTimeSort = new JMenuItem("按时间排序");
-        menu.add(menuTimeSort);
+        menuPriceSort = new JMenuItem("按价格排序");
+        menu.add(menuPriceSort);
         menuSaleSort = new JMenuItem("按销量排序");
         menu.add(menuSaleSort);
         setJMenuBar(menuBar);
         menuItemLogout.addActionListener(this);
         menuDefaultSort.addActionListener(this);
-        menuTimeSort.addActionListener(this);
+        menuPriceSort.addActionListener(this);
         menuSaleSort.addActionListener(this);
     }
 
@@ -150,7 +150,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
             }
             ShowEveryItem();
             panel.revalidate();
-        } else if (e.getSource().equals(menuTimeSort)) {
+        } else if (e.getSource().equals(menuPriceSort)) {
             panel.removeAll();
             panel.repaint();
             net_getItemList = null;
