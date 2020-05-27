@@ -28,6 +28,7 @@ public class MyItems extends JPanel implements ActionListener {
 
     MyItems(String ID) throws IOException {
         userID = ID;
+        this.setOpaque(false);
         bought = new NET_GetMyBoughtItem(ID).getBought();
         sold = new NET_GetMySoldItem(ID).getSold();
         onClick = new OnClick();

@@ -12,6 +12,7 @@ public class UserInfo extends JPanel {
 
     UserInfo(UserData userData, ImageIcon img) {
         setLayout(new GridBagLayout());
+        this.setOpaque(false);
         user = new Info(userData.getUsername(), userData.getID(), img);
         photoPanel = new JPanel();
         photoPanel.add(new JLabel(user.getImageIcon()));

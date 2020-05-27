@@ -50,12 +50,9 @@ public class UserInfoFrame extends JFrame implements ActionListener {
         c.setLayout(new GridBagLayout());//分别为用户信息、我的物品、统计信息、消息通知
 
         userInfoPanel = new UserInfo(userData, parentFrame.img);
-        userInfoPanel.setOpaque(false);
         myItemsPanel = new MyItems(userData.getID());
-        myItemsPanel.setOpaque(false);
         //myStatisticsPanel = new MyStatistics();
         myNotificationPanel = new MyNotification(userData.getID());
-        myNotificationPanel.setOpaque(false);
         c.add(userInfoPanel, new GBC(0, 0, 1, 1).setWeight(1, 0.2).setAnchor(GridBagConstraints.WEST));
         c.add(myItemsPanel, new GBC(0, 1, 1, 1).setWeight(1, 0.4).setAnchor(GridBagConstraints.WEST).setFill(GridBagConstraints.BOTH));
         //c.add(myStatisticsPanel, new GBC(0, 2, 1, 1).setWeight(1, 0.2));

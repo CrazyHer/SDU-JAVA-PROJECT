@@ -26,6 +26,7 @@ public class MyNotification extends JPanel implements ActionListener {
 
     public MyNotification(String myID) throws IOException {
         this.myID = myID;
+        this.setOpaque(false);
         mySession = new NET_GetMessages(myID).getMySessions();
         setLayout(new GridLayout(0, 1, 20, 20));
         add(new JLabel("聊天消息"));
