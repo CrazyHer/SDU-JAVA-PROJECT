@@ -18,14 +18,7 @@ public class ItemListFilter implements Serializable {
         return keyWord;
     }
 
-    public String getODER_TYPE() {
-        switch (ODER_TYPE){
-            case 1:
-                return "sale";
-            case 2:
-                return "ItemPrice";
-            default:
-                return "ItemID";
-        }
+    public int getODER_TYPE() {
+        return ODER_TYPE;
     }
 }

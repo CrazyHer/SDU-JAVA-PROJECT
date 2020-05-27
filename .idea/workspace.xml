@@ -9,6 +9,7 @@
     <list default="true" id="ca7e7d5b-1ba8-43b8-b2d5-4ec52c55b194" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dataObjs/ItemListFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dataObjs/ItemListFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/ThreadTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/ThreadTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/action/GetItemList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/GetItemList.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,10 +66,24 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TestClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="server.TestClient" />
+      <module name="SDU-JAVA-PROJECT" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.ClientMain" />
         <item itemvalue="Application.ServerMain" />
+        <item itemvalue="Application.TestClient" />
       </list>
     </recent_temporary>
   </component>
@@ -82,7 +97,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1590395568952</updated>
-      <workItem from="1590552397566" duration="607000" />
+      <workItem from="1590552397566" duration="1261000" />
     </task>
     <task id="LOCAL-00001" summary="更新">
       <created>1590398743611</created>
@@ -105,7 +120,14 @@
       <option name="project" value="LOCAL" />
       <updated>1590400135959</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="优化排序与搜索">
+      <created>1590553024603</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1590553024603</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -113,45 +135,46 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="更新" />
-    <option name="LAST_COMMIT_MESSAGE" value="更新" />
+    <MESSAGE value="优化排序与搜索" />
+    <option name="LAST_COMMIT_MESSAGE" value="优化排序与搜索" />
   </component>
   <component name="WindowStateProjectService">
     <state x="690" y="303" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1590395698945">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="303" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590395698945" />
-    <state x="598" y="113" key="CommitChangelistDialog2" timestamp="1590400135046">
+    <state x="598" y="113" key="CommitChangelistDialog2" timestamp="1590553741865">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="598" y="113" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1590400135046" />
+    <state x="598" y="113" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1590553741865" />
     <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1590395709014">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1590395709014" />
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1590401747698">
+    <state width="1921" height="289" key="GridCell.Tab.0.bottom" timestamp="1590553741897">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1590401747698" />
-    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1590401747697">
+    <state width="1921" height="289" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1590553741897" />
+    <state width="1921" height="289" key="GridCell.Tab.0.center" timestamp="1590553741896">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1590401747697" />
-    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1590401747697">
+    <state width="1921" height="289" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1590553741896" />
+    <state width="1921" height="289" key="GridCell.Tab.0.left" timestamp="1590553741895">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1590401747697" />
-    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1590401747698">
+    <state width="1921" height="289" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1590553741895" />
+    <state width="1921" height="289" key="GridCell.Tab.0.right" timestamp="1590553741897">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1590401747698" />
+    <state width="1921" height="289" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1590553741897" />
     <state x="440" y="94" key="SettingsEditor" timestamp="1590395718772">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="440" y="94" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1590395718772" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1590400165716">
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1590553032730">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1590400165716" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1590553032730" />
     <state x="789" y="378" key="classpath-attribute-editor" timestamp="1590395631006">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

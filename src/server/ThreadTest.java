@@ -5,7 +5,6 @@ import server.action.*;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.sql.SQLException;
 
 public class ThreadTest extends Thread {
     Socket socket;
@@ -85,10 +84,14 @@ public class ThreadTest extends Thread {
                     break;
             }
             socket.close();
-        } catch (IOException | ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            try {
+                socket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
