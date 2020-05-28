@@ -54,6 +54,8 @@ public class ReleaseFrame extends JFrame implements ActionListener {
         txItemQuantity = new JTextField(10);
         txItemPrice = new JTextField(10);
         taItemIntroduction = new JTextArea(4, 20);
+        taItemIntroduction.setLineWrap(true);//激活自动换行功能
+        taItemIntroduction.setWrapStyleWord(true);// 激活断行不断字功能
         btUpload = new JButton("上传图片");
         btUpload.addActionListener(this);
 

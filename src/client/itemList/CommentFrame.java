@@ -45,6 +45,8 @@ public class CommentFrame extends JFrame implements ActionListener {
         panel = new JPanel(new BorderLayout());
         panel.setOpaque(false);
         taComment = new JTextArea(10, 30);
+        taComment.setLineWrap(true);//激活自动换行功能
+        taComment.setWrapStyleWord(true);// 激活断行不断字功能
         panel.add(taComment, BorderLayout.CENTER);
 
         btComment = new JButton("提交评论");

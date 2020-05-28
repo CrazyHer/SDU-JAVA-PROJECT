@@ -60,9 +60,9 @@ public class TalkingFrame extends JFrame implements ActionListener {
 
         spShow = new JScrollPane(talkPanel);
         //滚动条默认置底
-        JScrollBar jscrollBar = spShow.getVerticalScrollBar();
-        if (jscrollBar != null)
-            jscrollBar.setValue(jscrollBar.getMaximum());
+        //JScrollBar jscrollBar = spShow.getVerticalScrollBar();
+        //if (jscrollBar != null)
+        //    jscrollBar.setValue(jscrollBar.getMaximum());
 
         pp.setLayout(new FlowLayout(FlowLayout.LEFT));
         pp.add(p1);
