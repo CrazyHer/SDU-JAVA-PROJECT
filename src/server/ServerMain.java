@@ -34,7 +34,7 @@ public class ServerMain {
                 System.out.println("收到服务器关闭指令！服务器已关闭");
                 break;
             }
-            new ThreadTest(socket).start();
+            new ThreadHandle(socket).start();
         }
     }
 

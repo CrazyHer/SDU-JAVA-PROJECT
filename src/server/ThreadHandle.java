@@ -6,10 +6,10 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-public class ThreadTest extends Thread {
+public class ThreadHandle extends Thread {
     Socket socket;
 
-    ThreadTest(Socket s) {
+    ThreadHandle(Socket s) {
         socket = s;
         System.out.println("客户端连接：" + s.getInetAddress() + ":" + s.getPort());
     }

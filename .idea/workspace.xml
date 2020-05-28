@@ -3,12 +3,16 @@
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
       <artifact name="Client" />
+      <artifact name="Server" />
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ca7e7d5b-1ba8-43b8-b2d5-4ec52c55b194" name="Default Changelist" comment="修复聊天bug">
+    <list default="true" id="ca7e7d5b-1ba8-43b8-b2d5-4ec52c55b194" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Client.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Server.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/userInfo/MyNotification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/userInfo/MyNotification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/ServerMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/ServerMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/ThreadTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/ThreadHandle.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +102,8 @@
       <updated>1590395568952</updated>
       <workItem from="1590552397566" duration="1557000" />
       <workItem from="1590555729299" duration="1739000" />
-      <workItem from="1590656355712" duration="1059000" />
+      <workItem from="1590656355712" duration="1764000" />
+      <workItem from="1590674466304" duration="1230000" />
     </task>
     <task id="LOCAL-00001" summary="更新">
       <created>1590398743611</created>
@@ -149,7 +154,14 @@
       <option name="project" value="LOCAL" />
       <updated>1590556731924</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="修复聊天bug">
+      <created>1590657426686</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1590657426686</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -166,50 +178,50 @@
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="690" y="303" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1590395698945">
+    <state x="690" y="303" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1590675685076">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="690" y="303" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590395698945" />
-    <state x="598" y="113" key="CommitChangelistDialog2" timestamp="1590657396519">
+    <state x="690" y="303" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590675685076" />
+    <state x="598" y="113" key="CommitChangelistDialog2" timestamp="1590657425864">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="598" y="113" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1590657396519" />
-    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1590395709014">
+    <state x="598" y="113" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1590657425864" />
+    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1590675693142">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1590395709014" />
-    <state width="1921" height="289" key="GridCell.Tab.0.bottom" timestamp="1590657396550">
+    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1590675693142" />
+    <state width="1921" height="289" key="GridCell.Tab.0.bottom" timestamp="1590659746990">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1921" height="289" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1590657396550" />
-    <state width="1921" height="289" key="GridCell.Tab.0.center" timestamp="1590657396550">
+    <state width="1921" height="289" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1590659746990" />
+    <state width="1921" height="289" key="GridCell.Tab.0.center" timestamp="1590659746990">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1921" height="289" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1590657396550" />
-    <state width="1921" height="289" key="GridCell.Tab.0.left" timestamp="1590657396550">
+    <state width="1921" height="289" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1590659746990" />
+    <state width="1921" height="289" key="GridCell.Tab.0.left" timestamp="1590659746990">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1921" height="289" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1590657396550" />
-    <state width="1921" height="289" key="GridCell.Tab.0.right" timestamp="1590657396550">
+    <state width="1921" height="289" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1590659746990" />
+    <state width="1921" height="289" key="GridCell.Tab.0.right" timestamp="1590659746990">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1921" height="289" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1590657396550" />
-    <state x="440" y="94" key="SettingsEditor" timestamp="1590395718772">
+    <state width="1921" height="289" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1590659746990" />
+    <state x="440" y="94" key="SettingsEditor" timestamp="1590675696198">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="440" y="94" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1590395718772" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1590556737680">
+    <state x="440" y="94" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1590675696198" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1590657505796">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1590556737680" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1590657505796" />
     <state x="789" y="378" key="classpath-attribute-editor" timestamp="1590395631006">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="789" y="378" key="classpath-attribute-editor/0.0.1920.1040@0.0.1920.1040" timestamp="1590395631006" />
-    <state x="636" y="310" key="git4idea.merge.GitPullDialog" timestamp="1590656390743">
+    <state x="636" y="310" key="git4idea.merge.GitPullDialog" timestamp="1590674592916">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="636" y="310" key="git4idea.merge.GitPullDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590656390743" />
+    <state x="636" y="310" key="git4idea.merge.GitPullDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590674592916" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1590400178423">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
