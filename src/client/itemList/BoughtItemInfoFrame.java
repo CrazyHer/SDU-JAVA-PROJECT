@@ -4,6 +4,7 @@ import client.ClientMain;
 import client.talking.TalkingFrame;
 import com.alibaba.fastjson.JSON;
 import dataObjs.BuyItemData;
+import dataObjs.MsgData;
 
 import javax.swing.*;
 import java.awt.*;
@@ -81,6 +82,11 @@ public class BoughtItemInfoFrame extends JFrame implements ActionListener {
                 if (resultCode.equals("1")) JOptionPane.showMessageDialog(this, "购买成功！");
                 else if (resultCode.equals("0")) JOptionPane.showMessageDialog(this, "交易已在进行中，无法购买！");
                 else if (resultCode.equals("-1")) JOptionPane.showMessageDialog(this, "购买失败！");
+                try {
+                    new NET_SendMSG(new MsgData(userID, itemInfo.ownerID, "我已经成功购买您的 " + itemInfo.getItemName() + " 商品"));
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
                 this.dispose();
             }
 
@@ -121,6 +127,30 @@ public class BoughtItemInfoFrame extends JFrame implements ActionListener {
 
         public String getResultCode() {
             return resultCode;
+        }
+    }
+
+    private class NET_SendMSG {
+        private final String Command = "SEND A MSG";//请求类型
+        MsgData[][] msgData;
+        //private final String Address = "localhost";
+        //private final int PORT = 2333;//服务器端口
+        private Socket socket;
+        private DataInputStream dis;//输入
+        private DataOutputStream dos;//输出
+        private BufferedReader in;
+        private PrintWriter out;
+
+        public NET_SendMSG(MsgData msg) throws IOException {
+            this.socket = new Socket(Address, PORT);
+            dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            dos = new DataOutputStream(new DataOutputStream(socket.getOutputStream()));
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new PrintWriter(new BufferedOutputStream(socket.getOutputStream()), true);
+            dos.writeUTF(Command);
+            dos.flush();
+            out.println(JSON.toJSONString(msg));
+            socket.close();
         }
     }
 }

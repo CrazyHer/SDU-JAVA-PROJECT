@@ -21,7 +21,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
 
     public JMenu menu;
     public JMenuBar menuBar;
-    public JMenuItem menuItemLogout;
+    //public JMenuItem menuItemLogout;
     public JMenuItem menuDefaultSort;
     public JMenuItem menuPriceSort;
     public JMenuItem menuSaleSort;
@@ -106,8 +106,8 @@ public class ItemListFrame extends JFrame implements ActionListener {
         menuBar = new JMenuBar();
         menu = new JMenu("菜单");
         menuBar.add(menu);
-        menuItemLogout = new JMenuItem("退出登录");
-        menu.add(menuItemLogout);
+        //menuItemLogout = new JMenuItem("退出登录");
+        //menu.add(menuItemLogout);
         menuDefaultSort = new JMenuItem("默认(时间)排序");
         menu.add(menuDefaultSort);
         menuPriceSort = new JMenuItem("价格排序");
@@ -115,7 +115,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
         menuSaleSort = new JMenuItem("销量排序");
         menu.add(menuSaleSort);
         setJMenuBar(menuBar);
-        menuItemLogout.addActionListener(this);
+        //menuItemLogout.addActionListener(this);
         menuDefaultSort.addActionListener(this);
         menuPriceSort.addActionListener(this);
         menuSaleSort.addActionListener(this);
@@ -139,7 +139,7 @@ public class ItemListFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String search = tfSearch.getText();
         if (tfSearch.getText().equals("")) search = "*";
-        if (e.getSource().equals(menuItemLogout)) {
+        if (e.getActionCommand().equals("退出登录")) {
             int i = JOptionPane.showConfirmDialog(null, "是否退出当前账号?", "提示", JOptionPane.YES_NO_OPTION);
             if (i == 0) {
                 try {
