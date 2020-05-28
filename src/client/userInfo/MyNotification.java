@@ -30,20 +30,20 @@ public class MyNotification extends JPanel implements ActionListener {
         mySession = new NET_GetMessages(myID).getMySessions();
         setLayout(new GridLayout(0, 1, 20, 20));
         add(new JLabel("聊天消息"));
-        for (int i = 0; i < mySession.length; i++) {
+        for (MySession session : mySession) {
             p = new JPanel();
             p.setOpaque(false);
             p.setLayout(new GridBagLayout());
-            label = new JLabel(mySession[i].getImageIcon());
+            label = new JLabel(session.getImageIcon());
             p.add(label, new GBC(0, 0, 2, 1).setWeight(0.1, 1).setAnchor(GridBagConstraints.WEST));
-            label = new JLabel(mySession[i].getName());
+            label = new JLabel(session.getName());
             label.setFont(new Font("微软雅黑", Font.BOLD, 16));
             p.add(label, new GBC(1, 0, 1, 3).setWeight(0.6, 0.5).setAnchor(GridBagConstraints.WEST));
-            label = new JLabel(mySession[i].getBody());
+            label = new JLabel(session.getBody());
             p.add(label, new GBC(1, 1, 1, 2).setWeight(0.6, 0.5).setAnchor(GridBagConstraints.WEST));
 
             button = new JButton("打开聊天");
-            button.setActionCommand(mySession[i].getID());
+            button.setActionCommand("talking:" + session.getID());
             button.addActionListener(this);
             p.add(button, new GBC(3, 1, 1, 1).setWeight(0.1, 0.5).setAnchor(GridBagConstraints.EAST).setFill(GridBagConstraints.NONE));
             add(p);
@@ -53,9 +53,9 @@ public class MyNotification extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == button) {
+        if (e.getActionCommand().split(":")[0].equals("talking")) {
             try {
-                new TalkingFrame(myID, e.getActionCommand()).setVisible(true);
+                new TalkingFrame(myID, e.getActionCommand().split(":")[1]).setVisible(true);
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "打开失败", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
