@@ -30,7 +30,7 @@ public class Login {
         dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
         dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        UserData user = JSON.parseObject(in.readLine(), UserData.class);
+        UserData user = JSON.parseObject(in.readLine(), UserData.class);//json->UserData
         ID = user.getID();
         passWord = user.getPassword();
         System.out.println("ID:" + ID + "\npassword:" + passWord);

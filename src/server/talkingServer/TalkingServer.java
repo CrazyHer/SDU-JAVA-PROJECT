@@ -22,7 +22,7 @@ public class TalkingServer extends Thread {
         while (true) {
             try {
                 socket = serverSocket.accept();
-                new TSThread(socket).start();
+                new TSThread(socket).start();//将聊天服务器收到的客户端长连接socket交给TSThread进行处理和保存
             } catch (Exception e) {
                 System.out.println("聊天服务器已退出");
                 break;

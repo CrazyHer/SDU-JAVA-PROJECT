@@ -8,11 +8,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ca7e7d5b-1ba8-43b8-b2d5-4ec52c55b194" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Client.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Server.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/ServerMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/ServerMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/ThreadTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/ThreadHandle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/action/EditItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/EditItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/action/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/action/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/talkingServer/TalkingServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/talkingServer/TalkingServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +41,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RunManager" selected="Application.TestClient">
     <configuration name="ClientMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -103,7 +104,9 @@
       <workItem from="1590552397566" duration="1557000" />
       <workItem from="1590555729299" duration="1739000" />
       <workItem from="1590656355712" duration="1764000" />
-      <workItem from="1590674466304" duration="1230000" />
+      <workItem from="1590674466304" duration="8056000" />
+      <workItem from="1590685601895" duration="1469000" />
+      <workItem from="1590728489626" duration="557000" />
     </task>
     <task id="LOCAL-00001" summary="更新">
       <created>1590398743611</created>
@@ -161,7 +164,14 @@
       <option name="project" value="LOCAL" />
       <updated>1590657426686</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="项目结项、打包">
+      <created>1590675722898</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1590675722898</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -172,7 +182,8 @@
     <MESSAGE value="更新" />
     <MESSAGE value="优化排序与搜索" />
     <MESSAGE value="修复聊天bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="修复聊天bug" />
+    <MESSAGE value="项目结项、打包" />
+    <option name="LAST_COMMIT_MESSAGE" value="项目结项、打包" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -182,38 +193,38 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="303" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590675685076" />
-    <state x="598" y="113" key="CommitChangelistDialog2" timestamp="1590657425864">
+    <state x="598" y="113" key="CommitChangelistDialog2" timestamp="1590729081843">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="598" y="113" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1590657425864" />
+    <state x="598" y="113" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1590729081843" />
     <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1590675693142">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1590675693142" />
-    <state width="1921" height="289" key="GridCell.Tab.0.bottom" timestamp="1590659746990">
+    <state width="1921" height="291" key="GridCell.Tab.0.bottom" timestamp="1590729081882">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1921" height="289" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1590659746990" />
-    <state width="1921" height="289" key="GridCell.Tab.0.center" timestamp="1590659746990">
+    <state width="1921" height="291" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1590729081882" />
+    <state width="1921" height="291" key="GridCell.Tab.0.center" timestamp="1590729081882">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1921" height="289" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1590659746990" />
-    <state width="1921" height="289" key="GridCell.Tab.0.left" timestamp="1590659746990">
+    <state width="1921" height="291" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1590729081882" />
+    <state width="1921" height="291" key="GridCell.Tab.0.left" timestamp="1590729081882">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1921" height="289" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1590659746990" />
-    <state width="1921" height="289" key="GridCell.Tab.0.right" timestamp="1590659746990">
+    <state width="1921" height="291" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1590729081882" />
+    <state width="1921" height="291" key="GridCell.Tab.0.right" timestamp="1590729081882">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1921" height="289" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1590659746990" />
-    <state x="440" y="94" key="SettingsEditor" timestamp="1590675696198">
+    <state width="1921" height="291" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1590729081882" />
+    <state x="440" y="94" key="SettingsEditor" timestamp="1590683187078">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="440" y="94" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1590675696198" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1590657505796">
+    <state x="440" y="94" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1590683187078" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1590675726951">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1590657505796" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1590675726951" />
     <state x="789" y="378" key="classpath-attribute-editor" timestamp="1590395631006">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

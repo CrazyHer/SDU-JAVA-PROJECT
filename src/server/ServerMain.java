@@ -25,8 +25,8 @@ public class ServerMain {
         serverSocket = new ServerSocket(PORT);
         System.out.println("服务端启动，端口:" + PORT);
         talkingServer = new TalkingServer(PORT);
-        talkingServer.start();
-        database = new DB();
+        talkingServer.start();//在新线程上开启聊天服务器
+        database = new DB();//初始化数据库
         while (true) {
             try {
                 socket = serverSocket.accept();
@@ -34,7 +34,7 @@ public class ServerMain {
                 System.out.println("收到服务器关闭指令！服务器已关闭");
                 break;
             }
-            new ThreadHandle(socket).start();
+            new ThreadHandle(socket).start();//将socket交给多线程，进一步处理客户端的指令
         }
     }
 

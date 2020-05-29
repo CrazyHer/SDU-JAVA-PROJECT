@@ -69,7 +69,7 @@ public class EditItem {
                     out.println("NEW ITEM");
                 }
                 //通知有关买家
-                database.query("SELECT DISTINCT `buyerID` FROM `trade`.`orderlog` WHERE `itemID`='" + itemID + "'");
+                resultSet = database.query("SELECT DISTINCT `buyerID` FROM `trade`.`orderlog` WHERE `itemID`='" + itemID + "'");
                 while (resultSet.next()) {
                     Lsocket = OnlineUserPool.getSocket(resultSet.getString("buyerID"));
                     if (Lsocket != null) {
